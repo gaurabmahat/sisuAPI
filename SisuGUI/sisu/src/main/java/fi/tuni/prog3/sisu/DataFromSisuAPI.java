@@ -49,8 +49,35 @@ public class DataFromSisuAPI {
         }
     }
     
+    private void ModulesFromSisuAPI(){
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
+                + "modules"
+                + "/otm-1d25ee85-df98-4c03-b4ff-6cad7b09618b"))
+                .build();
+        String st = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .join();
+        
+        JsonElement urlElement = JsonParser.parseString(st);
+        JsonObject jo = urlElement.getAsJsonObject();
+        System.out.println(jo);
+        /*JsonArray jArray = jo.get("contentDescription").getAsJsonArray();
+        System.out.println(jArray);*
+        /*for(int i = 0; i < jArray.size(); i++){
+            var degreeId = jArray.get(i).getAsJsonObject().get("id").getAsString();
+            var degreeName = jArray.get(i).getAsJsonObject().get("name").getAsString();
+            degreeIdAndName.put(degreeName, degreeId);
+        }*/
+    }
+    
     public void getDataFromSisuAPI(){
         dataFromSisuAPI();
+        //return this.degreeIdAndName;
+    }
+    
+    public void getModulesFromSisuAPI(){
+        ModulesFromSisuAPI();
         //return this.degreeIdAndName;
     }
     
@@ -78,6 +105,9 @@ public class DataFromSisuAPI {
      */
     /*public static void main(String[] args){
         DataFromSisuAPI newData = new DataFromSisuAPI();
+        
+        newData.getDataFromSisuAPI();
+        newData.getModulesFromSisuAPI();
         var map = newData.getDataFromSisuAPI();
         
         for(var item: map.keySet()){

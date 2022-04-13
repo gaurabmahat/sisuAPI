@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 
 
 /**
- * JavaFX App
+ * JavaFX Sisu
  */
-public class App extends Application {
+public class Sisu extends Application {
 
     @Override
     public void start(Stage stage) {
@@ -40,6 +40,7 @@ public class App extends Application {
         grid.add(sub_title, 0, 3);
         
         ObservableList<String> degree_programs = FXCollections.observableArrayList();
+        Data.getModulesFromSisuAPI();
         degree_programs = Data.getDegrees();
 
         final ComboBox programs = new ComboBox(degree_programs);

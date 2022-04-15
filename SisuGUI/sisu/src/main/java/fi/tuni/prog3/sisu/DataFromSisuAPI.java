@@ -41,7 +41,7 @@ public class DataFromSisuAPI {
         JsonElement urlElement = JsonParser.parseString(st);
         JsonObject jo = urlElement.getAsJsonObject();
         JsonArray jArray = jo.get("searchResults").getAsJsonArray();
-
+        
         for(int i = 0; i < jArray.size(); i++){
             var degreeId = jArray.get(i).getAsJsonObject().get("id").getAsString();
             var degreeName = jArray.get(i).getAsJsonObject().get("name").getAsString();

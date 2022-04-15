@@ -26,6 +26,10 @@ public class Sisu extends Application {
         DataFromSisuAPI Data = new DataFromSisuAPI();
         Data.getDataFromSisuAPI();
         
+        SubModulesFromSisuAPI subModules = new SubModulesFromSisuAPI(); 
+        subModules.getSubmodulesFromSisuAPI();
+        
+        
         // begin grid
         GridPane grid = new GridPane();
         var scene = new Scene(grid, 640, 480);

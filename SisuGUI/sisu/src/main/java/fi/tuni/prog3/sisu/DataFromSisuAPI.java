@@ -97,6 +97,8 @@ public class DataFromSisuAPI {
         
         return degree_programs;
     }
+    
+    
 
     
     /**

@@ -60,7 +60,7 @@ public class SubModulesFromSisuAPI {
             JsonArray units = rules.getAsJsonArray();
             System.out.println("Is JsonArray. Printing array.");
             System.out.println(units);
-            for (int i = 0; i < units.size(); i++) { //check if it is a study module or a course; if it is, add to the map
+            for (int i = 0; i < units.size(); i++) { //check if it is a study module or a course; if it is one of those, add to the map
                 if (units.get(i).getAsJsonObject().get("type").getAsString().equals("ModuleRule") || 
                         units.get(i).getAsJsonObject().get("type").getAsString().equals("CourseUnitRule")) {
                     java.util.Set<java.lang.String> keys = units.get(i).getAsJsonObject().keySet();
@@ -114,8 +114,6 @@ public class SubModulesFromSisuAPI {
             System.out.println(type);
             if (!type.equals("ModuleRule") || !type.equals("CourseUnitRule")) {
                 java.util.Set<java.lang.String> keys = object.keySet();
-                //List<String> k = new ArrayList<>();
-                //k.addAll(keys);
                 System.out.println("Is not ModuleRule nor CourseUnitRule. Printing keys.");
                 System.out.println(keys);
                 if (keys.contains("rules")) {

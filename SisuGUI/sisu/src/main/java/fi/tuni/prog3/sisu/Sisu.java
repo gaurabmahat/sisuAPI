@@ -23,12 +23,20 @@ public class Sisu extends Application {
         var javafxVersion = SystemInfo.javafxVersion();
 
         // create data object
-        DataFromSisuAPI Data = new DataFromSisuAPI();
-        Data.getDataFromSisuAPI();
+        DegreesFromSisuAPI Data = new DegreesFromSisuAPI();
+        Data.getDegreesFromSisuAPI(); // get a full list of Degree programmes
+        String degree_of_interest = Data.getDegreeId("Akuuttilääketieteen erikoislääkärikoulutus (55/2020)"); // here we need the name of degree chosen by the user from dropdown list
+        System.out.println("Id of chosen degree: " + degree_of_interest);
         
-        SubModulesFromSisuAPI subModules = new SubModulesFromSisuAPI(); 
-        subModules.getSubmodulesFromSisuAPI();
+        ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
+        attributes.getModuleAttributes("module", "id", degree_of_interest);
         
+        var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); 
+        System.out.println(Degree.getModuleName());
+        System.out.println(Degree.getModuleCredits());
+        
+        ModuleStructure ms = new ModuleStructure();
+        ms.getModuleStructure(Degree); // this step should handle fetching the entire structure of the degree
         
         // begin grid
         GridPane grid = new GridPane();
@@ -44,7 +52,7 @@ public class Sisu extends Application {
         grid.add(sub_title, 0, 3);
         
         ObservableList<String> degree_programs = FXCollections.observableArrayList();
-        Data.getModulesFromSisuAPI();
+        //Data.getModulesFromSisuAPI();
         degree_programs = Data.getDegrees();
 
         final ComboBox programs = new ComboBox(degree_programs);

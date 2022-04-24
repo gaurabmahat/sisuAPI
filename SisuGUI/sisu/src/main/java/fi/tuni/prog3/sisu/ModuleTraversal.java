@@ -13,58 +13,43 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Arrays;
 
 /**
  *
  * @author rakow
+ * This class traverses one module of SisuAPI data and gets the ids of this module's submodules and courses and saves them into ArrayLists
  */
-public class SubModulesFromSisuAPI {
-    private TreeMap<String, String> submodule_ids;
+public class ModuleTraversal {
+    private final ArrayList<String> submodule_ids;
+    private final ArrayList<String> course_ids;
     
-    public SubModulesFromSisuAPI(){
-        submodule_ids = new TreeMap<>();
+    public ModuleTraversal(){
+        submodule_ids = new ArrayList<>();
+        course_ids = new ArrayList<>();
     }
     
-    private void submodulesFromSisuAPI(){
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
-                + "modules"
-                + "/otm-3858f1d8-4bf9-4769-b419-3fee1260d7ff"))
-                .build();
-        String st = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .join();
-        
-        JsonElement urlElement = JsonParser.parseString(st);
-        JsonObject jo = urlElement.getAsJsonObject();
-        JsonElement rules = jo.get("rule");
-        System.out.println(rules);
-        traverseRules(rules);
-        
-        
-        for (Map.Entry<String, String> entry : submodule_ids.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
-        }
+    public ArrayList<String> getSubmoduleIds() {
+        return submodule_ids;
     }
     
-    public void getSubmodulesFromSisuAPI(){
-        submodulesFromSisuAPI();   
+    public ArrayList<String> getCourseIds() {
+        return course_ids;
     }
+    
+    
+    
 
     //takes JsonElement as argument, because module's tree structure can contain both JsonObjects and JsonArrays
-    public void traverseRules (JsonElement rules) {
+    private void traverseRules (JsonElement rules) {
         if (rules.isJsonArray()) { // so first check which one is in question.
             JsonArray units = rules.getAsJsonArray();
             System.out.println("Is JsonArray. Printing array.");
             System.out.println(units);
             for (int i = 0; i < units.size(); i++) { //check if it is a study module or a course; if it is one of those, add to the map
-                if (units.get(i).getAsJsonObject().get("type").getAsString().equals("ModuleRule") || 
-                        units.get(i).getAsJsonObject().get("type").getAsString().equals("CourseUnitRule")) {
+                if (units.get(i).getAsJsonObject().get("type").getAsString().equals("ModuleRule") ) {
                     java.util.Set<java.lang.String> keys = units.get(i).getAsJsonObject().keySet();
-                    System.out.println("Is ModuleRule or CourseUnitRule.Printing keys.");
+                    System.out.println("Is ModuleRule.Printing keys.");
                     System.out.println(keys);
                     String[] k = new String[keys.size()];
                     keys.toArray(k);
@@ -74,7 +59,20 @@ public class SubModulesFromSisuAPI {
                     String id = units.get(i).getAsJsonObject().get(id_type).getAsString();
                     System.out.println("Printing id");
                     System.out.println(id);
-                    submodule_ids.put(id_type, id);
+                    submodule_ids.add(id);
+                } else if (units.get(i).getAsJsonObject().get("type").getAsString().equals("CourseUnitRule")) {
+                    java.util.Set<java.lang.String> keys = units.get(i).getAsJsonObject().keySet();
+                    System.out.println("Is CourseUnitRule.Printing keys.");
+                    System.out.println(keys);
+                    String[] k = new String[keys.size()];
+                    keys.toArray(k);
+                    String id_type = k[2];
+                    System.out.println("Printing id type");
+                    System.out.println(id_type);
+                    String id = units.get(i).getAsJsonObject().get(id_type).getAsString();
+                    System.out.println("Printing id");
+                    System.out.println(id);
+                    course_ids.add(id);
                 } else {
                     JsonObject temp = units.get(i).getAsJsonObject();
                     java.util.Set<java.lang.String> keys = temp.keySet();
@@ -110,9 +108,9 @@ public class SubModulesFromSisuAPI {
         } else if (rules.isJsonObject()){
             JsonObject object = rules.getAsJsonObject();
             String type = object.get("type").getAsString();
-            System.out.println("Is not JsonArray. Printing object");
+            System.out.println("Is not JsonArray. Printing object's type");
             System.out.println(type);
-            if (!type.equals("ModuleRule") || !type.equals("CourseUnitRule")) {
+            if (!type.equals("ModuleRule") && !type.equals("CourseUnitRule")) {
                 java.util.Set<java.lang.String> keys = object.keySet();
                 System.out.println("Is not ModuleRule nor CourseUnitRule. Printing keys.");
                 System.out.println(keys);
@@ -153,12 +151,22 @@ public class SubModulesFromSisuAPI {
                 String id = object.get(id_type).getAsString();
                 System.out.println("Printing id");
                 System.out.println(id);
-                submodule_ids.put(id_type, id);
+                if (id_type.equals("moduleGroupId")) {
+                    submodule_ids.add(id);
+                } else if ( id_type.equals("CourseUnitGroupId")) {
+                    course_ids.add(id);
+                }
+                
             }
         }
         
     }
     
-    // TO-DO: void getSubmoduleNames(TreeMap<String, String>) to get names based on the map with ids
+    public void doModuleTraversal(JsonElement rules) {
+        traverseRules(rules);
+        
+        System.out.println(Arrays.toString(submodule_ids.toArray()));
+        System.out.println(Arrays.toString(course_ids.toArray()));
+    }
 
 }

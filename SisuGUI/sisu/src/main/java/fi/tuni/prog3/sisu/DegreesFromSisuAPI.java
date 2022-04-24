@@ -20,14 +20,14 @@ import javafx.collections.ObservableList;
  *
  * @author PC
  */
-public class DataFromSisuAPI {
+public class DegreesFromSisuAPI {
     private final TreeMap<String, String> degreeIdAndName;
     
-    public DataFromSisuAPI(){
+    public DegreesFromSisuAPI(){
         degreeIdAndName = new TreeMap<>();
     }
     
-    private void dataFromSisuAPI(){
+    private void degreesFromSisuAPI(){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
                 + "module-search?"
@@ -49,7 +49,7 @@ public class DataFromSisuAPI {
         }
     }
     
-    private void ModulesFromSisuAPI(){
+    /*private void ModulesFromSisuAPI(){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
                 + "modules"
@@ -62,24 +62,24 @@ public class DataFromSisuAPI {
         JsonElement urlElement = JsonParser.parseString(st);
         JsonObject jo = urlElement.getAsJsonObject();
         System.out.println(jo);
-        /*JsonArray jArray = jo.get("contentDescription").getAsJsonArray();
-        System.out.println(jArray);*
-        /*for(int i = 0; i < jArray.size(); i++){
+        JsonArray jArray = jo.get("contentDescription").getAsJsonArray();
+        System.out.println(jArray);
+        for(int i = 0; i < jArray.size(); i++){
             var degreeId = jArray.get(i).getAsJsonObject().get("id").getAsString();
             var degreeName = jArray.get(i).getAsJsonObject().get("name").getAsString();
             degreeIdAndName.put(degreeName, degreeId);
-        }*/
-    }
+        }
+    }*/
     
-    public void getDataFromSisuAPI(){
-        dataFromSisuAPI();
+    public void getDegreesFromSisuAPI(){
+        degreesFromSisuAPI();
         //return this.degreeIdAndName;
     }
     
-    public void getModulesFromSisuAPI(){
+    /*public void getModulesFromSisuAPI(){
         ModulesFromSisuAPI();
         //return this.degreeIdAndName;
-    }
+    }*/
     
     public ObservableList<String> getDegrees(){
         ObservableList<String> degree_programs = FXCollections.observableArrayList();
@@ -98,6 +98,10 @@ public class DataFromSisuAPI {
         return degree_programs;
     }
 
+    
+    public String getDegreeId(String degree_name) {
+        return this.degreeIdAndName.get(degree_name);
+    }
     
     /**
      * Example: pulling the data from DataFromSisuAPI class.

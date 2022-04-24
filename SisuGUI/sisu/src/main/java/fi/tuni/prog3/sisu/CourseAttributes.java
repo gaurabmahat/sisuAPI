@@ -4,6 +4,8 @@
  */
 package fi.tuni.prog3.sisu;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import java.util.ArrayList;
 import com.google.gson.JsonObject;
 
@@ -20,9 +22,10 @@ public class CourseAttributes {
         ca = new ArrayList<>();
     }
     
-    private JsonObject getJsonFromAPI(String element_type, String id_type, String element_id) {
-        JsonFromSisuAPI jo = new JsonFromSisuAPI();
-        return jo.getJsonFromSisuAPI(element_type, id_type, element_id);
+    private JsonObject getJsonObjectFromAPI(String element_type, String id_type, String element_id) {
+        var jString = new JsonFromSisuAPI().getJsonStringFromAPI(element_type, id_type, element_id);
+        JsonArray jArray = new Gson().fromJson(jString, JsonArray.class);
+        return jArray.get(0).getAsJsonObject();
     }
     
     private boolean hasValue(JsonObject json) {
@@ -32,7 +35,7 @@ public class CourseAttributes {
     
     private void courseAttributesFromAPI(String element_type, String id_type, String element_id) {
         System.out.println("getting attributes of the following course " + element_type + " " + id_type + " " + element_id);
-        JsonObject jo = getJsonFromAPI(element_type, id_type, element_id);
+        JsonObject jo = getJsonObjectFromAPI(element_type, id_type, element_id);
         JsonObject names = jo.get("name").getAsJsonObject();
         String name;
         if (hasValue(names)) {
@@ -62,5 +65,20 @@ public class CourseAttributes {
     
     public String get(int i) {
         return ca.get(i);
+    }
+    
+    public static void main(String[] args){
+        var a = new CourseAttributes();
+        a.getCourseAttributes("course", "nothing", "tut-cu-g-49138");
+        var course = a.get(0);
+        var groupId = a.get(1);
+        var minCredits = a.get(2);
+        var maxCredits = a.get(3);
+        
+        System.out.println("");
+        System.out.println("Printing value course name: " + course);
+        System.out.println("Printing value group id: " + groupId);
+        System.out.println("Printing value min credits: " + minCredits);
+        System.out.println("Printing value max credits: " + maxCredits);
     }
 }

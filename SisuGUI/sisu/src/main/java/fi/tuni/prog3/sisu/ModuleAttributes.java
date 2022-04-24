@@ -4,6 +4,7 @@
  */
 package fi.tuni.prog3.sisu;
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import com.google.gson.JsonObject;
 
@@ -21,8 +22,9 @@ public class ModuleAttributes {
     }
     
     private JsonObject getJsonFromAPI(String element_type, String id_type, String element_id) {
-        JsonFromSisuAPI jo = new JsonFromSisuAPI();
-        return jo.getJsonFromSisuAPI(element_type, id_type, element_id);
+        String st = new JsonFromSisuAPI().getJsonStringFromAPI(element_type, id_type, element_id);
+        JsonObject jo = new Gson().fromJson(st, JsonObject.class);
+        return jo;
     }
     
     private boolean hasValue(JsonObject json) {
@@ -62,5 +64,4 @@ public class ModuleAttributes {
     public String get(int i) {
         return ma.get(i);
     }
-
 }

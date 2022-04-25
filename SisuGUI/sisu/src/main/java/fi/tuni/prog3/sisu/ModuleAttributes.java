@@ -5,6 +5,7 @@
 package fi.tuni.prog3.sisu;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonNull;
 import java.util.ArrayList;
 import com.google.gson.JsonObject;
 
@@ -36,6 +37,7 @@ public class ModuleAttributes {
         JsonObject jo = getJsonFromAPI(element_type, id_type, element_id);
         JsonObject names = jo.get("name").getAsJsonObject();
         String name;
+        String credits_min = "null";
         if (hasValue(names)) {
             System.out.println("Has English name, selecting this.");
             name = names.get("en").getAsString();
@@ -51,7 +53,10 @@ public class ModuleAttributes {
         String group_id = jo.get("groupId").getAsString();
         System.out.println("Group id of the module: " + group_id);
         ma.add(group_id);
-        String credits_min = jo.get("targetCredits").getAsJsonObject().get("min").getAsString();
+        
+        if((jo.has("targetCredits") && !(jo.get("targetCredits") instanceof JsonNull)) &&
+                (jo.get("targetCredits").getAsJsonObject().has("min") && !(jo.get("targetCredits").getAsJsonObject().get("min") instanceof JsonNull)))
+            credits_min = jo.get("targetCredits").getAsJsonObject().get("min").getAsString();
         System.out.println("Min credits of the module: " + credits_min);
         ma.add(credits_min);
     }

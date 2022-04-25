@@ -6,6 +6,7 @@ package fi.tuni.prog3.sisu;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonNull;
 import java.util.ArrayList;
 import com.google.gson.JsonObject;
 
@@ -37,6 +38,8 @@ public class CourseAttributes {
         JsonObject jo = getJsonObjectFromAPI(element_type, id_type, element_id);
         JsonObject names = jo.get("name").getAsJsonObject();
         String name;
+        String credits_min = "null";
+        String credits_max = "null";
         if (hasValue(names)) {
             System.out.println("Has English name, selecting this.");
             name = names.get("en").getAsString();
@@ -50,10 +53,16 @@ public class CourseAttributes {
         String group_id = jo.get("groupId").getAsString();
         System.out.println("Group id of the course: " + group_id);
         ca.add(group_id);
-        String credits_min = jo.get("credits").getAsJsonObject().get("min").getAsString();
+        
+        if((jo.has("credits") && !(jo.get("credits") instanceof JsonNull)) && 
+                (jo.get("credits").getAsJsonObject().has("min") && !(jo.get("credits").getAsJsonObject().get("min") instanceof JsonNull)))
+            credits_min = jo.get("credits").getAsJsonObject().get("min").getAsString();
         System.out.println("Min credits of the course: " + credits_min);
         ca.add(credits_min);
-        String credits_max = jo.get("credits").getAsJsonObject().get("max").getAsString();
+        
+        if((jo.has("credits") && !(jo.get("credits") instanceof JsonNull)) && 
+                (jo.get("credits").getAsJsonObject().has("max") && !(jo.get("credits").getAsJsonObject().get("max") instanceof JsonNull)))
+            credits_max = jo.get("credits").getAsJsonObject().get("max").getAsString();
         System.out.println("Max credits of the course: " + credits_max);
         ca.add(credits_max);
     }

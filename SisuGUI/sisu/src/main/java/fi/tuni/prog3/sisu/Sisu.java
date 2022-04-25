@@ -28,15 +28,16 @@ public class Sisu extends Application {
         String degree_of_interest = Data.getDegreeId("Akuuttilääketieteen erikoislääkärikoulutus (55/2020)"); // here we need the name of degree chosen by the user from dropdown list
         System.out.println("Id of chosen degree: " + degree_of_interest);
         
-//        ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
-//        attributes.getModuleAttributes("module", "id", degree_of_interest);
-//        
-//        var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); 
-//        System.out.println(Degree.getModuleName());
-//        System.out.println(Degree.getModuleCredits());
-//        
-//        ModuleStructure ms = new ModuleStructure();
-//        ms.getModuleStructure(Degree); // this step should handle fetching the entire structure of the degree
+        ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
+        attributes.getModuleAttributes("module", "id", degree_of_interest);
+        
+        var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); 
+        System.out.println("Module Name: " + Degree.getModuleName());
+        System.out.println("Module Credits: "+Degree.getModuleCredits());
+        
+        ModuleStructure ms = new ModuleStructure();
+        ms.getModuleStructure(Degree); // this step should handle fetching the entire structure of the degree
+        System.out.println("Passed the Module Structure");
         
         // begin grid
         GridPane grid = new GridPane();

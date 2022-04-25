@@ -4,6 +4,9 @@
  */
 package fi.tuni.prog3.sisu;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -19,7 +22,11 @@ import java.net.http.HttpResponse;
 public class JsonFromSisuAPI {
 
     private HttpRequest request;
-    private String jsonString;
+    private JsonObject jsonObject;
+    
+    public JsonFromSisuAPI(){
+        this.jsonObject = new JsonObject();
+    }
 
     private void getJsonStringFromSisuAPI(String element_type, String id_type, String element_id) {
         HttpClient client = HttpClient.newHttpClient();
@@ -45,20 +52,27 @@ public class JsonFromSisuAPI {
                     .build();
         }
 
-        this.jsonString = client.sendAsync(this.request, HttpResponse.BodyHandlers.ofString())
+        String jString = client.sendAsync(this.request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
                 .join();
+        
+        JsonElement jElement = JsonParser.parseString(jString);
+        if(jElement.isJsonArray()){
+            System.out.println("\nConverting JsonArray to JsonObject!\n");
+            jsonObject = jElement.getAsJsonArray().get(0).getAsJsonObject();
+        } else {
+            System.out.println("\nIs JsonObject!\n");
+            jsonObject = jElement.getAsJsonObject();
+        }     
     }
 
-    public String getJsonStringFromAPI(String element_type, String id_type, String element_id) {
+    public JsonObject getJsonStringFromAPI(String element_type, String id_type, String element_id) {
         getJsonStringFromSisuAPI(element_type, id_type, element_id);
-        return jsonString;
+        return jsonObject;
     }
 
 //    public static void main(String[] args){
-//        var courseString = new JsonFromSisuAPI().getJsonString("course", "nothing", "tut-cu-g-49138");
-//        
-//        JsonArray ja = new Gson().fromJson(courseString, JsonArray.class);
-//        JsonObject jo = ja.get(0).getAsJsonObject();
+//        var jArray = new JsonFromSisuAPI().getJsonStringFromAPI("course", "nothing", "tut-cu-g-49138");
+//        var jObject = new JsonFromSisuAPI().getJsonStringFromAPI("module", "id", "otm-b9c586d3-a08d-463d-b824-935460da9b79");    
 //    }
 }

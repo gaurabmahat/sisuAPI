@@ -23,9 +23,8 @@ public class CourseAttributes {
     }
     
     private JsonObject getJsonObjectFromAPI(String element_type, String id_type, String element_id) {
-        var jString = new JsonFromSisuAPI().getJsonStringFromAPI(element_type, id_type, element_id);
-        JsonArray jArray = new Gson().fromJson(jString, JsonArray.class);
-        return jArray.get(0).getAsJsonObject();
+        var jsonObject = new JsonFromSisuAPI().getJsonStringFromAPI(element_type, id_type, element_id);
+        return jsonObject;
     }
     
     private boolean hasValue(JsonObject json) {

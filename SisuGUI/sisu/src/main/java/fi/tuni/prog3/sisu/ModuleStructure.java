@@ -37,9 +37,8 @@ public class ModuleStructure {
     }
     
     private JsonObject getJsonFromAPI(String element_type, String id_type, String element_id) {
-        String st = new JsonFromSisuAPI().getJsonStringFromAPI(element_type, id_type, element_id);
-        JsonObject jo = new Gson().fromJson(st, JsonObject.class);
-        return jo;
+        var jsonObject = new JsonFromSisuAPI().getJsonStringFromAPI(element_type, id_type, element_id);
+        return jsonObject;
     }
     
     private ModuleTraversal traverseModule(JsonElement je) {

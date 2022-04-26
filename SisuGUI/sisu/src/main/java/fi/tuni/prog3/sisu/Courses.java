@@ -29,10 +29,11 @@ public class Courses {
         return this.groupId;
     }
     
-    public String getCourseCredits(){
-        if (this.courseCreditsMax.equals(this.courseCreditsMin)) {
-            return this.courseCreditsMin;
-        }
-        return this.courseCreditsMin + "-" + this.courseCreditsMax;
+    public int getCourseCreditsMin(){
+        return Integer.parseInt(this.courseCreditsMin);
+    }
+    
+    public int getCourseCreditsMax() {
+        return Integer.parseInt(this.courseCreditsMax);    
     }
 }

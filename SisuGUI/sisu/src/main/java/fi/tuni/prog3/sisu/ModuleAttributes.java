@@ -33,31 +33,31 @@ public class ModuleAttributes {
     }
     
     private void moduleAttributesFromAPI(String element_type, String id_type, String element_id) {
-        System.out.println("getting attributes of the following module " + element_type + " " + id_type + " " + element_id);
+        
         JsonObject jo = getJsonFromAPI(element_type, id_type, element_id);
         JsonObject names = jo.get("name").getAsJsonObject();
         String name;
         String credits_min = "null";
         if (hasValue(names)) {
-            System.out.println("Has English name, selecting this.");
+            
             name = names.get("en").getAsString();
         } else {
-            System.out.println("Does not have English name, selecting Finnish name.");
+            
             name = names.get("fi").getAsString();
         }
-        System.out.println("Name of the module: " + name);
+        
         ma.add(name);
         String id = jo.get("id").getAsString();
-        System.out.println("ID of the module: " + id);
+        
         ma.add(id);
         String group_id = jo.get("groupId").getAsString();
-        System.out.println("Group id of the module: " + group_id);
+        
         ma.add(group_id);
         
         if((jo.has("targetCredits") && !(jo.get("targetCredits") instanceof JsonNull)) &&
                 (jo.get("targetCredits").getAsJsonObject().has("min") && !(jo.get("targetCredits").getAsJsonObject().get("min") instanceof JsonNull)))
             credits_min = jo.get("targetCredits").getAsJsonObject().get("min").getAsString();
-        System.out.println("Min credits of the module: " + credits_min);
+        
         ma.add(credits_min);
     }
     

@@ -31,20 +31,20 @@ public class JsonFromSisuAPI {
         HttpClient client = HttpClient.newHttpClient();
         if (element_type.equals("module")) {
             if (id_type.equals("group_id")) {
-                System.out.println("Query for module with group id, getting json");
+                
                 this.request = HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
                         + "modules"
                         + "/by-group-id?groupId=" + element_id + "&universityId=tuni-university-root-id"))
                         .build();
             } else if (id_type.equals("id")) {
-                System.out.println("Query for module with module id, getting json");
+                
                 this.request = HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
                         + "modules"
                         + "/" + element_id))
                         .build();
             }
         } else if (element_type.equals("course")) {
-            System.out.println("Query for course with group id, getting json");
+            
             this.request = HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
                     + "course-units"
                     + "/by-group-id?groupId=" + element_id + "&universityId=tuni-university-root-id"))
@@ -57,10 +57,10 @@ public class JsonFromSisuAPI {
         
         JsonElement jElement = JsonParser.parseString(jString);
         if(jElement.isJsonArray()){
-            System.out.println("\nConverting JsonArray to JsonObject!\n");
+            
             jsonObject = jElement.getAsJsonArray().get(0).getAsJsonObject();
         } else {
-            System.out.println("\nIs JsonObject!\n");
+            
             jsonObject = jElement.getAsJsonObject();
         }     
     }

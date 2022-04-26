@@ -16,6 +16,7 @@ public class Modules {
     private final String moduleId;
     private final String groupId;
     private final String moduleCredits;
+    private int completedCredits;
     private List<Modules> moduleLists;
     private List<Courses> coursesLists;
     
@@ -25,6 +26,7 @@ public class Modules {
         this.moduleId = moduleId;
         this.groupId = groupId;
         this.moduleCredits = moduleCredits;
+        this.completedCredits = 0;
         this.moduleLists = new ArrayList<>();
         this.coursesLists = new ArrayList<>();
     }
@@ -60,6 +62,14 @@ public class Modules {
 
     public void setCoursesLists(List<Courses> coursesLists) {
         this.coursesLists = coursesLists;
+    }
+    
+    public void setCompletedCredits(int credits) {
+        this.completedCredits = credits;
+    }
+    
+    public int getCompletedCredits() {
+        return this.completedCredits;
     }
 
 }

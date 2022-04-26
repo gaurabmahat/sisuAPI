@@ -8,8 +8,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -22,6 +27,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -52,15 +60,17 @@ public class Sisu extends Application {
         // set two grid for two tabs
         GridPane grid = new GridPane();
         GridPane grid2 = new GridPane();
-        
+        HBox root = new HBox();
+        root.setSpacing(20);
+
         TabPane tabPane = new TabPane();
         Tab tab1 = new Tab("Degree Program", grid);
-        Tab tab2 = new Tab("Courses", grid2);
+        Tab tab2 = new Tab("Courses", root);
    
         tabPane.getTabs().add(tab1);  
         tabPane.getTabs().add(tab2); 
         var scene = new Scene(tabPane, 640, 480);
-        stage.setScene(scene);
+        
         
         // grid 1
         
@@ -132,10 +142,108 @@ public class Sisu extends Application {
             TreeItem<String> item = new TreeItem<> ("Message" + i);            
             rootItem.getChildren().add(item);
         }  */      
-        TreeView<String> tree = new TreeView<> (rootNode);        
-        StackPane root = new StackPane();
-        root.getChildren().add(tree);
-        grid2.add(root, 0, 3);
+        TreeView<String> tree = new TreeView<> (rootNode);
+
+        //create vbox to hold treeView list
+        //StackPane root = new StackPane();
+        VBox leftPanel = new VBox();
+        leftPanel.setSpacing(10);
+        leftPanel.getChildren().add(tree);
+        //grid2.add(leftPanel, 0, 3);
+        
+        
+        VBox rightPanel = new VBox();
+        Button buttonItem = new Button("testing button");
+        Text text1 = new Text("");
+         
+        //CheckBox studentChoice = new CheckBox("first item");
+        //CheckBox studentChoice2 = new CheckBox("second item");
+        
+        
+        
+        rightPanel.getChildren().add(text1);
+        
+        ArrayList<CheckBox> studentChoices = new ArrayList<>();
+        
+        for(int i =0; i<3; i++){
+            CheckBox studentChoice = new CheckBox("item "+i+1);
+            studentChoices.add(studentChoice);
+            rightPanel.getChildren().add(studentChoice);
+        }
+        
+        for(int i = 0; i<studentChoices.size(); i++){
+            studentChoices.get(i).selectedProperty().addListener(
+                (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            if(new_val){
+                text1.setText("Welcome to Tutorilaspoint");
+            }else{
+                text1.setText("");
+            }
+         
+        }); 
+        }
+        //rightPanel.getChildren().add(studentChoice);
+        //rightPanel.getChildren().add(studentChoice2);
+        rightPanel.getChildren().add(buttonItem);
+        
+        // button event
+        buttonItem.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent event){
+                addCourse(rightPanel, text1);
+            }
+        });
+        
+        // listner for check box
+        /*studentChoice.selectedProperty().addListener(
+        (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            if(new_val){
+                text1.setText("Welcome to Tutorilaspoint");
+            }else{
+                text1.setText("");
+            }
+         
+        });*/
+        
+        /*studentChoice2.selectedProperty().addListener(
+        (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+            if(new_val){
+                text1.setText("Welcome to Tutorilaspoint");
+            }else{
+                text1.setText("");
+            }
+         
+        });*/
+        //grid2.add(rightPanel, 0, 4);
+        
+        //HBox root = new HBox();
+        root.getChildren().add(leftPanel);
+        root.getChildren().add(rightPanel);
+        
+        //grid2.add(root, 0, 4);
+        
+        
+        
+        /*tree.getSelectionModel().getSelectedItem().addListener(new ChangeListener(){
+            public void changed(ObservableValue observable, Object oldValue,
+                    Object newValue) {
+                
+            }
+            //TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });*/
+        
+        //TreeView<String> treeView = new TreeView<>();
+        //treeView.setRoot(item2);
+           
+        //tree.getRoot().getChildren().addListener(childrenChanged);
+        //tree.getSelectionModel().selectedItemProperty().addListener(childrenChanged);
+        
+        //TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
+        
         // second scene
         /*GridPane grid2 = new GridPane();
         Scene scene2 = new Scene(grid2, 350, 275);
@@ -153,12 +261,53 @@ public class Sisu extends Application {
             }
         });*/
         
-        
+        stage.setScene(scene);
         stage.show();
     }
+    
+    private void addCourse(VBox vbox, Text text1){
+       CheckBox studentChoice = new CheckBox("first item");
+            studentChoice.selectedProperty().addListener(
+                (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+                if(new_val){
+                    text1.setText("Welcome to Tutorilaspoint");
+                }else{
+                    text1.setText("");
+                }
+             });
+       vbox.getChildren().add(studentChoice);
+    }
+    
+    /*private final ListChangeListener<TreeItem<String>> childrenChanged 
+        = new ListChangeListener<TreeItem<String>>() {
+
+            @Override
+            public void onChanged(
+                    javafx.collections.ListChangeListener.Change<? extends TreeItem<String>> change) {
+                System.out.println("Tree Iten clicked");
+            }
+
+        };*/
+    
+    /*public ChangeListener childrenChanged = new ChangeListener(){
+
+            //@Override
+            public void Changed(ObservableValue observable){
+  
+                System.out.println("Tree Iten clicked");
+            }
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            System.out.println("Tree Iten clicked");
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+    };*/
 
     public static void main(String[] args) {
         launch();
     }
+
 
 }

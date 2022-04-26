@@ -25,7 +25,8 @@ public class Sisu extends Application {
         // create data object
         DegreesFromSisuAPI Data = new DegreesFromSisuAPI();
         Data.getDegreesFromSisuAPI(); // get a full list of Degree programmes
-        String degree_of_interest = Data.getDegreeId("Akuuttilääketieteen erikoislääkärikoulutus (55/2020)"); // here we need the name of degree chosen by the user from dropdown list
+        System.out.println("");
+        String degree_of_interest = Data.getDegreeId("Bachelor's Programme in Science and Engineering"); // here we need the name of degree chosen by the user from dropdown list
         System.out.println("Id of chosen degree: " + degree_of_interest);
         
         ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
@@ -37,7 +38,7 @@ public class Sisu extends Application {
         
         ModuleStructure ms = new ModuleStructure();
         ms.getModuleStructure(Degree); // this step should handle fetching the entire structure of the degree
-        System.out.println("Passed the Module Structure");
+        System.out.println("Finished fetching structure of the degree!\n");
         
         // begin grid
         GridPane grid = new GridPane();

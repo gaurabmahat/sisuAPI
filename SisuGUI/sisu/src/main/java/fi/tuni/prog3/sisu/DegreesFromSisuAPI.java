@@ -26,6 +26,10 @@ public class DegreesFromSisuAPI {
     public DegreesFromSisuAPI(){
         degreeIdAndName = new TreeMap<>();
     }
+
+    public TreeMap<String, String> getDegreeIdAndName() {
+        return degreeIdAndName;
+    }
     
     private void degreesFromSisuAPI(){
         HttpClient client = HttpClient.newHttpClient();

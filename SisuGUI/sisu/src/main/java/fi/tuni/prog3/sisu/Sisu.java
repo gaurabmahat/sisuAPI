@@ -54,8 +54,22 @@ public class Sisu extends Application {
         var javafxVersion = SystemInfo.javafxVersion();
 
         // create data object
-        DataFromSisuAPI Data = new DataFromSisuAPI();
-        Data.getDataFromSisuAPI();
+        DegreesFromSisuAPI Data = new DegreesFromSisuAPI();
+        Data.getDegreesFromSisuAPI(); // get a full list of Degree programmes
+        System.out.println("");
+        String degree_of_interest = Data.getDegreeId("Bachelor's Programme in Science and Engineering"); // here we need the name of degree chosen by the user from dropdown list
+        System.out.println("Id of chosen degree: " + degree_of_interest);
+        
+        ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
+        attributes.getModuleAttributes("module", "id", degree_of_interest);
+        
+        var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); 
+        System.out.println("Module Name: " + Degree.getModuleName());
+        System.out.println("Module Credits: "+Degree.getModuleCredits());
+        
+        ModuleStructure ms = new ModuleStructure();
+        ms.getModuleStructure(Degree); // this step should handle fetching the entire structure of the degree
+        System.out.println("Finished fetching structure of the degree!\n");
         
         // set two grid for two tabs
         GridPane grid = new GridPane();

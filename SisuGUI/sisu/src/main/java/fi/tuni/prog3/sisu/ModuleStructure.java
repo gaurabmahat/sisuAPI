@@ -92,6 +92,7 @@ public class ModuleStructure {
         
         module.setModuleLists(moduleList); // right away update parent module's modulesList
         System.out.println("Parent module's module list updated");
+        
     }
     
     public void getModuleStructure(Modules module) {

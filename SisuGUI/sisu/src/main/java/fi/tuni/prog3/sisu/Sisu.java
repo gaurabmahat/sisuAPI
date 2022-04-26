@@ -43,7 +43,13 @@ public class Sisu extends Application {
     // data handling containers
     private ObservableList<String> degree_programs = FXCollections.observableArrayList();
     private ObservableList<Modules> degree_programs_structure = FXCollections.observableArrayList();
+    
     private ObservableList<String> program_modules = FXCollections.observableArrayList();
+    private ObservableList<Modules> program_modules_structure = FXCollections.observableArrayList();
+    ObservableList<String> degree_info;
+    
+    // courses
+    private ObservableList<String> orientation_modules = FXCollections.observableArrayList();
     
     
     // create data object
@@ -65,24 +71,8 @@ public class Sisu extends Application {
         
 
         // create data object
-        // DegreesFromSisuAPI Data = new DegreesFromSisuAPI();
         Data.getDegreesFromSisuAPI(); // get a full list of Degree programmes
         
-        
-        /*System.out.println("");
-        String degree_of_interest = Data.getDegreeId("Akuuttilääketieteen erikoislääkärikoulutus (55/2020)"); // here we need the name of degree chosen by the user from dropdown list
-        System.out.println("Id of chosen degree: " + degree_of_interest);
-        
-        ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
-        attributes.getModuleAttributes("module", "id", degree_of_interest);
-        
-        var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); 
-        System.out.println("Module Name: " + Degree.getModuleName());
-        System.out.println("Module Credits: "+Degree.getModuleCredits());
-        
-        ModuleStructure ms = new ModuleStructure();
-        ms.getModuleStructure(Degree); // this step should handle fetching the entire structure of the degree
-        System.out.println("Finished fetching structure of the degree!\n");*/
         
         // set two grid for two tabs
         GridPane grid = new GridPane();
@@ -116,15 +106,16 @@ public class Sisu extends Application {
         // load degree programs
         loadDegrees();
 
-        final ComboBox programs = new ComboBox(degree_programs);
+        final ComboBox programs = new ComboBox(degree_info);
         grid.add(programs, 0, 5, 4, 1);
         
         // load degree modules
         programs.getSelectionModel().selectedIndexProperty().addListener(
             (ObservableValue<? extends Number> ov,
             Number old_val, Number new_val) ->{
-                String selected_degree = degree_programs.get(new_val.intValue());
-                loadModules(selected_degree);    
+                String selected_degree = degree_info.get(new_val.intValue());
+                String degree_of_interest = Data.getDegreeId(selected_degree);
+                loadModules(degree_of_interest);    
         });
 
         
@@ -319,42 +310,33 @@ public class Sisu extends Application {
     
     // load degree programs
     private void loadDegrees(){
-        ObservableList<String> degree_info = FXCollections.observableArrayList();
+        degree_info = FXCollections.observableArrayList();
         degree_info = Data.getDegrees();
-        for(int i = 0; i<degree_info.size(); i++){
-            String degree_of_interest = Data.getDegreeId(degree_info.get(i)); //
-            
-            ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
-            attributes.getModuleAttributes("module", "id", degree_of_interest);
-
-            var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); 
-            //System.out.println("Module Name: " + Degree.getModuleName());
-            //System.out.println("Module Credits: "+Degree.getModuleCredits());
-            // save degree strucure and degree name
-            degree_programs_structure.add(Degree);
-            degree_programs.add(Degree.getModuleName());
-        }
-         
+        
         
     }
     
     // load degree program modules -> called by select action event
     private void loadModules(String degree_program){
-        List<Modules> module_list = new ArrayList<>();
-        for(Modules module: degree_programs_structure){
-            if(module.getModuleName().equalsIgnoreCase(degree_program)){
-               //ModuleStructure ms = new ModuleStructure(); 
-               //ms.getModuleStructure(module); // this step should handle fetching the entire structure of the degree
-               //module_list = ms.getModulesLists();
-               module_list = module.getModuleLists();
-            }
-        }
-        program_modules.removeAll();
-        for(Modules item: module_list){
-            program_modules.add(item.getModuleName());
-        }
+       
+        ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
+        attributes.getModuleAttributes("module", "id", degree_program);
+
+        var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); 
+        ModuleStructure ms = new ModuleStructure(); 
+        ms.getModuleStructure(Degree); // this step should handle fetching the entire structure of the degree
+        List<Modules> m = Degree.getModuleLists();
         
-         
+        program_modules.clear();
+        for(Modules module: m){
+            program_modules_structure.add(module);
+            program_modules.add(module.getModuleName());
+        }
+            
+    }
+    
+    private void loadCourseModules(Modules module){
+        List<Modules> course_modules = module.getModuleLists();
     }
     
     /*private final ListChangeListener<TreeItem<String>> childrenChanged 

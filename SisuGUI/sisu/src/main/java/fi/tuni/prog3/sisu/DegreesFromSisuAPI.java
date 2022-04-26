@@ -101,6 +101,8 @@ public class DegreesFromSisuAPI {
         
         return degree_programs;
     }
+    
+    
 
     
     public String getDegreeId(String degree_name) {

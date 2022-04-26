@@ -57,7 +57,7 @@ public class Sisu extends Application {
         DegreesFromSisuAPI Data = new DegreesFromSisuAPI();
         Data.getDegreesFromSisuAPI(); // get a full list of Degree programmes
         System.out.println("");
-        String degree_of_interest = Data.getDegreeId("Bachelor's Programme in Science and Engineering"); // here we need the name of degree chosen by the user from dropdown list
+        String degree_of_interest = Data.getDegreeId("Akuuttilääketieteen erikoislääkärikoulutus (55/2020)"); // here we need the name of degree chosen by the user from dropdown list
         System.out.println("Id of chosen degree: " + degree_of_interest);
         
         ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance

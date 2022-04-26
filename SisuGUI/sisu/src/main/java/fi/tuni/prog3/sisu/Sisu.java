@@ -329,8 +329,13 @@ public class Sisu extends Application {
         
         program_modules.clear();
         for(Modules module: m){
-            program_modules_structure.add(module);
-            program_modules.add(module.getModuleName());
+            if (module.getModuleCredits().equals(Degree.getModuleCredits())) {
+                program_modules.add(module.getModuleName());
+            }
+            //program_modules_structure.add(module);
+        }
+        if (program_modules.isEmpty()) {
+            program_modules.add(Degree.getModuleName());
         }
             
     }

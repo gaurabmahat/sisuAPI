@@ -13,12 +13,14 @@ public class Courses {
     private final String groupId;
     private final String courseCreditsMin;
     private final String courseCreditsMax;
+    private Boolean completed;
     
     public Courses(String courseName, String groupId, String courseCreditsMin, String courseCreditsMax){
         this.courseName = courseName;
         this.groupId = groupId;
         this.courseCreditsMin = courseCreditsMin;
         this.courseCreditsMax = courseCreditsMax;
+        this.completed = false;
     }
     
     public String getCourseName(){
@@ -34,5 +36,17 @@ public class Courses {
             return this.courseCreditsMin;
         }
         return this.courseCreditsMin + "-" + this.courseCreditsMax;
+    }
+    
+    public Boolean getCompleted(){
+        return this.completed;
+    }
+    
+    public void setCompletedToTrue(){
+        this.completed = true;
+    }
+    
+    public void setCompletedToFalse(){
+        this.completed = false;
     }
 }

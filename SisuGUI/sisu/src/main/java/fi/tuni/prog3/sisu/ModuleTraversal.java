@@ -44,115 +44,93 @@ public class ModuleTraversal {
     private void traverseRules (JsonElement rules) {
         if (rules.isJsonArray()) { // so first check which one is in question.
             JsonArray units = rules.getAsJsonArray();
-            System.out.println("Is JsonArray. Printing array.");
-            System.out.println(units);
+
             for (int i = 0; i < units.size(); i++) { //check if it is a study module or a course; if it is one of those, add to the map
+                
                 if (units.get(i).getAsJsonObject().get("type").getAsString().equals("ModuleRule") ) {
                     java.util.Set<java.lang.String> keys = units.get(i).getAsJsonObject().keySet();
-                    System.out.println("Is ModuleRule.Printing keys.");
-                    System.out.println(keys);
                     String[] k = new String[keys.size()];
                     keys.toArray(k);
                     String id_type = k[2];
-                    System.out.println("Printing id type");
-                    System.out.println(id_type);
                     String id = units.get(i).getAsJsonObject().get(id_type).getAsString();
-                    System.out.println("Printing id");
-                    System.out.println(id);
                     submodule_ids.add(id);
+                    
                 } else if (units.get(i).getAsJsonObject().get("type").getAsString().equals("CourseUnitRule")) {
                     java.util.Set<java.lang.String> keys = units.get(i).getAsJsonObject().keySet();
-                    System.out.println("Is CourseUnitRule.Printing keys.");
-                    System.out.println(keys);
                     String[] k = new String[keys.size()];
                     keys.toArray(k);
                     String id_type = k[2];
-                    System.out.println("Printing id type");
-                    System.out.println(id_type);
                     String id = units.get(i).getAsJsonObject().get(id_type).getAsString();
-                    System.out.println("Printing id");
-                    System.out.println(id);
                     course_ids.add(id);
+                    
                 } else {
                     JsonObject temp = units.get(i).getAsJsonObject();
                     java.util.Set<java.lang.String> keys = temp.keySet();
-                    System.out.println("Is not ModuleRule nor CourseUnitRule. Printing keys.");
-                    System.out.println(keys);
+
                     if (keys.contains("rules")) {
+                        
                         if (temp.get("rules").isJsonObject()) {
                             JsonObject jarray = temp.getAsJsonObject("rules");
-                            System.out.println("Cotains rules. Printing new object that will be now traversed");
-                            System.out.println(jarray);
                             traverseRules(jarray);
+                            
                         } else if ( temp.get("rules").isJsonArray()) {
                             JsonArray jarray = temp.getAsJsonArray("rules");
-                            System.out.println("Cotains rules. Printing new object that will be now traversed");
-                            System.out.println(jarray);
                             traverseRules(jarray);
+                            
                         }
                     } else if (keys.contains("rule")) {
+                        
                         if (temp.get("rule").isJsonObject()) {
                             JsonObject jarray = temp.getAsJsonObject("rule");
-                            System.out.println("Cotains rule. Printing new object that will be now traversed");
-                            System.out.println(jarray);
                             traverseRules(jarray);
+                            
                         } else if ( temp.get("rule").isJsonArray()) {
                             JsonArray jarray = temp.getAsJsonArray("rule");
-                            System.out.println("Cotains rule. Printing new object that will be now traversed");
-                            System.out.println(jarray);
                             traverseRules(jarray);
+                            
                         }
                     }
                 }
             }
         } else if (rules.isJsonObject()){
+            
             JsonObject object = rules.getAsJsonObject();
             String type = object.get("type").getAsString();
-            System.out.println("Is not JsonArray. Printing object's type");
-            System.out.println(type);
+
             if (!type.equals("ModuleRule") && !type.equals("CourseUnitRule")) {
                 java.util.Set<java.lang.String> keys = object.keySet();
-                System.out.println("Is not ModuleRule nor CourseUnitRule. Printing keys.");
-                System.out.println(keys);
+
                 if (keys.contains("rules")) {
+                    
                     if (object.get("rules").isJsonObject()) {
                         JsonObject jarray = object.getAsJsonObject("rules");
-                        System.out.println("Cotains rules. Printing new object that will be now traversed");
-                        System.out.println(jarray);
                         traverseRules(jarray);
+                        
                     } else if ( object.get("rules").isJsonArray()) {
                         JsonArray jarray = object.getAsJsonArray("rules");
-                        System.out.println("Cotains rules. Printing new object that will be now traversed");
-                        System.out.println(jarray);
                         traverseRules(jarray);
+                        
                     }
                 } else if (keys.contains("rule")) {
                     if (object.get("rule").isJsonObject()) {
                         JsonObject jarray = object.getAsJsonObject("rule");
-                        System.out.println("Cotains rule. Printing new object that will be now traversed");
-                        System.out.println(jarray);
                         traverseRules(jarray);
+                        
                     } else if ( object.get("rule").isJsonArray()) {
                         JsonArray jarray = object.getAsJsonArray("rule");
-                        System.out.println("Cotains rule. Printing new object that will be now traversed");
-                        System.out.println(jarray);
                         traverseRules(jarray);
                     }
                 }
             } else { //it loks like modules and courses are always in arrays, but just in case here I check whether the object is not what we need
                 java.util.Set<java.lang.String> keys = object.keySet();
                 String[] k = new String[keys.size()];
-                System.out.println("Is not JsonArray, but is ModuleRule or CourseUnitRule. Printing keys");
-                System.out.println(keys);
                 keys.toArray(k);
                 String id_type = k[2];
-                System.out.println("Printing id type");
-                System.out.println(id_type);
                 String id = object.get(id_type).getAsString();
-                System.out.println("Printing id");
-                System.out.println(id);
+
                 if (id_type.equals("moduleGroupId")) {
                     submodule_ids.add(id);
+                    
                 } else if ( id_type.equals("CourseUnitGroupId")) {
                     course_ids.add(id);
                 }
@@ -164,9 +142,6 @@ public class ModuleTraversal {
     
     public void doModuleTraversal(JsonElement rules) {
         traverseRules(rules);
-        
-        System.out.println(Arrays.toString(submodule_ids.toArray()));
-        System.out.println(Arrays.toString(course_ids.toArray()));
     }
 
 }

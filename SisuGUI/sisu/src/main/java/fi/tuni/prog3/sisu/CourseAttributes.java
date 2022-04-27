@@ -35,36 +35,36 @@ public class CourseAttributes {
     }
     
     private void courseAttributesFromAPI(String element_type, String id_type, String element_id) {
-        System.out.println("getting attributes of the following course " + element_type + " " + id_type + " " + element_id);
+        
         JsonObject jo = getJsonObjectFromAPI(element_type, id_type, element_id);
         JsonObject names = jo.get("name").getAsJsonObject();
         String name;
         String credits_min = "null";
         String credits_max = "null";
         if (hasValue(names)) {
-            System.out.println("Has English name, selecting this.");
+            
             name = names.get("en").getAsString();
         } else {
-            System.out.println("Does not have English name, selecting Finnish name.");
+            
             name = names.get("fi").getAsString();
         }
-        System.out.println("Name of the course: " + name);
+        
         ca.add(name);
         
         String group_id = jo.get("groupId").getAsString();
-        System.out.println("Group id of the course: " + group_id);
+        
         ca.add(group_id);
         
         if((jo.has("credits") && !(jo.get("credits") instanceof JsonNull)) && 
                 (jo.get("credits").getAsJsonObject().has("min") && !(jo.get("credits").getAsJsonObject().get("min") instanceof JsonNull)))
             credits_min = jo.get("credits").getAsJsonObject().get("min").getAsString();
-        System.out.println("Min credits of the course: " + credits_min);
+        
         ca.add(credits_min);
         
         if((jo.has("credits") && !(jo.get("credits") instanceof JsonNull)) && 
                 (jo.get("credits").getAsJsonObject().has("max") && !(jo.get("credits").getAsJsonObject().get("max") instanceof JsonNull)))
             credits_max = jo.get("credits").getAsJsonObject().get("max").getAsString();
-        System.out.println("Max credits of the course: " + credits_max);
+        
         ca.add(credits_max);
     }
     

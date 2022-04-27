@@ -4,6 +4,7 @@
  */
 package fi.tuni.prog3.sisu;
 
+import fi.tuni.prog3.sisu.SisuQuery.JsonFromSisuAPI;
 import com.google.gson.Gson;
 import com.google.gson.JsonNull;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ModuleAttributes {
     }
     
     private JsonObject getJsonFromAPI(String element_type, String id_type, String element_id) {
-        var jsonObject = new JsonFromSisuAPI().getJsonStringFromAPI(element_type, id_type, element_id);
+        var jsonObject = new JsonFromSisuAPI().getJsonObjectFromAPI(element_type, id_type, element_id);
         return jsonObject;
     }
     

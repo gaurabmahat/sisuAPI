@@ -1,6 +1,7 @@
 package fi.tuni.prog3.sisu;
 
 
+import fi.tuni.prog3.sisu.SisuQuery.DegreesFromSisuAPI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -51,9 +52,8 @@ public class Sisu extends Application {
     // courses
     private ObservableList<String> orientation_modules = FXCollections.observableArrayList();
     
-    
-    // create data object
-    DegreesFromSisuAPI Data = new DegreesFromSisuAPI();
+    //Degree name and id map
+    private TreeMap<String, String> DataMap;
     
     TreeItem<String> rootNode;
     
@@ -69,10 +69,8 @@ public class Sisu extends Application {
         var javaVersion = SystemInfo.javaVersion();
         var javafxVersion = SystemInfo.javafxVersion();
         
-
-        // create data object
-        Data.getDegreesFromSisuAPI(); // get a full list of Degree programmes
-        
+        //get map of full list of Degree Programmes 
+        DataMap = new DegreesFromSisuAPI().getDegreeNameAndId();
         
         // set two grid for two tabs
         GridPane grid = new GridPane();
@@ -114,7 +112,7 @@ public class Sisu extends Application {
             (ObservableValue<? extends Number> ov,
             Number old_val, Number new_val) ->{
                 String selected_degree = degree_info.get(new_val.intValue());
-                String degree_of_interest = Data.getDegreeId(selected_degree);
+                String degree_of_interest = DataMap.get(selected_degree);
                 loadModules(degree_of_interest);    
         });
 
@@ -311,9 +309,11 @@ public class Sisu extends Application {
     // load degree programs
     private void loadDegrees(){
         degree_info = FXCollections.observableArrayList();
-        degree_info = Data.getDegrees();
         
-        
+        //TreeMap<String, String> allDegrees = getDataFromSisuAPI();
+        for(String degree_program : DataMap.keySet()){
+            degree_info.add(degree_program);
+        }         
     }
     
     // load degree program modules -> called by select action event

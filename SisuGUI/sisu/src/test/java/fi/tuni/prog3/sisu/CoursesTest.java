@@ -39,30 +39,6 @@ public class CoursesTest {
         String result = instance.getgroupId();
         assertEquals(expResult, result);
     }
-
-    @Test
-    public void testGetCourseCreditsWithEqualCredits() {
-        System.out.println("getCourseCredits with min credits = max credits");
-        Courses instance = new Courses("Introduction to Academic Studies",
-                "tut-cu-g-45454", 
-                "2", 
-                "2");
-        String expResult = "2";
-        String result = instance.getCourseCredits();
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testGetCourseCreditsWithUnequalCredits() {
-        System.out.println("getCourseCredits with min credits != max credits");
-        Courses instance = new Courses("Introduction to Academic Studies",
-                "tut-cu-g-45454", 
-                "2", 
-                "3");
-        String expResult = "2-3";
-        String result = instance.getCourseCredits();
-        assertEquals(expResult, result);
-    }
     
     @Test
     public void testCompleted(){

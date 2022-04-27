@@ -64,4 +64,42 @@ public class CoursesTest {
         assertEquals(expResult, result);
     }
     
+    @Test
+    public void testCompleted(){
+        System.out.println("getCompleted");
+        Courses instance = new Courses("Introduction to Academic Studies",
+                "tut-cu-g-45454", 
+                "2", 
+                "2");
+        Boolean expResult = false;
+        Boolean result = instance.getCompleted();
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testSetCompletedToTrue(){
+        System.out.println("setCompletedToTrue");
+        Courses instance = new Courses("Introduction to Academic Studies",
+                "tut-cu-g-45454", 
+                "2", 
+                "2");
+        instance.setCompletedToTrue();
+        Boolean expResult = true;
+        Boolean result = instance.getCompleted();
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testSetCompletedToFalse(){
+        System.out.println("setCompletedToFalse");
+        Courses instance = new Courses("Introduction to Academic Studies",
+                "tut-cu-g-45454", 
+                "2", 
+                "2");
+        instance.setCompletedToTrue();
+        instance.setCompletedToFalse();
+        Boolean expResult = false;
+        Boolean result = instance.getCompleted();
+        assertEquals(expResult, result);
+    }
 }

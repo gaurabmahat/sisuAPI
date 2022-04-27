@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fi.tuni.prog3.sisu;
+package fi.tuni.prog3.sisu.SisuQuery;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -11,6 +11,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.TreeMap;
 
 /**
  *
@@ -18,7 +19,7 @@ import java.net.http.HttpResponse;
  * the type of element(course or module), then type of id(id or groupId) and
  * finally the id itself
  */
-public class JsonFromSisuAPI {
+public class JsonFromSisuAPI implements iSisuQuery {
 
     private HttpRequest request;
     private JsonObject jsonObject;
@@ -27,7 +28,7 @@ public class JsonFromSisuAPI {
         this.jsonObject = new JsonObject();
     }
 
-    private void getJsonStringFromSisuAPI(String element_type, String id_type, String element_id) {
+    private void getJsonObjectFromSisuAPI(String element_type, String id_type, String element_id) {
         HttpClient client = HttpClient.newHttpClient();
         if (element_type.equals("module")) {
             if (id_type.equals("group_id")) {
@@ -65,9 +66,15 @@ public class JsonFromSisuAPI {
         }     
     }
 
-    public JsonObject getJsonStringFromAPI(String element_type, String id_type, String element_id) {
-        getJsonStringFromSisuAPI(element_type, id_type, element_id);
+    @Override
+    public JsonObject getJsonObjectFromAPI(String element_type, String id_type, String element_id) {
+        getJsonObjectFromSisuAPI(element_type, id_type, element_id);
         return jsonObject;
+    }
+    
+        @Override
+    public TreeMap<String, String> getDegreeNameAndId() {
+        return null;
     }
 
 //    public static void main(String[] args){

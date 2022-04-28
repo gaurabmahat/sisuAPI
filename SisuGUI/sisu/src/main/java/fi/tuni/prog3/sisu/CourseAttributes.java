@@ -5,8 +5,6 @@
 package fi.tuni.prog3.sisu;
 
 import fi.tuni.prog3.sisu.SisuQuery.JsonFromSisuAPI;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonNull;
 import java.util.ArrayList;
 import com.google.gson.JsonObject;
@@ -39,8 +37,8 @@ public class CourseAttributes {
         JsonObject jo = getJsonObjectFromAPI(element_type, id_type, element_id);
         JsonObject names = jo.get("name").getAsJsonObject();
         String name;
-        String credits_min = "null";
-        String credits_max = "null";
+        String credits_min = "0";
+        String credits_max = "0";
         if (hasValue(names)) {
             
             name = names.get("en").getAsString();

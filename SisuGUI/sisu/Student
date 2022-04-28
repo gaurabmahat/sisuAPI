@@ -1,0 +1,251 @@
+{
+  "moduleName": "Specialty Training in Anaesthesiology and Intensive Care Medicine (55/2020)",
+  "moduleNameWithCredits": "Specialty Training in Anaesthesiology and Intensive Care Medicine (55/2020) 0op/0op",
+  "moduleId": "otm-6ab4ce4a-4eb7-4c76-8ed7-9ab3a2faa5b6",
+  "groupId": "otm-6ab4ce4a-4eb7-4c76-8ed7-9ab3a2faa5b6",
+  "moduleCredits": "0",
+  "completedCredits": 0,
+  "moduleLists": [
+    {
+      "moduleName": "Specialty Training in Anaesthesiology and Intensive Care Medicine (55/2020)",
+      "moduleNameWithCredits": "Specialty Training in Anaesthesiology and Intensive Care Medicine (55/2020) 0op/0op",
+      "moduleId": "otm-749ce09a-2ac4-4a02-911c-2b923e03ad1f",
+      "groupId": "otm-749ce09a-2ac4-4a02-911c-2b923e03ad1f",
+      "moduleCredits": "0",
+      "completedCredits": 0,
+      "moduleLists": [
+        {
+          "moduleName": "Osaamisen arviointi, Anestesiologia ja tehohoito",
+          "moduleNameWithCredits": "Osaamisen arviointi, Anestesiologia ja tehohoito 0op/0op",
+          "moduleId": "otm-1b256fbe-74b8-4c65-b799-52cce764c7da",
+          "groupId": "otm-1b256fbe-74b8-4c65-b799-52cce764c7da",
+          "moduleCredits": "0",
+          "completedCredits": 0,
+          "moduleLists": [],
+          "coursesLists": [
+            {
+              "courseName": "Valtakunnallinen kuulustelu, Anestesiologia ja tehohoito",
+              "groupId": "otm-21a1cad2-122f-4c2b-a01c-107364d7b138",
+              "courseCreditsMin": "0",
+              "courseCreditsMax": "0",
+              "completed": false
+            },
+            {
+              "courseName": "EPA-arviointi, Anestesiologia ja tehohoito",
+              "groupId": "otm-7e448361-2875-4b51-b42c-b6c7bbdccab2",
+              "courseCreditsMin": "0",
+              "courseCreditsMax": "0",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "moduleName": "Käytännön koulutus, Anestesiologia ja tehohoito",
+          "moduleNameWithCredits": "Käytännön koulutus, Anestesiologia ja tehohoito 0op/0op",
+          "moduleId": "otm-a5034b1d-91a6-4b7d-a697-f121beb09d98",
+          "groupId": "otm-a5034b1d-91a6-4b7d-a697-f121beb09d98",
+          "moduleCredits": "0",
+          "completedCredits": 0,
+          "moduleLists": [
+            {
+              "moduleName": "Anestesiologian ja tehohoiton koulutkseen sisällytetty valinnainen jakso",
+              "moduleNameWithCredits": "Anestesiologian ja tehohoiton koulutkseen sisällytetty valinnainen jakso 0op/nullop",
+              "moduleId": "otm-e8d61847-0e73-4b7f-ada3-7661cd62448b",
+              "groupId": "otm-e8d61847-0e73-4b7f-ada3-7661cd62448b",
+              "moduleCredits": "null",
+              "completedCredits": 0,
+              "moduleLists": [],
+              "coursesLists": [
+                {
+                  "courseName": "Anestesiologian ja tehohoiton koulutkseen liittyvä tutkimustyö (6 kk)",
+                  "groupId": "otm-1e9c371e-e538-43e5-bafd-1a13ef7edc92",
+                  "courseCreditsMin": "0",
+                  "courseCreditsMax": "0",
+                  "completed": false
+                },
+                {
+                  "courseName": "Anestesiologian ja tehohoiton koulutkseen liittyvä opetustyö",
+                  "groupId": "otm-95cec6a1-2e76-42e6-b5b3-5202c5fc1f80",
+                  "courseCreditsMin": "0",
+                  "courseCreditsMax": "0",
+                  "completed": false
+                }
+              ]
+            }
+          ],
+          "coursesLists": [
+            {
+              "courseName": "Koejakso (6kk), Anestesiologia ja tehohoito",
+              "groupId": "otm-d66c3d45-f246-47ad-b3e9-29dd3be9c074",
+              "courseCreditsMin": "0",
+              "courseCreditsMax": "0",
+              "completed": false
+            },
+            {
+              "courseName": "Terveyskeskuskoulutusjakso (9kk)",
+              "groupId": "otm-c952da3a-e66d-4523-ab87-4b0ba31e2234",
+              "courseCreditsMin": "0",
+              "courseCreditsMax": "0",
+              "completed": false
+            },
+            {
+              "courseName": "Anestesiologian ja tehohoidon täydentävä käytännön koulutus (väh. 6kk)",
+              "groupId": "otm-87960234-d0b6-4537-bc9d-6fe6f7424f89",
+              "courseCreditsMin": "0",
+              "courseCreditsMax": "0",
+              "completed": false
+            },
+            {
+              "courseName": "Eriytyvä vaihe (väh. 3 v 3 kk), Anestesiologia ja tehohoito",
+              "groupId": "otm-6c695407-ed16-4c9a-bcdc-a41b60c7f8f6",
+              "courseCreditsMin": "0",
+              "courseCreditsMax": "0",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "moduleName": "Teoriakoulutus, Anestesiologia ja tehohoito",
+          "moduleNameWithCredits": "Teoriakoulutus, Anestesiologia ja tehohoito 0op/0op",
+          "moduleId": "otm-4b075481-3236-4420-99f3-4bb58472cb6e",
+          "groupId": "otm-4b075481-3236-4420-99f3-4bb58472cb6e",
+          "moduleCredits": "0",
+          "completedCredits": 0,
+          "moduleLists": [],
+          "coursesLists": [
+            {
+              "courseName": "Toimipaikkakoulutus (2-5 h/vko), Anestesiologia ja tehohoito",
+              "groupId": "otm-ffd30173-a980-44c5-a899-e802833339ef",
+              "courseCreditsMin": "0",
+              "courseCreditsMax": "0",
+              "completed": false
+            },
+            {
+              "courseName": "Teoriakoulutus (väh. 100 h), Anestesiologia ja tehohoito",
+              "groupId": "otm-6985ea7e-ad97-459e-999e-63e4735ec512",
+              "courseCreditsMin": "0",
+              "courseCreditsMax": "0",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "moduleName": "Management and Leadership Studies for Specialty Training in Medicine and Dentistryand dentist",
+          "moduleNameWithCredits": "Management and Leadership Studies for Specialty Training in Medicine and Dentistryand dentist 0op/10op",
+          "moduleId": "otm-6c7f6886-bbc0-46fc-97b7-a58007b97a60",
+          "groupId": "otm-6c7f6886-bbc0-46fc-97b7-a58007b97a60",
+          "moduleCredits": "10",
+          "completedCredits": 0,
+          "moduleLists": [
+            {
+              "moduleName": "Laajentavat johtamisopinnot",
+              "moduleNameWithCredits": "Laajentavat johtamisopinnot 0op/nullop",
+              "moduleId": "otm-3d8355fb-32c6-457d-aeac-3edd15621641",
+              "groupId": "otm-3d8355fb-32c6-457d-aeac-3edd15621641",
+              "moduleCredits": "null",
+              "completedCredits": 0,
+              "moduleLists": [],
+              "coursesLists": [
+                {
+                  "courseName": "Seedhousen eettinen ristikko päätöksenteon ja johtamisen apuvälineenä",
+                  "groupId": "otm-ea33c998-d9e2-4287-9e33-13f13c3d247b",
+                  "courseCreditsMin": "2",
+                  "courseCreditsMax": "2",
+                  "completed": false
+                },
+                {
+                  "courseName": "Organisational Economy",
+                  "groupId": "otm-5ecd3ddd-ffc8-4cfb-8aa2-d0779b564399",
+                  "courseCreditsMin": "2",
+                  "courseCreditsMax": "2",
+                  "completed": false
+                },
+                {
+                  "courseName": "Developing Management Skills",
+                  "groupId": "otm-901c77d5-f063-4ac1-83ed-78de98556f1a",
+                  "courseCreditsMin": "2",
+                  "courseCreditsMax": "2",
+                  "completed": false
+                },
+                {
+                  "courseName": "Knowledge-Based Management in Health Care",
+                  "groupId": "otm-249970b2-3784-4eba-bc31-bcb49c082a0f",
+                  "courseCreditsMin": "2",
+                  "courseCreditsMax": "2",
+                  "completed": false
+                },
+                {
+                  "courseName": "Multiculturalism in Health Care",
+                  "groupId": "otm-6868c712-9bf2-40a0-9a25-b15ede269f86",
+                  "courseCreditsMin": "2",
+                  "courseCreditsMax": "4",
+                  "completed": false
+                },
+                {
+                  "courseName": "Health Communication",
+                  "groupId": "otm-7779ed2b-2b73-44d7-880d-d99fe0624e53",
+                  "courseCreditsMin": "2",
+                  "courseCreditsMax": "2",
+                  "completed": false
+                },
+                {
+                  "courseName": "Book Exam",
+                  "groupId": "otm-0af267c9-8843-4602-83a4-491ffd3d450a",
+                  "courseCreditsMin": "2",
+                  "courseCreditsMax": "20",
+                  "completed": false
+                }
+              ]
+            }
+          ],
+          "coursesLists": [
+            {
+              "courseName": "The Starting Points of Organisational Operation, Leadership and Management",
+              "groupId": "otm-ac768242-eef7-42f0-a526-30d8851b0101",
+              "courseCreditsMin": "1",
+              "courseCreditsMax": "1",
+              "completed": false
+            },
+            {
+              "courseName": "Human Resources Management",
+              "groupId": "otm-7dbfeae3-6912-4eeb-9e3c-7d24fd5c0f3c",
+              "courseCreditsMin": "2",
+              "courseCreditsMax": "2",
+              "completed": false
+            },
+            {
+              "courseName": "Leadership Interaction and Organisational Communication",
+              "groupId": "otm-ab0afa3d-8d5c-4acd-b211-733d4d05083b",
+              "courseCreditsMin": "2",
+              "courseCreditsMax": "2",
+              "completed": false
+            },
+            {
+              "courseName": "Economics and Health Care",
+              "groupId": "otm-1e3f900d-c9ff-4621-9f0b-92d87a2833b9",
+              "courseCreditsMin": "2",
+              "courseCreditsMax": "2",
+              "completed": false
+            },
+            {
+              "courseName": "Health Care and Management Legislation",
+              "groupId": "otm-ccafab42-a3c7-4bb0-b2c1-1abb724dcf26",
+              "courseCreditsMin": "1",
+              "courseCreditsMax": "1",
+              "completed": false
+            },
+            {
+              "courseName": "Social and Health Policy in Finland",
+              "groupId": "otm-1c9e04c3-14f8-4427-8de3-30ec5ec7d720",
+              "courseCreditsMin": "2",
+              "courseCreditsMax": "2",
+              "completed": false
+            }
+          ]
+        }
+      ],
+      "coursesLists": []
+    }
+  ],
+  "coursesLists": []
+}

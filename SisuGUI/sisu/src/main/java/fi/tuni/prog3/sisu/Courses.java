@@ -15,12 +15,13 @@ public class Courses {
     private final String courseCreditsMax;
     private Boolean completed;
     
-    public Courses(String courseName, String groupId, String courseCreditsMin, String courseCreditsMax){
+    public Courses(String courseName, String groupId, String courseCreditsMin, String courseCreditsMax,
+            Boolean booleanValue){
         this.courseName = courseName;
         this.groupId = groupId;
         this.courseCreditsMin = courseCreditsMin;
         this.courseCreditsMax = courseCreditsMax;
-        this.completed = false;
+        this.completed = booleanValue;
     }
     
     public String getCourseName(){

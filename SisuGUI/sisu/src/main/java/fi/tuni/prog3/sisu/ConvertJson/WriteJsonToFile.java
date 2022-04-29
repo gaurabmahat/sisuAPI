@@ -6,8 +6,11 @@ package fi.tuni.prog3.sisu.ConvertJson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import fi.tuni.prog3.sisu.ModuleAttributes;
+import fi.tuni.prog3.sisu.ModuleStructure;
 import fi.tuni.prog3.sisu.Modules;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,34 +18,54 @@ import java.io.PrintWriter;
 /**
  *
  * @author mahat
+ * A class to write JSON to a file.
  */
-public class WriteJsonToFile {
+public class WriteJsonToFile implements iReadAndWriteJson{
     private final Modules modules;
     private final String fileName;
     
+    /**
+     * Constructor that takes the Modules class and name of the file.
+     * @param module - the Modules class that contains the data to write in JSON. 
+     * @param fileName - name of the file. 
+     */
     public WriteJsonToFile(Modules module, String fileName){
         this.modules = module;
         this.fileName = fileName;
     }
     
+    /**
+     * Not implemented in this class.
+     * @return - null. 
+     * @throws FileNotFoundException  
+     */
+    @Override
+    public Modules readFromFile() throws FileNotFoundException{
+        return null;
+    }
+    
+    /**
+     * Converts the class to JSON and writes the JSON to a file. 
+     * @throws IOException - if it cannot write to a file.
+     */
+    @Override
     public void convertToJsonAndWriteToFile() throws IOException{
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(this.modules);
-        writeToFile(json);
-    }
-    
-    private void writeToFile(String json) throws IOException{
+        
+        System.out.println("Writing started ...");
         File file = new File(this.fileName);
         FileWriter fw = new FileWriter(file);
         try(PrintWriter pw = new PrintWriter(fw)){
             pw.print(json);
         }
+        System.out.println("Writing completed!");
     }
     
 //    public static void main(String[] args) throws IOException{
 //        
 //        ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
-//        attributes.getModuleAttributes("module", "id", "otm-6ab4ce4a-4eb7-4c76-8ed7-9ab3a2faa5b6");
+//        attributes.getModuleAttributes("module", "id", "otm-87fb9507-a6dd-41aa-b924-2f15eca3b7ae");
 //
 //        var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); 
 //        ModuleStructure ms = new ModuleStructure(); 

@@ -24,10 +24,20 @@ public class JsonFromSisuAPI implements iSisuQuery {
     private HttpRequest request;
     private JsonObject jsonObject;
     
+    /**
+     * Initializes a new JSON object.
+     */
     public JsonFromSisuAPI(){
         this.jsonObject = new JsonObject();
     }
 
+    /**
+     * Searches the Sisu API for the given modules or courses based on their given id. After finding the 
+     * module or course, it converts the acquired JSON string to a JSON object.  
+     * @param element_type - module or course.
+     * @param id_type - group_id or id.
+     * @param element_id - id of the module or course.
+     */
     private void getJsonObjectFromSisuAPI(String element_type, String id_type, String element_id) {
         HttpClient client = HttpClient.newHttpClient();
         if (element_type.equals("module")) {
@@ -66,13 +76,24 @@ public class JsonFromSisuAPI implements iSisuQuery {
         }     
     }
 
+    /**
+     * Returns a JSON object from the Sisu API. 
+     * @param element_type - module or course.
+     * @param id_type - group_id or id.
+     * @param element_id - id of the module or course.
+     * @return - a JSON object
+     */
     @Override
     public JsonObject getJsonObjectFromAPI(String element_type, String id_type, String element_id) {
         getJsonObjectFromSisuAPI(element_type, id_type, element_id);
         return jsonObject;
     }
     
-        @Override
+    /**
+     * Not implemented in this class.
+     * @return - null.
+     */
+    @Override
     public TreeMap<String, String> getDegreeNameAndId() {
         return null;
     }

@@ -22,7 +22,7 @@ public class ReadJsonFromFileTest {
         System.out.println("when file exists");
         String fileName = "StudentData";
         Modules expResult = new Modules(fileName, fileName, fileName, fileName);
-        Modules result = new ReadJsonFromFile().readFromFile(fileName);
+        Modules result = new ReadJsonFromFile(fileName).readFromFile();
         assertEquals(expResult instanceof Modules, result instanceof Modules);
     }   
     
@@ -31,7 +31,7 @@ public class ReadJsonFromFileTest {
         System.out.println("when file does not exists");
         String fileName = "non";
         Modules expResult = null;
-        Modules result = new ReadJsonFromFile().readFromFile(fileName);
+        Modules result = new ReadJsonFromFile(fileName).readFromFile();
         assertEquals(expResult, result);
     }   
 }

@@ -17,14 +17,21 @@ import java.net.http.HttpResponse;
 /**
  *
  * @author PC
+ * A class to get all the degree name and degree id from the Sisu API.
  */
 public class DegreesFromSisuAPI implements iSisuQuery{
     private final TreeMap<String, String> degreeIdAndName;
     
+    /**
+     * Constructs an initially empty TreeMap.
+     */
     public DegreesFromSisuAPI(){
         degreeIdAndName = new TreeMap<>();
     }
     
+    /**
+     * Searches the Sisu API and adds the degree name as key and degree id as value to the TreeMap.
+     */
     private void degreesFromSisuAPI(){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
@@ -46,13 +53,25 @@ public class DegreesFromSisuAPI implements iSisuQuery{
             degreeIdAndName.put(degreeName, degreeId);
         }
     }    
-
+    
+    /**
+     * Returns the TreeMap with the degree name and its id. It calls the method that 
+     * searches the Sisu API and add the info to the TreeMap.
+     * @return - TreeMap.
+     */
     @Override
     public TreeMap<String, String> getDegreeNameAndId() {
         degreesFromSisuAPI();
         return degreeIdAndName; 
     }
 
+    /**
+     * Not implemented in this class.
+     * @param element_type
+     * @param id_type
+     * @param element_id
+     * @return - null.
+     */
     @Override
     public JsonObject getJsonObjectFromAPI(String element_type, String id_type, String element_id) {
         return null;

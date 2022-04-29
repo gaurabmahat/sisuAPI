@@ -1,38 +1,38 @@
 {
-  "moduleName": "Specialty Training in Anaesthesiology and Intensive Care Medicine (55/2020)",
-  "moduleNameWithCredits": "Specialty Training in Anaesthesiology and Intensive Care Medicine (55/2020) 0op/0op",
-  "moduleId": "otm-6ab4ce4a-4eb7-4c76-8ed7-9ab3a2faa5b6",
-  "groupId": "otm-6ab4ce4a-4eb7-4c76-8ed7-9ab3a2faa5b6",
+  "moduleName": "Specialty Training in Emergency Medicine (55/2020)",
+  "moduleNameWithCredits": "Specialty Training in Emergency Medicine (55/2020) 0op/0op",
+  "moduleId": "otm-87fb9507-a6dd-41aa-b924-2f15eca3b7ae",
+  "groupId": "otm-87fb9507-a6dd-41aa-b924-2f15eca3b7ae",
   "moduleCredits": "0",
   "completedCredits": 0,
   "moduleLists": [
     {
-      "moduleName": "Specialty Training in Anaesthesiology and Intensive Care Medicine (55/2020)",
-      "moduleNameWithCredits": "Specialty Training in Anaesthesiology and Intensive Care Medicine (55/2020) 0op/0op",
-      "moduleId": "otm-749ce09a-2ac4-4a02-911c-2b923e03ad1f",
-      "groupId": "otm-749ce09a-2ac4-4a02-911c-2b923e03ad1f",
+      "moduleName": "Specialty Training in Emergency Medicine (55/2020)",
+      "moduleNameWithCredits": "Specialty Training in Emergency Medicine (55/2020) 0op/0op",
+      "moduleId": "otm-b80ff440-9347-465e-a556-a27c35d0d2b3",
+      "groupId": "otm-b80ff440-9347-465e-a556-a27c35d0d2b3",
       "moduleCredits": "0",
       "completedCredits": 0,
       "moduleLists": [
         {
-          "moduleName": "Osaamisen arviointi, Anestesiologia ja tehohoito",
-          "moduleNameWithCredits": "Osaamisen arviointi, Anestesiologia ja tehohoito 0op/0op",
-          "moduleId": "otm-1b256fbe-74b8-4c65-b799-52cce764c7da",
-          "groupId": "otm-1b256fbe-74b8-4c65-b799-52cce764c7da",
+          "moduleName": "Osaamisen arviointi, Akuuttilääketiede",
+          "moduleNameWithCredits": "Osaamisen arviointi, Akuuttilääketiede 0op/0op",
+          "moduleId": "otm-f69645a5-007b-4f4d-90e1-782494e3a84c",
+          "groupId": "otm-f69645a5-007b-4f4d-90e1-782494e3a84c",
           "moduleCredits": "0",
           "completedCredits": 0,
           "moduleLists": [],
           "coursesLists": [
             {
-              "courseName": "Valtakunnallinen kuulustelu, Anestesiologia ja tehohoito",
-              "groupId": "otm-21a1cad2-122f-4c2b-a01c-107364d7b138",
+              "courseName": "Valtakunnallinen kuulustelu, Akuuttilääketiede",
+              "groupId": "otm-00f5c0e9-e35e-4bd7-8a55-f41028d23820",
               "courseCreditsMin": "0",
               "courseCreditsMax": "0",
               "completed": false
             },
             {
-              "courseName": "EPA-arviointi, Anestesiologia ja tehohoito",
-              "groupId": "otm-7e448361-2875-4b51-b42c-b6c7bbdccab2",
+              "courseName": "EPA-arviointi, Akuuttilääketiede",
+              "groupId": "otm-e91d5ec0-46a6-4d92-9615-a6fb7196108a",
               "courseCreditsMin": "0",
               "courseCreditsMax": "0",
               "completed": false
@@ -40,32 +40,32 @@
           ]
         },
         {
-          "moduleName": "Käytännön koulutus, Anestesiologia ja tehohoito",
-          "moduleNameWithCredits": "Käytännön koulutus, Anestesiologia ja tehohoito 0op/0op",
-          "moduleId": "otm-a5034b1d-91a6-4b7d-a697-f121beb09d98",
-          "groupId": "otm-a5034b1d-91a6-4b7d-a697-f121beb09d98",
+          "moduleName": "Käytännön koulutus, Akuuttilääketiede",
+          "moduleNameWithCredits": "Käytännön koulutus, Akuuttilääketiede 0op/0op",
+          "moduleId": "otm-1043ef2c-4f70-49ef-b8f1-c9a08311976c",
+          "groupId": "otm-1043ef2c-4f70-49ef-b8f1-c9a08311976c",
           "moduleCredits": "0",
           "completedCredits": 0,
           "moduleLists": [
             {
-              "moduleName": "Anestesiologian ja tehohoiton koulutkseen sisällytetty valinnainen jakso",
-              "moduleNameWithCredits": "Anestesiologian ja tehohoiton koulutkseen sisällytetty valinnainen jakso 0op/nullop",
-              "moduleId": "otm-e8d61847-0e73-4b7f-ada3-7661cd62448b",
-              "groupId": "otm-e8d61847-0e73-4b7f-ada3-7661cd62448b",
+              "moduleName": "Akuuttilääketieteen käytännön koulutukseen sisällytetty valinnainen jakso",
+              "moduleNameWithCredits": "Akuuttilääketieteen käytännön koulutukseen sisällytetty valinnainen jakso 0op/nullop",
+              "moduleId": "otm-285624d0-78ec-48ec-ad19-22f21ddfc7ad",
+              "groupId": "otm-285624d0-78ec-48ec-ad19-22f21ddfc7ad",
               "moduleCredits": "null",
               "completedCredits": 0,
               "moduleLists": [],
               "coursesLists": [
                 {
-                  "courseName": "Anestesiologian ja tehohoiton koulutkseen liittyvä tutkimustyö (6 kk)",
-                  "groupId": "otm-1e9c371e-e538-43e5-bafd-1a13ef7edc92",
+                  "courseName": "Akuuttilääketieteeseen liittyvä tutkimustyö (0-6kk)",
+                  "groupId": "otm-50092864-0c00-489a-82e5-b5caa1404da2",
                   "courseCreditsMin": "0",
                   "courseCreditsMax": "0",
                   "completed": false
                 },
                 {
-                  "courseName": "Anestesiologian ja tehohoiton koulutkseen liittyvä opetustyö",
-                  "groupId": "otm-95cec6a1-2e76-42e6-b5b3-5202c5fc1f80",
+                  "courseName": "Akuuttilääketieteen erikoisalaan liittyvä opetustyö",
+                  "groupId": "otm-34b900cb-599b-48c5-bbef-2e272a9e55c4",
                   "courseCreditsMin": "0",
                   "courseCreditsMax": "0",
                   "completed": false
@@ -75,8 +75,8 @@
           ],
           "coursesLists": [
             {
-              "courseName": "Koejakso (6kk), Anestesiologia ja tehohoito",
-              "groupId": "otm-d66c3d45-f246-47ad-b3e9-29dd3be9c074",
+              "courseName": "Koejakso (6kk), Akuuttilääketiede",
+              "groupId": "otm-d915d4af-b983-4aae-80c9-5f62664ec0f6",
               "courseCreditsMin": "0",
               "courseCreditsMax": "0",
               "completed": false
@@ -89,15 +89,8 @@
               "completed": false
             },
             {
-              "courseName": "Anestesiologian ja tehohoidon täydentävä käytännön koulutus (väh. 6kk)",
-              "groupId": "otm-87960234-d0b6-4537-bc9d-6fe6f7424f89",
-              "courseCreditsMin": "0",
-              "courseCreditsMax": "0",
-              "completed": false
-            },
-            {
-              "courseName": "Eriytyvä vaihe (väh. 3 v 3 kk), Anestesiologia ja tehohoito",
-              "groupId": "otm-6c695407-ed16-4c9a-bcdc-a41b60c7f8f6",
+              "courseName": "Käytännön koulutus (väh. 3v 9kk), Akuuttilääketiede",
+              "groupId": "otm-d4986bfe-d9f5-4bd5-8ebb-df6c2d31de13",
               "courseCreditsMin": "0",
               "courseCreditsMax": "0",
               "completed": false
@@ -105,24 +98,43 @@
           ]
         },
         {
-          "moduleName": "Teoriakoulutus, Anestesiologia ja tehohoito",
-          "moduleNameWithCredits": "Teoriakoulutus, Anestesiologia ja tehohoito 0op/0op",
-          "moduleId": "otm-4b075481-3236-4420-99f3-4bb58472cb6e",
-          "groupId": "otm-4b075481-3236-4420-99f3-4bb58472cb6e",
+          "moduleName": "Teoriakoulutus, Akuuttilääketiede",
+          "moduleNameWithCredits": "Teoriakoulutus, Akuuttilääketiede 0op/0op",
+          "moduleId": "otm-ab7ba2f8-fc31-40ff-b1b5-7f0171889d60",
+          "groupId": "otm-ab7ba2f8-fc31-40ff-b1b5-7f0171889d60",
           "moduleCredits": "0",
           "completedCredits": 0,
-          "moduleLists": [],
+          "moduleLists": [
+            {
+              "moduleName": "Valinnainen säteilysuojelukoulutus",
+              "moduleNameWithCredits": "Valinnainen säteilysuojelukoulutus 0op/nullop",
+              "moduleId": "otm-c73d253e-82d4-4fa6-9007-ca6e3aa83c20",
+              "groupId": "otm-c73d253e-82d4-4fa6-9007-ca6e3aa83c20",
+              "moduleCredits": "null",
+              "completedCredits": 0,
+              "moduleLists": [],
+              "coursesLists": [
+                {
+                  "courseName": "Säteilysuojelukoulutus, Erikoislääkäri- ja erikoishammaslääkärikoulutus",
+                  "groupId": "otm-128ab89d-2048-4953-8e56-d3af1256dc9d",
+                  "courseCreditsMin": "2",
+                  "courseCreditsMax": "2",
+                  "completed": false
+                }
+              ]
+            }
+          ],
           "coursesLists": [
             {
-              "courseName": "Toimipaikkakoulutus (2-5 h/vko), Anestesiologia ja tehohoito",
-              "groupId": "otm-ffd30173-a980-44c5-a899-e802833339ef",
+              "courseName": "Toimipaikkakoulutus (väh. 3-5 h/vko), Akuuttilääketiede",
+              "groupId": "otm-e48ff4bc-41c3-4d05-bcea-3b707852b775",
               "courseCreditsMin": "0",
               "courseCreditsMax": "0",
               "completed": false
             },
             {
-              "courseName": "Teoriakoulutus (väh. 100 h), Anestesiologia ja tehohoito",
-              "groupId": "otm-6985ea7e-ad97-459e-999e-63e4735ec512",
+              "courseName": "Teoriakoulutus (väh. 100 h), Akuuttilääketiede",
+              "groupId": "otm-caff1ac6-142e-4423-bb2e-142f0a0e86e3",
               "courseCreditsMin": "0",
               "courseCreditsMax": "0",
               "completed": false

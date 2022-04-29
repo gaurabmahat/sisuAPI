@@ -12,17 +12,35 @@ import fi.tuni.prog3.sisu.Modules;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
  * @author mahat
+ * A class to read the JSON from a file.
  */
-public class ReadJsonFromFile {
+public class ReadJsonFromFile implements iReadAndWriteJson{
 
     private Modules Data;
+    private final String fileName;
+    
+    /**
+     * A constructor that takes the name of the file. 
+     * @param fileName - name of the file.
+     */
+    public ReadJsonFromFile(String fileName){
+        this.fileName = fileName;
+    }
 
-    public Modules readFromFile(String fileName) throws FileNotFoundException {
-        var jsonObject = getParsedDocument(fileName);
+    /**
+     * Returns the degree info in Modules class format. If the file exits it creates 
+     * the Modules based on the info from the file.
+     * @return - Modules class if the file exists, otherwise null. 
+     * @throws FileNotFoundException - if the file cannot be found. 
+     */
+    @Override
+    public Modules readFromFile() throws FileNotFoundException {
+        var jsonObject = getParsedDocument(this.fileName);
         if (jsonObject == null) {
             return null;
         }
@@ -49,7 +67,20 @@ public class ReadJsonFromFile {
 
         return this.Data;
     }
+    
+    /**
+     * Not implemented in this class.
+     * @throws IOException 
+     */
+    @Override
+    public void convertToJsonAndWriteToFile() throws IOException {
+    }
 
+    /**
+     * Returns subModules that contains the inner subModules and courses.
+     * @param jsonObject - JSON object that contains the subModule info.
+     * @return - Modules class.
+     */
     private Modules addSubModulesToModules(JsonObject jsonObject) {
         Modules subModules = new Modules(jsonObject.get("moduleName").getAsString(),
                 jsonObject.get("moduleId").getAsString(),
@@ -75,6 +106,11 @@ public class ReadJsonFromFile {
         return subModules;
     }
 
+    /**
+     * Returns Courses class from the course info of the module.
+     * @param jsonObject - JSON object that contains the course info.
+     * @return - Courses class.
+     */
     private Courses addCourses(JsonObject jsonObject) {
         return new Courses(jsonObject.get("courseName").getAsString(),
                 jsonObject.get("groupId").getAsString(),
@@ -84,6 +120,13 @@ public class ReadJsonFromFile {
         );
     }
 
+    /**
+     * Reads file from the local device. If the file with the given name exists, it returns the JSON object 
+     * that is in the file. If the file does not exists, returns null;
+     * @param fileName - name of the file to read.
+     * @return - JSON object if the file exists, otherwise null.
+     * @throws FileNotFoundException - if it cannot read the file.
+     */
     private JsonObject getParsedDocument(String fileName) throws FileNotFoundException {
         File f = new File(fileName);
         if (!f.exists()) {

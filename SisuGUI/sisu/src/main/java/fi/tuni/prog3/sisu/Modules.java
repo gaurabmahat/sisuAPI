@@ -12,6 +12,7 @@ import java.util.List;
  * @author rakow
  */
 public class Modules {
+
     private final String moduleName;
     private String moduleNameWithCredits;
     private final String moduleId;
@@ -20,8 +21,8 @@ public class Modules {
     private int completedCredits;
     private List<Modules> moduleLists;
     private List<Courses> coursesLists;
-    
-    public Modules(String moduleName, String moduleId, String groupId, 
+
+    public Modules(String moduleName, String moduleId, String groupId,
             String moduleCredits) {
         this.moduleName = moduleName;
         this.moduleId = moduleId;
@@ -33,7 +34,6 @@ public class Modules {
         this.moduleNameWithCredits = this.moduleName + " " + this.completedCredits
                 + "op/" + this.moduleCredits + "op";
     }
-    
 
     public String getModuleName() {
         return moduleNameWithCredits;
@@ -42,15 +42,15 @@ public class Modules {
     public String getModuleId() {
         return moduleId;
     }
-    
+
     public String getGroupId() {
         return groupId;
     }
 
     public String getModuleCredits() {
-            return moduleCredits;
+        return moduleCredits;
     }
-    
+
     public List<Modules> getModuleLists() {
         return moduleLists;
     }
@@ -58,8 +58,8 @@ public class Modules {
     public void setModuleLists(List<Modules> moduleLists) {
         this.moduleLists = moduleLists;
     }
-    
-    public void addModuleLists(Modules module){
+
+    public void addModuleLists(Modules module) {
         this.moduleLists.add(module);
     }
 
@@ -70,17 +70,17 @@ public class Modules {
     public void setCoursesLists(List<Courses> coursesLists) {
         this.coursesLists = coursesLists;
     }
-    
-    public void addCoursesLists(Courses course){
+
+    public void addCoursesLists(Courses course) {
         this.coursesLists.add(course);
     }
-    
+
     public void setCompletedCredits(int credits) {
         this.completedCredits += credits;
-        this.moduleNameWithCredits = this.moduleName + " " + this.completedCredits 
+        this.moduleNameWithCredits = this.moduleName + " " + this.completedCredits
                 + "op/" + this.moduleCredits + "op";
     }
-    
+
     public int getCompletedCredits() {
         return this.completedCredits;
     }

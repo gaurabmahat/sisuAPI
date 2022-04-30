@@ -38,7 +38,7 @@ public class CoursesTest {
                 "2", 
                 false);
         String expResult = "tut-cu-g-45454";
-        String result = instance.getgroupId();
+        String result = instance.getGroupId();
         assertEquals(expResult, result);
     }
     

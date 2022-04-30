@@ -57,7 +57,7 @@ public class ModuleStructure {
         
         
         ModuleTraversal moduleTraversal = traverseModule(rules); // traverse rules
-        ArrayList<String> submodule_ids = moduleTraversal.getSubmoduleIds(); // get module ids
+        ArrayList<String> submodule_ids = moduleTraversal.getSubModuleIds(); // get module ids
         ArrayList<String> course_ids = moduleTraversal.getCourseIds(); // get course ids
         
         for (String id : course_ids) { // get course attributes, create instances of Courses and save to the list

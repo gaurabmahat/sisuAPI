@@ -11,44 +11,42 @@ import java.util.ArrayList;
 
 /**
  *
- * @author rakow
- * This class traverses one module of SisuAPI data and gets the ids of this module's submodules and courses and saves them into ArrayLists
+ * @author rakow This class traverses one module of SisuAPI data and gets the
+ * ids of this module's submodules and courses and saves them into ArrayLists
  */
 public class ModuleTraversal {
-    private final ArrayList<String> submodule_ids;
+
+    private final ArrayList<String> subModule_ids;
     private final ArrayList<String> course_ids;
-    
-    public ModuleTraversal(){
-        submodule_ids = new ArrayList<>();
+
+    public ModuleTraversal() {
+        subModule_ids = new ArrayList<>();
         course_ids = new ArrayList<>();
     }
-    
-    public ArrayList<String> getSubmoduleIds() {
-        return submodule_ids;
+
+    public ArrayList<String> getSubModuleIds() {
+        return subModule_ids;
     }
-    
+
     public ArrayList<String> getCourseIds() {
         return course_ids;
     }
-    
-    
-    
 
     //takes JsonElement as argument, because module's tree structure can contain both JsonObjects and JsonArrays
-    private void traverseRules (JsonElement rules) {
+    private void traverseRules(JsonElement rules) {
         if (rules.isJsonArray()) { // so first check which one is in question.
             JsonArray units = rules.getAsJsonArray();
 
             for (int i = 0; i < units.size(); i++) { //check if it is a study module or a course; if it is one of those, add to the map
-                
-                if (units.get(i).getAsJsonObject().get("type").getAsString().equals("ModuleRule") ) {
+
+                if (units.get(i).getAsJsonObject().get("type").getAsString().equals("ModuleRule")) {
                     java.util.Set<java.lang.String> keys = units.get(i).getAsJsonObject().keySet();
                     String[] k = new String[keys.size()];
                     keys.toArray(k);
                     String id_type = k[2];
                     String id = units.get(i).getAsJsonObject().get(id_type).getAsString();
-                    submodule_ids.add(id);
-                    
+                    subModule_ids.add(id);
+
                 } else if (units.get(i).getAsJsonObject().get("type").getAsString().equals("CourseUnitRule")) {
                     java.util.Set<java.lang.String> keys = units.get(i).getAsJsonObject().keySet();
                     String[] k = new String[keys.size()];
@@ -56,38 +54,38 @@ public class ModuleTraversal {
                     String id_type = k[2];
                     String id = units.get(i).getAsJsonObject().get(id_type).getAsString();
                     course_ids.add(id);
-                    
+
                 } else {
                     JsonObject temp = units.get(i).getAsJsonObject();
                     java.util.Set<java.lang.String> keys = temp.keySet();
 
                     if (keys.contains("rules")) {
-                        
+
                         if (temp.get("rules").isJsonObject()) {
                             JsonObject jarray = temp.getAsJsonObject("rules");
                             traverseRules(jarray);
-                            
-                        } else if ( temp.get("rules").isJsonArray()) {
+
+                        } else if (temp.get("rules").isJsonArray()) {
                             JsonArray jarray = temp.getAsJsonArray("rules");
                             traverseRules(jarray);
-                            
+
                         }
                     } else if (keys.contains("rule")) {
-                        
+
                         if (temp.get("rule").isJsonObject()) {
                             JsonObject jarray = temp.getAsJsonObject("rule");
                             traverseRules(jarray);
-                            
-                        } else if ( temp.get("rule").isJsonArray()) {
+
+                        } else if (temp.get("rule").isJsonArray()) {
                             JsonArray jarray = temp.getAsJsonArray("rule");
                             traverseRules(jarray);
-                            
+
                         }
                     }
                 }
             }
-        } else if (rules.isJsonObject()){
-            
+        } else if (rules.isJsonObject()) {
+
             JsonObject object = rules.getAsJsonObject();
             String type = object.get("type").getAsString();
 
@@ -95,22 +93,22 @@ public class ModuleTraversal {
                 java.util.Set<java.lang.String> keys = object.keySet();
 
                 if (keys.contains("rules")) {
-                    
+
                     if (object.get("rules").isJsonObject()) {
                         JsonObject jarray = object.getAsJsonObject("rules");
                         traverseRules(jarray);
-                        
-                    } else if ( object.get("rules").isJsonArray()) {
+
+                    } else if (object.get("rules").isJsonArray()) {
                         JsonArray jarray = object.getAsJsonArray("rules");
                         traverseRules(jarray);
-                        
+
                     }
                 } else if (keys.contains("rule")) {
                     if (object.get("rule").isJsonObject()) {
                         JsonObject jarray = object.getAsJsonObject("rule");
                         traverseRules(jarray);
-                        
-                    } else if ( object.get("rule").isJsonArray()) {
+
+                    } else if (object.get("rule").isJsonArray()) {
                         JsonArray jarray = object.getAsJsonArray("rule");
                         traverseRules(jarray);
                     }
@@ -123,17 +121,17 @@ public class ModuleTraversal {
                 String id = object.get(id_type).getAsString();
 
                 if (id_type.equals("moduleGroupId")) {
-                    submodule_ids.add(id);
-                    
-                } else if ( id_type.equals("CourseUnitGroupId")) {
+                    subModule_ids.add(id);
+
+                } else if (id_type.equals("CourseUnitGroupId")) {
                     course_ids.add(id);
                 }
-                
+
             }
         }
-        
+
     }
-    
+
     public void doModuleTraversal(JsonElement rules) {
         traverseRules(rules);
     }

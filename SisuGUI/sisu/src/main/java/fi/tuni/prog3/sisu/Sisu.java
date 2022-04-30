@@ -4,6 +4,7 @@ import fi.tuni.prog3.sisu.SisuQuery.DegreesFromSisuAPI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.concurrent.CompletableFuture;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -85,7 +86,7 @@ public class Sisu extends Application {
         // add tabs to the tab pane
         tabPane.getTabs().add(tabWindow_1);
         tabPane.getTabs().add(tabWindow_2);
-        
+
         // create scene and at the main tab pane
         var scene = new Scene(tabPane, 1000, 680);
 
@@ -97,27 +98,28 @@ public class Sisu extends Application {
         Label sub_title = new Label("choose a degree program");
         sub_title.setId("sub_title");
         grid.add(sub_title, 0, 3);
-  
-/************************************************************************/
+
+        /**
+         * *********************************************************************
+         */
         //get map of full list of Degree Programmes 
-        DataMap = new DegreesFromSisuAPI().getDegreeNameAndId();  
-        
+        DataMap = new DegreesFromSisuAPI().getDegreeNameAndId();
+
         //load degree programs 
         loadDegrees();
-        
+
         // add combo box to select degree programmes
         final ComboBox programs = new ComboBox(degree_info);
         grid.add(programs, 0, 5, 4, 1);
-        
-        
+
         Label option_title = new Label("choose option");
         option_title.setId("option_title");
-        grid.add(option_title, 0, 7);
+        grid.add(option_title, 0, 7);       
 
         // add add combo box to select degree opions
         final ComboBox options = new ComboBox(program_modules);
         grid.add(options, 0, 9, 2, 1);
-
+        
         // load degree modules when a degree programme is selected
         programs.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> ov,
@@ -127,22 +129,25 @@ public class Sisu extends Application {
                     String degree_of_interest = DataMap.get(selected_degree);
                     loadModules(degree_of_interest);
                 });
-        
-/************************************************************************/
+
+        /**
+         * *********************************************************************
+         */
         // populate window 2
-        
         //create left paanel
         VBox leftPanel = new VBox();
         leftPanel.setPrefWidth(500);
-        
+
         // create right panel
         VBox rightPanel = new VBox();
-        
+
         //add left and right pannel to the root base
         root.getChildren().add(leftPanel);
         root.getChildren().add(rightPanel);
-        
- /************************************************************************/       
+
+        /**
+         * *********************************************************************
+         */
         // select degree option and draw degree structure on left panel
         options.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> ov,
@@ -188,7 +193,7 @@ public class Sisu extends Application {
                     }
 
                     tree = new TreeView<>(rootNode);
-                    
+
                     //create vbox to hold treeView list
                     //VBox leftPanel = new VBox();
                     leftPanel.getChildren().clear();
@@ -196,11 +201,11 @@ public class Sisu extends Application {
                     leftPanel.getChildren().add(tree);
 
                 });
-        
-/****************************************************************************/        
 
+        /**
+         * *************************************************************************
+         */
         //create top and botton sections on the right panel
-        
         // top section
         VBox rightPanelTop = new VBox();
         rightPanelTop.setSpacing(5);
@@ -210,24 +215,26 @@ public class Sisu extends Application {
         rightPanelTop.getStyleClass().add("color-palette");
         rightPanelTop.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         // set margins around the two sections
-        VBox.setMargin(rightPanelTop, new Insets(10,10,10,10));
-        
+        VBox.setMargin(rightPanelTop, new Insets(10, 10, 10, 10));
+
         // botton section
         HBox rightPanelBottom = new HBox();
         rightPanelBottom.setSpacing(20);
-        
+
         // add top and botton sections to the right panel
         rightPanel.getChildren().add(rightPanelTop);
         rightPanel.getChildren().add(rightPanelBottom);
-        
+
         // create buttons and add them to the bottom section of the right panel
         Button btnAddCourse = new Button("Add Course");
         rightPanelBottom.getChildren().add(btnAddCourse);
-        
+
         Button btnRemoveCourse = new Button("Remove Course");
         rightPanelBottom.getChildren().add(btnRemoveCourse);
-        
- /*****************************************************************************/       
+
+        /**
+         * **************************************************************************
+         */
         // display selected courses
         Text text1 = new Text("");
         rightPanelTop.getChildren().add(text1);
@@ -252,9 +259,9 @@ public class Sisu extends Application {
                     });
         }
 
-        
-/******************************************************************************/
-
+        /**
+         * ***************************************************************************
+         */
         // add action event for adding course buttion
         btnAddCourse.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
@@ -271,7 +278,9 @@ public class Sisu extends Application {
             }
         });
 
-/************************************************************************/
+        /**
+         * *********************************************************************
+         */
         // add action event for adding course buttion
         btnRemoveCourse.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
@@ -287,16 +296,18 @@ public class Sisu extends Application {
 
             }
         });
-/****************************************************************************/
+        /**
+         * *************************************************************************
+         */
 
         stage.setScene(scene);
         stage.show();
     }
-    
-/***************************************************************************/
-    
-    // helper functions
 
+    /**
+     * ************************************************************************
+     */
+    // helper functions
     private void addCourse(VBox vbox, Text text1) {
         CheckBox studentChoice = new CheckBox("first item");
         studentChoice.selectedProperty().addListener(
@@ -309,8 +320,6 @@ public class Sisu extends Application {
                 });
         vbox.getChildren().add(studentChoice);
     }
-    
-    
 
     // load degree programs
     private void loadDegrees() {
@@ -321,8 +330,6 @@ public class Sisu extends Application {
             degree_info.add(degree_program);
         }
     }
-    
-    
 
     // load degree program modules -> called by select action event
     private void loadModules(String degree_program) {
@@ -353,13 +360,11 @@ public class Sisu extends Application {
 
     }
 
-    
     private void loadCourseModules(Modules module) {
         List<Modules> course_modules = module.getModuleLists();
 
         //add all courses
     }
-    
 
     // capture selcted courses
     private List<String> getSelectedCourses(String selectedItem) {

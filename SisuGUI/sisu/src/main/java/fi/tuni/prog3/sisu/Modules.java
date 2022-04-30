@@ -48,7 +48,9 @@ public class Modules {
     }
 
     /**
-     * Return the name of the StudyModule.
+     * Returns the name of the StudyModule along with its credits information.
+     * If the StudyModule credit is null or 0, it simply returns the name of the 
+     * StudyModule. 
      * @return - name of the StudyModule.
      */
     public String getModuleName() {

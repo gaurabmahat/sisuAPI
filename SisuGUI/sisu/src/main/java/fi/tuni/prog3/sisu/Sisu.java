@@ -114,12 +114,12 @@ public class Sisu extends Application {
 
         Label option_title = new Label("choose option");
         option_title.setId("option_title");
-        grid.add(option_title, 0, 7);
+        grid.add(option_title, 0, 7);       
 
         // add add combo box to select degree opions
         final ComboBox options = new ComboBox(program_modules);
         grid.add(options, 0, 9, 2, 1);
-
+        
         // load degree modules when a degree programme is selected
         programs.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> ov,
@@ -127,12 +127,7 @@ public class Sisu extends Application {
                     // get selected drgree program
                     String selected_degree = degree_info.get(new_val.intValue());
                     String degree_of_interest = DataMap.get(selected_degree);
-                    
-                    System.out.println("Task: Fetching the StudyModules and CourseUnits of the degree...");
-                    CompletableFuture<Void> waiting = CompletableFuture.runAsync(() -> {
-                        loadModules(degree_of_interest);
-                        System.out.println("Task: All the data has been Successfully fetched!");
-                    });
+                    loadModules(degree_of_interest);
                 });
 
         /**

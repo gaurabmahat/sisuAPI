@@ -5,7 +5,6 @@
 package fi.tuni.prog3.sisu;
 
 import fi.tuni.prog3.sisu.SisuQuery.JsonFromSisuAPI;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
@@ -58,14 +57,14 @@ public class ModuleStructure {
         
         
         ModuleTraversal moduleTraversal = traverseModule(rules); // traverse rules
-        ArrayList<String> submodule_ids = moduleTraversal.getSubmoduleIds(); // get module ids
+        ArrayList<String> submodule_ids = moduleTraversal.getSubModuleIds(); // get module ids
         ArrayList<String> course_ids = moduleTraversal.getCourseIds(); // get course ids
         
         for (String id : course_ids) { // get course attributes, create instances of Courses and save to the list
             CourseAttributes attributes = new CourseAttributes();
             attributes.getCourseAttributes("course", "group_id", id);
 
-            Courses course = new Courses(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); // course id skipped because it is not used anywhere
+            Courses course = new Courses(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3), false); // course id skipped because it is not used anywhere
 
             this.courseList.add(course);
 

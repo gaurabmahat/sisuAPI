@@ -22,7 +22,8 @@ public class CoursesTest {
         Courses instance = new Courses("Introduction to Academic Studies",
                 "tut-cu-g-45454", 
                 "2", 
-                "2");
+                "2", 
+                false);
         String expResult = "Introduction to Academic Studies";
         String result = instance.getCourseName();
         assertEquals(expResult, result);
@@ -34,9 +35,10 @@ public class CoursesTest {
         Courses instance = new Courses("Introduction to Academic Studies",
                 "tut-cu-g-45454", 
                 "2", 
-                "2");
+                "2", 
+                false);
         String expResult = "tut-cu-g-45454";
-        String result = instance.getgroupId();
+        String result = instance.getGroupId();
         assertEquals(expResult, result);
     }
     
@@ -46,7 +48,8 @@ public class CoursesTest {
         Courses instance = new Courses("Introduction to Academic Studies",
                 "tut-cu-g-45454", 
                 "2", 
-                "2");
+                "2", 
+                false);
         Boolean expResult = false;
         Boolean result = instance.getCompleted();
         assertEquals(expResult, result);
@@ -58,7 +61,8 @@ public class CoursesTest {
         Courses instance = new Courses("Introduction to Academic Studies",
                 "tut-cu-g-45454", 
                 "2", 
-                "2");
+                "2", 
+                false);
         instance.setCompletedToTrue();
         Boolean expResult = true;
         Boolean result = instance.getCompleted();
@@ -71,7 +75,8 @@ public class CoursesTest {
         Courses instance = new Courses("Introduction to Academic Studies",
                 "tut-cu-g-45454", 
                 "2", 
-                "2");
+                "2", 
+                false);
         instance.setCompletedToTrue();
         instance.setCompletedToFalse();
         Boolean expResult = false;

@@ -5,7 +5,6 @@
 package fi.tuni.prog3.sisu;
 
 import fi.tuni.prog3.sisu.SisuQuery.JsonFromSisuAPI;
-import com.google.gson.Gson;
 import com.google.gson.JsonNull;
 import java.util.ArrayList;
 import com.google.gson.JsonObject;

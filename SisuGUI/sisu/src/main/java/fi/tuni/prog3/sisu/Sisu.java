@@ -65,6 +65,9 @@ public class Sisu extends Application {
 
     TreeItem<String> rootNode;
     TreeView<String> tree;
+    
+    Image icon = new Image("https://opportunityforum.info/wp-content/uploads/2022/04/folder.png");
+     private final Node rootIcon = new ImageView(icon);
 
     @Override
     public void start(Stage stage) {
@@ -156,7 +159,7 @@ public class Sisu extends Application {
                     main_degree_option = program_modules.get(new_val.intValue());
 
                     // build submodule with degree option
-                    TreeItem<String> program = new TreeItem<>(main_degree_option);
+                    TreeItem<String> program = new TreeItem<>(main_degree_option, rootIcon);
                     rootNode.getChildren().add(program);
 
                     // find degree options
@@ -226,6 +229,9 @@ public class Sisu extends Application {
         
         Button btnRemoveCourse = new Button("Remove Course");
         rightPanelBottom.getChildren().add(btnRemoveCourse);
+        
+        Button btnCompleteCourse = new Button("Complete Course");
+        rightPanelBottom.getChildren().add(btnCompleteCourse);
         
  /*****************************************************************************/       
         // display selected courses

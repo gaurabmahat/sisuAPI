@@ -15,7 +15,8 @@ import java.util.TreeMap;
 
 /**
  *
- * @author rakow Gets JSON from SisuAPI. Takes three parameters to build query:
+ * @author rakow 
+ * Gets JSON from SisuAPI. Takes three parameters to build query:
  * the type of element(course or module), then type of id(id or groupId) and
  * finally the id itself
  */

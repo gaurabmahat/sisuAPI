@@ -56,9 +56,9 @@ public class ModuleStructure {
         JsonElement rules = jo.get("rule"); // get its rules
         
         
-        ModuleTraversal moduleTraversal = traverseModule(rules); // traverse rules
-        ArrayList<String> submodule_ids = moduleTraversal.getSubModuleIds(); // get module ids
-        ArrayList<String> course_ids = moduleTraversal.getCourseIds(); // get course ids
+        ModuleTraversal module_traversal = traverseModule(rules); // traverse rules
+        ArrayList<String> submodule_ids = module_traversal.getSubModuleIds(); // get module ids
+        ArrayList<String> course_ids = module_traversal.getCourseIds(); // get course ids
         
         for (String id : course_ids) { // get course attributes, create instances of Courses and save to the list
             CourseAttributes attributes = new CourseAttributes();

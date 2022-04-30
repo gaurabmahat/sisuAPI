@@ -43,6 +43,32 @@ public class CoursesTest {
     }
     
     @Test
+    public void testGetCourseCreditsMin() {
+        System.out.println("getCourseCreditsMin");
+        Courses instance = new Courses("Introduction to Academic Studies",
+                "tut-cu-g-45454", 
+                "2", 
+                "5", 
+                false);
+        int expResult = 2;
+        int result = instance.getCourseCreditsMin();
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testGetCourseCreditsMax() {
+        System.out.println("getCourseCreditsMax");
+        Courses instance = new Courses("Introduction to Academic Studies",
+                "tut-cu-g-45454", 
+                "2", 
+                "5", 
+                false);
+        int expResult = 5;
+        int result = instance.getCourseCreditsMax();
+        assertEquals(expResult, result);
+    }
+    
+    @Test
     public void testCompleted(){
         System.out.println("getCompleted");
         Courses instance = new Courses("Introduction to Academic Studies",

@@ -1,6 +1,12 @@
 package fi.tuni.prog3.sisu;
 
+import com.sun.source.tree.Tree;
+import fi.tuni.prog3.sisu.ConvertJson.ReadJsonFromFile;
+import fi.tuni.prog3.sisu.ConvertJson.WriteJsonToFile;
 import fi.tuni.prog3.sisu.SisuQuery.DegreesFromSisuAPI;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -41,6 +47,7 @@ public class Sisu extends Application {
     
     private Scene scene1;
     private Scene scene2;
+    private Scene scene3;
     
     //*********************************************************************
     
@@ -83,12 +90,17 @@ public class Sisu extends Application {
 
         //Trigger an action when the program is being closed
         stage.setOnCloseRequest(e -> {
-            //e.consume();
-            closeProgram();
+            try {
+                e.consume();
+                closeProgram();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
 
         scene1 = createSceneOne();
         scene2 = createSceneTwo();
+        scene3 = createSceneThree();
 
         stage.setScene(scene1);
 
@@ -145,10 +157,20 @@ public class Sisu extends Application {
         Button login = new Button("Login");
         vBox.getChildren().add(login);
         VBox.setMargin(login, new Insets(10));
+
         login.setOnAction((e) -> {
             if(!userInput.getText().isEmpty() && !userInput.getText().trim().isEmpty()){
                 studentNumber = userInput.getText();
-                switchScenes(scene2);
+                try {
+                    Degree = new ReadJsonFromFile(studentNumber).readFromFile();
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                if(Degree == null) {
+                    switchScenes(scene2);
+                } else {
+                    switchScenes(scene3);
+                }
             } else {
                 invalidMessage.setText("Please enter your Student Number!");
             }
@@ -218,12 +240,7 @@ public class Sisu extends Application {
                     // get selected drgree program
                     String selected_degree = degree_info.get(new_val.intValue());
                     String degree_of_interest = DataMap.get(selected_degree);
-                    CompletableFuture<Void> waiting = CompletableFuture.runAsync(() -> {
-                        System.out.println("Fetching the degree...");
-                        loadFirstLevel(degree_of_interest);
-                        System.out.println("Fetching completed!");
-                    });
-
+                    loadFirstLevel(degree_of_interest);
                 });
 
         /**
@@ -438,7 +455,143 @@ public class Sisu extends Application {
         return scene2;
     }
 
-    /*
+    private Scene createSceneThree(){
+        // Window1: set grid base for window
+        GridPane grid = new GridPane();
+        // Window 2: create HBox base for window
+        HBox root = new HBox();
+        root.setSpacing(20);
+
+        Button showProgress = new Button("Show My Progress");
+        grid.getChildren().add(showProgress);
+
+        // create Tab pane and tabs for both windows
+        TabPane tabPane = new TabPane();
+        Tab tabWindow_1 = new Tab("Degree Program", grid);
+        Tab tabWindow_2 = new Tab("Courses", root);
+
+        // add tabs to the tab pane
+        tabPane.getTabs().add(tabWindow_1);
+        tabPane.getTabs().add(tabWindow_2);
+
+        // create scene and at the main tab pane
+        scene3 = new Scene(tabPane, 1000, 680);
+
+        //after user presses the "Show my Progress" button
+        showProgress.setOnAction((e) -> {
+            // populate window 1
+            Label top_title = new Label("Student");
+            top_title.setId("top_title");
+            grid.add(top_title, 0, 1, 4, 1);
+
+            Label sub_title = new Label("choose a degree program");
+            sub_title.setId("sub_title");
+            grid.add(sub_title, 0, 3);
+
+            //filling up ComboBox with the one degree
+            ObservableList<String> oneDegree = FXCollections.observableArrayList();
+            oneDegree.add(Degree.getModuleName());
+
+            //add combo box to selected degree programme
+            final ComboBox programs = new ComboBox(oneDegree);
+            grid.add(programs, 0, 5, 4, 1);
+
+            Label option_title = new Label("choose option");
+            option_title.setId("option_title");
+            grid.add(option_title, 0, 7);
+
+            //add combo box to selected degree option
+            for(var subModules : Degree.getModuleLists()){
+                if(subModules.getModuleLists().size() != 0) {
+                    program_modules.add(subModules.getModuleName());
+                }
+            }
+
+            final ComboBox options = new ComboBox(program_modules);
+            grid.add(options, 0, 9, 2, 1);
+
+            // populate window 2
+            //create left paanel
+            VBox leftPanel = new VBox();
+            leftPanel.setPrefWidth(500);
+
+            // create right panel
+            VBox rightPanel = new VBox();
+
+            //add left and right pannel to the root base
+            root.getChildren().add(leftPanel);
+            root.getChildren().add(rightPanel);
+
+            //start degree structure display
+            this.rootNode = new TreeItem<>();
+            this.rootNode.setValue(Degree.getModuleName());
+            rootNode.setExpanded(true);
+
+            // set degree option & get its structure
+            if(!Degree.getModuleLists().isEmpty()) {
+                //check to see which option is chosen by the User
+                Modules studentChosenOption = null;
+                for(var subModule : Degree.getModuleLists()){
+                    if(!subModule.getModuleLists().isEmpty()){
+                        studentChosenOption = subModule;
+                        break;
+                    }
+                }
+                if(studentChosenOption != null) {
+                    TreeItem<String> program = new TreeItem<>(studentChosenOption.getModuleName(), rootIcon);
+
+                    for (var subModule : studentChosenOption.getModuleLists()) {
+                        TreeItem<String> structure = getLevelStructure(subModule);
+                        program.getChildren().add(structure);
+                    }
+
+                    rootNode.getChildren().add(program);
+                }
+            }
+
+            tree = new TreeView<>(rootNode);
+
+            //create vbox to hold treeView list
+            //VBox leftPanel = new VBox();
+            leftPanel.getChildren().clear();
+            leftPanel.setSpacing(10);
+            leftPanel.getChildren().add(tree);
+
+            //create top and bottom sections on the right panel
+            // top section
+            VBox rightPanelTop = new VBox();
+            rightPanelTop.setSpacing(5);
+            rightPanelTop.setPrefHeight(400);
+            rightPanelTop.setPrefWidth(400);
+            // set background color
+            rightPanelTop.getStyleClass().add("color-palette");
+            rightPanelTop.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            // set margins around the two sections
+            VBox.setMargin(rightPanelTop, new Insets(10, 10, 10, 10));
+
+            // botton section
+            HBox rightPanelBottom = new HBox();
+            rightPanelBottom.setSpacing(20);
+
+            // add top and button sections to the right panel
+            rightPanel.getChildren().add(rightPanelTop);
+            rightPanel.getChildren().add(rightPanelBottom);
+
+            // create buttons and add them to the bottom section of the right panel
+            Button btnAddCourse = new Button("Add Course");
+            rightPanelBottom.getChildren().add(btnAddCourse);
+
+            Button btnRemoveCourse = new Button("Remove Course");
+            rightPanelBottom.getChildren().add(btnRemoveCourse);
+
+            Button btnCompleteCourse = new Button("Complete Course");
+            rightPanelBottom.getChildren().add(btnCompleteCourse);
+
+        });
+        return scene3;
+    }
+
+    /**
      * ************************************************************************
     */
     // helper functions
@@ -613,16 +766,41 @@ public class Sisu extends Application {
         stage.setScene(scene);
     }
 
-    private void closeProgram(){
+    private void closeProgram() throws IOException {
         if(studentNumber != null){
             int conformation = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?",
                     "Confirm", JOptionPane.YES_NO_OPTION);
-            if(conformation == 0){
-                System.out.println(studentNumber);
-            }
-        }
-        System.out.println("Exiting the program.");
 
+            int degreeOptionSize = 0;
+            if(Degree != null) {
+                for (var module : Degree.getModuleLists()) {
+                    if(module.getModuleLists().size() != 0) {
+                        degreeOptionSize = module.getModuleLists().size();
+                    }
+                }
+            }
+
+            if(conformation == 0){
+                if(Degree == null){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Please Select One Degree Program!");
+                    alert.show();
+                } else if(degreeOptionSize == 0){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Please Select At Least One Degree Option!");
+                    alert.show();
+                } else {
+                    System.out.println("File name: " + studentNumber);
+                    new WriteJsonToFile(Degree, studentNumber).convertToJsonAndWriteToFile();
+                    System.out.println("Exiting the program.");
+                    stage.close();
+                }
+            } else if(conformation == 1) {
+                System.out.println("Exiting the program.");
+                stage.close();
+            }
+        } else {
+            System.out.println("Exiting the program.");
+            stage.close();
+        }
     }
 
     public static void main(String[] args) {

@@ -64,11 +64,15 @@ public class Sisu extends Application {
 
     //Degree name and id map
     private TreeMap<String, String> DataMap;
-
     private TreeItem<String> rootNode;
     private TreeView<String> tree;
     
+    ArrayList<TreeItem<String>> courseTreeItems; // all course tree items
+    String selected_checkbox = null; // selected checkbox
+    ArrayList<CheckBox> studentChoices = new ArrayList<>(); // all created chebox items
+    
     Image icon = new Image("https://opportunityforum.info/wp-content/uploads/2022/04/folder.png");
+    Image icon2 = new Image("https://opportunityforum.info/wp-content/uploads/2022/05/folder2.png");
      private final Node rootIcon = new ImageView(icon);
 
     @Override
@@ -173,6 +177,9 @@ public class Sisu extends Application {
                     // build submodule with degree option
                     TreeItem<String> program = new TreeItem<>(main_degree_option, rootIcon);
                     rootNode.getChildren().add(program);
+                    
+                    // add courses as tree items
+                    courseTreeItems = new ArrayList<>();
 
                     // find degree options
                     for (Modules module : program_modules_structure) {
@@ -183,18 +190,16 @@ public class Sisu extends Application {
                                 TreeItem<String> course_option = new TreeItem<>(module.getModuleName());
                                 program.getChildren().add(course_option);
 
-                                // add courses
-                                List<TreeItem<String>> courseTreeItems = new ArrayList<>();
                                 for (Courses course_module : module.getCoursesLists()) {
                                     TreeItem<String> course = new TreeItem<>(course_module.getCourseName());
-                                    courseTreeItems.add(course);
+                                    courseTreeItems.add(course); // add courses as tree items
                                     course_option.getChildren().add(course);
 
                                 }
 
                                 // save all courses under their modules (as treeItems)
-                                program_courses = new TreeMap<>();
-                                TreeMap< TreeItem<String>, List< TreeItem<String>>> courseTreeItemData = new TreeMap<>();
+                                //program_courses = new TreeMap<>();
+                                //TreeMap< TreeItem<String>, List< TreeItem<String>>> courseTreeItemData = new TreeMap<>();
                                 //courseTreeItemData.put(course_option, courseTreeItems);
                                 //program_courses.put(submodule.getModuleName(), courseTreeItemData);
 
@@ -247,7 +252,7 @@ public class Sisu extends Application {
         
  /*****************************************************************************/       
         // display selected courses
-        Text text1 = new Text("");
+        /*Text text1 = new Text("");
         rightPanelTop.getChildren().add(text1);
 
         ArrayList<CheckBox> studentChoices = new ArrayList<>();
@@ -268,7 +273,7 @@ public class Sisu extends Application {
                         }
 
                     });
-        }
+        }*/
 
         /**
          * ***************************************************************************
@@ -283,12 +288,14 @@ public class Sisu extends Application {
                 List<String> selecedCourses = getSelectedCourses(s);
                 for (String Course : selecedCourses) {
                     CheckBox studentChoice = new CheckBox(Course);
-                    rightPanelTop.getChildren().add(studentChoice);
+                    addCheckboxEvent(studentChoice); // add event listener
+                    studentChoices.add(studentChoice); // add selected choice to list of choices
+                    rightPanelTop.getChildren().clear();
+                    rightPanelTop.getChildren().addAll(studentChoices);
                 }
 
             }
-        });
-
+        });        
         /**
          * *********************************************************************
          */
@@ -296,14 +303,57 @@ public class Sisu extends Application {
         btnRemoveCourse.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
 
-                TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
+                TreeItem<String>selected_checkbox_item = null;
+                for(TreeItem<String> item: courseTreeItems){
+                    System.out.println(item.getValue());
+                    System.out.println(selected_checkbox);
+                    if(item.getValue().equalsIgnoreCase(selected_checkbox)){
+                        selected_checkbox_item = item;
+                    }
+                }
+                if(selected_checkbox_item != null){
+                    //rightPanelTop.getChildren().rem;
+                    for(CheckBox course : studentChoices){
+                        if(selected_checkbox_item.getValue().equals(course.getText())){
+                            studentChoices.remove(course);
+                            rightPanelTop.getChildren().clear();
+                            rightPanelTop.getChildren().addAll(studentChoices);
+                        }
+                    }
+                    //courseTreeItems.remove(selected_checkbox_item);
+                    //selected_checkbox_item = new TreeItem(selected_checkbox_item.getValue());
+                    //selected_checkbox_item.setGraphic(new ImageView(icon2));
+                }
+                selected_checkbox_item.setGraphic(new ImageView(icon2));
+            }
+        });
+        
+        btnCompleteCourse.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //String selected_course = null;
+                TreeItem<String>selected_checkbox_item = null;
+                for(TreeItem<String> item: courseTreeItems){
+                    System.out.println(item.getValue());
+                    System.out.println(selected_checkbox);
+                    if(item.getValue().equalsIgnoreCase(selected_checkbox)){
+                        selected_checkbox_item = item;
+                    }
+                }
+                if(selected_checkbox_item != null){
+                    selected_checkbox_item.setGraphic(new ImageView(icon));
+                }
+                
+                
+                // get the selectd course
+
+                /*TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
                 //TreeItem selecteItem = rootNode.getChildren().get(0);
                 String s = selecteItem.getValue().toString();
                 List<String> selecedCourses = getSelectedCourses(s);
                 for (String Course : selecedCourses) {
                     CheckBox studentChoice = new CheckBox(Course);
                     rightPanelTop.getChildren().add(studentChoice);
-                }
+                }*/
 
             }
         });
@@ -449,6 +499,16 @@ public class Sisu extends Application {
            // }
         }
         return selectedCourses;
+    }
+    
+    private void addCheckboxEvent(CheckBox studentChoice){
+        studentChoice.selectedProperty().addListener(
+                    (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+                        if (new_val) {
+                            selected_checkbox = studentChoice.getText();
+                        } 
+
+        });
     }
 
     public static void main(String[] args) {

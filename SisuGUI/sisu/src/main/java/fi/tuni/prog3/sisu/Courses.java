@@ -15,7 +15,7 @@ public class Courses {
     private final String groupId;
     private final String courseCreditsMin;
     private final String courseCreditsMax;
-    private final Modules parentModule;
+    //private final Modules parentModule;
     private Boolean completed;
 
     /**
@@ -29,12 +29,12 @@ public class Courses {
      * @param booleanValue - Boolean value. 
      */
     public Courses(String courseName, String groupId, String courseCreditsMin, String courseCreditsMax,
-            Boolean booleanValue, Modules parent) {
+            Boolean booleanValue) {
         this.courseName = courseName;
         this.groupId = groupId;
         this.courseCreditsMin = courseCreditsMin;
         this.courseCreditsMax = courseCreditsMax;
-        this.parentModule = parent;
+        //this.parentModule = parent;
         this.completed = booleanValue;
     }
 
@@ -95,7 +95,7 @@ public class Courses {
         this.completed = false;
     }
     
-    public Modules getParentModule() {
-        return this.parentModule;
-    }
+//    public Modules getParentModule() {
+//        return this.parentModule;
+//    }
 }

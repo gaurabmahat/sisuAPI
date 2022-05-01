@@ -48,21 +48,21 @@ public class Sisu extends Application {
     private String studentNumber;
 
     // data handling containers
-    private ObservableList<String> degree_programs = FXCollections.observableArrayList();
-    private ObservableList<Modules> degree_program_structure = FXCollections.observableArrayList();
+    //private ObservableList<String> degree_programs = FXCollections.observableArrayList();
+    //private ObservableList<Modules> degree_program_structure = FXCollections.observableArrayList();
 
     private ObservableList<String> program_modules = FXCollections.observableArrayList();
-    private ObservableList<Modules> program_modules_structure = FXCollections.observableArrayList();
+    //private ObservableList<Modules> program_modules_structure = FXCollections.observableArrayList();
     ObservableList<String> degree_info;
 
     // courses
-    private ObservableList<String> orientation_modules = FXCollections.observableArrayList();
+    //private ObservableList<String> orientation_modules = FXCollections.observableArrayList();
     private String main_degree_program;
-    private String main_degree_id;
+    //private String main_degree_id;
     private String main_degree_option;
 
     // save all the treeView courses as Modules
-    private TreeMap<String, TreeMap< TreeItem<String>, List< TreeItem<String>>>> program_courses;
+    //private TreeMap<String, TreeMap< TreeItem<String>, List< TreeItem<String>>>> program_courses;
 
     //Degree name and id map
     private TreeMap<String, String> DataMap;
@@ -218,11 +218,8 @@ public class Sisu extends Application {
                     // get selected drgree program
                     String selected_degree = degree_info.get(new_val.intValue());
                     String degree_of_interest = DataMap.get(selected_degree);
-                    CompletableFuture<Void> waiting = CompletableFuture.runAsync(() -> {
-                        System.out.println("Fetching the degree...");
-                        loadFirstLevel(degree_of_interest);
-                        System.out.println("Fetching completed!");
-                    });
+                    program_modules.clear();
+                    loadFirstLevel(degree_of_interest);
                 });
 
         /**
@@ -252,16 +249,33 @@ public class Sisu extends Application {
                     this.rootNode.setValue(main_degree_program);
                     rootNode.setExpanded(true);
 
-                    // set degree option
+                    // set degree option & get its structure
                     main_degree_option = program_modules.get(new_val.intValue());
-                    for (Modules option : degree_program_structure) {
-                        if (option.getModuleName().equalsIgnoreCase(main_degree_option)) {
-                            loadStructure(option);
+                    if (Degree.getModuleLists().isEmpty()) {
+                        loadStructure(Degree);
+                        TreeItem<String> program = new TreeItem<>(Degree.getModuleName(), rootIcon);
+                        for (Modules module : Degree.getModuleLists()) {
+                            TreeItem<String> structure = getLevelStructure(module);
+                            program.getChildren().add(structure);
+                        }
+                        rootNode.getChildren().add(program);
+                    } else {
+                        for (Modules option : Degree.getModuleLists()) {
+                            if (option.getModuleName().equalsIgnoreCase(main_degree_option)) {
+                                loadStructure(option);
+                                TreeItem<String> program = new TreeItem<>(option.getModuleName(), rootIcon);
+                                for (Modules module : option.getModuleLists()) {
+                                    TreeItem<String> structure = getLevelStructure(module);
+                                    program.getChildren().add(structure);
+                                }
+                                rootNode.getChildren().add(program);
+                            }
                         }
                     }
-
+                    
+                    
                     // build submodule with degree option
-                    TreeItem<String> program = new TreeItem<>(main_degree_option, rootIcon);
+                    /*TreeItem<String> program = new TreeItem<>(main_degree_option, rootIcon);
                     rootNode.getChildren().add(program);
                     
                     // add courses as tree items
@@ -291,7 +305,7 @@ public class Sisu extends Application {
 
                             //}
                         //}
-                    }
+                    }*/
 
                     tree = new TreeView<>(rootNode);
 
@@ -365,7 +379,7 @@ public class Sisu extends Application {
          * ***************************************************************************
          */
         // add action event for adding course buttion
-        btnAddCourse.setOnAction(new EventHandler<ActionEvent>() {
+        /*btnAddCourse.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
 
                 TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
@@ -381,12 +395,13 @@ public class Sisu extends Application {
                 }
 
             }
-        });        
+        });*/
+
         /**
          * *********************************************************************
          */
         // add action event for adding course buttion
-        btnRemoveCourse.setOnAction(new EventHandler<ActionEvent>() {
+        /*btnRemoveCourse.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
 
                 TreeItem<String>selected_checkbox_item = null;
@@ -442,7 +457,7 @@ public class Sisu extends Application {
                 }*/
 
             }
-        });
+        });*/
         /**
          * *************************************************************************
          */
@@ -479,14 +494,14 @@ public class Sisu extends Application {
 
     // load degree program modules -> called by select action event
     private void loadFirstLevel(String degree_program) {
-        degree_program_structure.clear();
-        program_modules_structure.clear();
+        //degree_program_structure.clear();
+        //program_modules_structure.clear();
         program_modules.clear();
 
         ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
         attributes.getModuleAttributes("module", "id", degree_program);
 
-        var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3));
+        Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3), null);
         main_degree_program = Degree.getModuleName(); // set
         
         //get degree options only
@@ -494,18 +509,17 @@ public class Sisu extends Application {
         first_level.getDegreeOptions(Degree);
         List<String> options = first_level.getOptions();
         
-        for (var option : options) { // add options to the global list
+        for (var option : options) {
             program_modules.add(option);
         }
         
-        for (Modules module : Degree.getModuleLists()) {
+        /*for (Modules module : Degree.getModuleLists()) {
             degree_program_structure.add(module);
-            System.out.println(module.getModuleName());
         }
         
         if (degree_program_structure.isEmpty()) {
             degree_program_structure.add(Degree);
-        }
+        }*/
 
         
         /*ModuleStructure ms = new ModuleStructure();
@@ -530,30 +544,48 @@ public class Sisu extends Application {
     }
     
     private void loadStructure (Modules degree_option) {
+        //Degree.clearModuleLists();
+        //Degree.addModuleLists(degree_option);
         ModuleStructure ms = new ModuleStructure();
         ms.getModuleStructure(degree_option); // this step fetches the rest of the degree structure
         
-        for (Modules module : degree_option.getModuleLists()) {
+        /*for (Modules module : degree_option.getModuleLists()) {
             program_modules_structure.add(module);
+        }*/
+    }
+    
+    private TreeItem<String> getLevelStructure(Modules module) {
+        TreeItem<String> structure = new TreeItem<>(module.getModuleName());
+        
+        for (Courses course : module.getCoursesLists()) {
+            TreeItem<String> sub_course = new TreeItem<>(course.getCourseName());
+            structure.getChildren().add(sub_course);
         }
+        
+        for (Modules submodule : module.getModuleLists()) {
+            TreeItem<String> sub_module = getLevelStructure(submodule);
+            structure.getChildren().add(sub_module);
+        }
+
+        return structure;
     }
 
 
-    private void loadCourseModules(Modules module) {
+    /*private void loadCourseModules(Modules module) {
         List<Modules> course_modules = module.getModuleLists();
 
         //add all courses
-    }
+    }*/
 
     // capture selcted courses
-    private List<String> getSelectedCourses(String selectedItem) {
+    /*private List<String> getSelectedCourses(String selectedItem) {
         List<String> selectedCourses = new ArrayList<>();
 
         // loads all courses
         if (selectedItem.equals(main_degree_program) || selectedItem.equals(main_degree_option)) {
             //for (Modules module : program_modules_structure) {
                 //if (module.getModuleName().equalsIgnoreCase(main_degree_option)) {
-                    for (Modules submodule : program_modules_structure) {
+                    for (Modules submodule : Degree.getModuleLists()) {
                         // add courses
                         for (Courses course_module : submodule.getCoursesLists()) {
                             selectedCourses.add(course_module.getCourseName());
@@ -582,7 +614,7 @@ public class Sisu extends Application {
                     }
                 //}
            // }
-        }
+        }      
         return selectedCourses;
     }
     

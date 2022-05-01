@@ -54,7 +54,7 @@ public class DegreeOptions {
             ModuleAttributes attributes = new ModuleAttributes();
             attributes.getModuleAttributes("module", "group_id", submodule_id);
 
-            Modules submodule = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3));
+            Modules submodule = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3), degree);
             
             if (submodule.getModuleCredits().equals(degree.getModuleCredits())) {
                 this.optionsList.add(submodule.getModuleName());

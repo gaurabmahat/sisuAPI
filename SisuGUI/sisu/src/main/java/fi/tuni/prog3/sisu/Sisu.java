@@ -273,6 +273,7 @@ public class Sisu extends Application {
                     // set degree option & get its structure
                     main_degree_option = program_modules.get(new_val.intValue());
                     System.out.println("Fetching degree option...");
+                    courseTreeItems = new ArrayList<>();
                     if (Degree.getModuleLists().isEmpty()) {
                         loadStructure(Degree);
                         TreeItem<String> program = new TreeItem<>(Degree.getModuleName(), rootIcon);
@@ -342,7 +343,7 @@ public class Sisu extends Application {
         
  /*****************************************************************************/       
         // display selected courses
-        Text text1 = new Text("");
+       /* Text text1 = new Text("");
         rightPanelTop.getChildren().add(text1);
 
         ArrayList<CheckBox> studentChoices = new ArrayList<>();
@@ -363,7 +364,7 @@ public class Sisu extends Application {
                         }
 
                     });
-        }
+        }*/
 
         /**
          * ***************************************************************************
@@ -378,11 +379,24 @@ public class Sisu extends Application {
                 List<String> selecedCourses = getSelectedCourses(s);
                 for (String Course : selecedCourses) {
                     CheckBox studentChoice = new CheckBox(Course);
-                    addCheckboxEvent(studentChoice); // add event listener
-                    studentChoices.add(studentChoice); // add selected choice to list of choices
-                    rightPanelTop.getChildren().clear();
-                    rightPanelTop.getChildren().addAll(studentChoices);
+                    boolean course_exists = false;
+                    for(var choice: studentChoices){
+                        if(choice.getText().equals(Course)){
+                            course_exists = true;
+                            continue;
+                        }
+                    }
+                    
+                    if(course_exists == false){
+                        addCheckboxEvent(studentChoice); // add event listener
+                        studentChoices.add(studentChoice); // add selected choice to list of choices
+                        rightPanelTop.getChildren().clear();
+                        rightPanelTop.getChildren().addAll(studentChoices); 
+                    }
+
                 }
+                
+                
 
             }
         });
@@ -396,8 +410,10 @@ public class Sisu extends Application {
 
                 TreeItem<String>selected_checkbox_item = null;
                 for(TreeItem<String> item: courseTreeItems){
+                    System.out.println("**************************");
                     System.out.println(item.getValue());
                     System.out.println(selected_checkbox);
+                    System.out.println("------------------------------------");
                     if(item.getValue().equalsIgnoreCase(selected_checkbox)){
                         selected_checkbox_item = item;
                     }
@@ -415,7 +431,7 @@ public class Sisu extends Application {
                     //selected_checkbox_item = new TreeItem(selected_checkbox_item.getValue());
                     //selected_checkbox_item.setGraphic(new ImageView(icon2));
                 }
-                selected_checkbox_item.setGraphic(new ImageView(icon2));
+                //selected_checkbox_item.setGraphic(new ImageView(icon2));
             }
         });
         
@@ -437,14 +453,14 @@ public class Sisu extends Application {
                 
                 // get the selectd course
 
-                TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
+                /*TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
                 //TreeItem selecteItem = rootNode.getChildren().get(0);
                 String s = selecteItem.getValue().toString();
                 List<String> selecedCourses = getSelectedCourses(s);
                 for (String Course : selecedCourses) {
                     CheckBox studentChoice = new CheckBox(Course);
                     rightPanelTop.getChildren().add(studentChoice);
-                }
+                }*/
 
             }
         });
@@ -526,6 +542,7 @@ public class Sisu extends Application {
             this.rootNode = new TreeItem<>();
             this.rootNode.setValue(Degree.getModuleName());
             rootNode.setExpanded(true);
+            courseTreeItems = new ArrayList<>();
 
             // set degree option & get its structure
             if(!Degree.getModuleLists().isEmpty()) {
@@ -586,8 +603,11 @@ public class Sisu extends Application {
 
             Button btnCompleteCourse = new Button("Complete Course");
             rightPanelBottom.getChildren().add(btnCompleteCourse);
+            
 
         });
+        
+
         return scene3;
     }
 
@@ -650,10 +670,17 @@ public class Sisu extends Application {
     
     private TreeItem<String> getLevelStructure(Modules module) {
         TreeItem<String> structure = new TreeItem<>(module.getModuleName());
-        
+        //courseTreeItems = new ArrayList<>();
         for (Courses course : module.getCoursesLists()) {
             TreeItem<String> sub_course = new TreeItem<>(course.getCourseName());
             structure.getChildren().add(sub_course);
+            courseTreeItems.add(sub_course);
+            
+            /******** temp ***************/
+            if(course.getCompleted()){
+                sub_course.setGraphic(new ImageView(icon2));
+            }
+
         }
         
         for (Modules submodule : module.getModuleLists()) {

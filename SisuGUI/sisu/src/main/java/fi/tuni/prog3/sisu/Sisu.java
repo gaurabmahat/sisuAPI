@@ -26,6 +26,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -76,6 +78,10 @@ public class Sisu extends Application {
         stage = primaryStage;
 
         //Trigger an action when the program is being closed
+        stage.setOnCloseRequest(e -> {
+            //e.consume();
+            closeProgram();
+        });
 
         scene1 = createSceneOne();
         scene2 = createSceneTwo();
@@ -532,6 +538,17 @@ public class Sisu extends Application {
     
     public void switchScenes(Scene scene){
         stage.setScene(scene);
+    }
+
+    private void closeProgram(){
+        if(studentNumber != null){
+            int conformation = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?",
+                    "Confirm", JOptionPane.YES_NO_OPTION);
+            if(conformation == 0){
+                System.out.println(studentNumber);
+            }
+        }
+        System.out.println("Exiting the program.");
     }
 
     public static void main(String[] args) {

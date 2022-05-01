@@ -19,6 +19,7 @@ public class Modules {
     private final String moduleId;
     private final String groupId;
     private final String moduleCredits;
+    private final Modules parentModule;
     private int completedCredits;
     private List<Modules> moduleLists;
     private List<Courses> coursesLists;
@@ -31,11 +32,12 @@ public class Modules {
      * @param moduleCredits - credits of the StudyModule.
      */
     public Modules(String moduleName, String moduleId, String groupId,
-            String moduleCredits) {
+            String moduleCredits, Modules parent) {
         this.moduleName = moduleName;
         this.moduleId = moduleId;
         this.groupId = groupId;
         this.moduleCredits = moduleCredits;
+        this.parentModule = parent;
         this.completedCredits = 0;
         this.moduleLists = new ArrayList<>();
         this.coursesLists = new ArrayList<>();
@@ -104,7 +106,7 @@ public class Modules {
     public void addModuleLists(Modules module) {
         this.moduleLists.add(module);
     }
-
+    
     /**
      * Returns a list that contains the Courses objects.
      * @return - list containing the Courses objects.
@@ -150,5 +152,9 @@ public class Modules {
      */
     public int getCompletedCredits() {
         return this.completedCredits;
+    }
+    
+    public Modules getParentModule() {
+        return this.parentModule;
     }
 }

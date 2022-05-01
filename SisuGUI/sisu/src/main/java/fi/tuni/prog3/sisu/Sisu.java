@@ -72,9 +72,12 @@ public class Sisu extends Application {
     ArrayList<TreeItem<String>> courseTreeItems; // all course tree items
     String selected_checkbox = null; // selected checkbox
     ArrayList<CheckBox> studentChoices = new ArrayList<>(); // all created chebox items
+<<<<<<< HEAD
 
     private Modules Degree;
     private ArrayList<Courses> temporarySelectedItems;
+=======
+>>>>>>> cb73ed0b9252b4f8209fee121333f5026ed2c7a6
     
     Image icon = new Image("https://opportunityforum.info/wp-content/uploads/2022/04/folder.png");
     Image icon2 = new Image("https://opportunityforum.info/wp-content/uploads/2022/05/folder2.png");
@@ -221,11 +224,16 @@ public class Sisu extends Application {
                     // get selected drgree program
                     String selected_degree = degree_info.get(new_val.intValue());
                     String degree_of_interest = DataMap.get(selected_degree);
+<<<<<<< HEAD
                     CompletableFuture<Void> waiting = CompletableFuture.runAsync(() -> {
                         System.out.println("Fetching the degree...");
                         loadFirstLevel(degree_of_interest);
                         System.out.println("Fetching completed!");
                     });
+=======
+                    program_modules.clear();
+                    loadFirstLevel(degree_of_interest);
+>>>>>>> cb73ed0b9252b4f8209fee121333f5026ed2c7a6
                 });
 
         /**
@@ -278,7 +286,12 @@ public class Sisu extends Application {
                             }
                         }
                     }
+<<<<<<< HEAD
 
+=======
+                    
+                    
+>>>>>>> cb73ed0b9252b4f8209fee121333f5026ed2c7a6
                     // build submodule with degree option
                     /*TreeItem<String> program = new TreeItem<>(main_degree_option, rootIcon);
                     rootNode.getChildren().add(program);
@@ -399,7 +412,13 @@ public class Sisu extends Application {
                     rightPanelTop.getChildren().addAll(studentChoices);
                 }
 
+<<<<<<< HEAD
         }
+=======
+            }
+        });*/
+
+>>>>>>> cb73ed0b9252b4f8209fee121333f5026ed2c7a6
         /**
          * *********************************************************************
          */
@@ -647,7 +666,10 @@ public class Sisu extends Application {
         System.out.println("Exiting the program.");
 
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> cb73ed0b9252b4f8209fee121333f5026ed2c7a6
 
     public static void main(String[] args) {
         launch();

@@ -19,7 +19,6 @@ public class Modules {
     private final String moduleId;
     private final String groupId;
     private final String moduleCredits;
-    //private final Modules parentModule;
     private int completedCredits;
     private List<Modules> moduleLists;
     private List<Courses> coursesLists;
@@ -37,7 +36,6 @@ public class Modules {
         this.moduleId = moduleId;
         this.groupId = groupId;
         this.moduleCredits = moduleCredits;
-        //this.parentModule = parent;
         this.completedCredits = 0;
         this.moduleLists = new ArrayList<>();
         this.coursesLists = new ArrayList<>();
@@ -154,7 +152,4 @@ public class Modules {
         return this.completedCredits;
     }
     
-//    public Modules getParentModule() {
-//        return this.parentModule;
-//    }
 }

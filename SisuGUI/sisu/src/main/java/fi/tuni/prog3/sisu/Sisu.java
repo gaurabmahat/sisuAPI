@@ -13,30 +13,21 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -44,6 +35,17 @@ import javax.swing.event.ChangeListener;
  * JavaFX Sisu
  */
 public class Sisu extends Application {
+    
+    //creating two scenes
+    private Stage stage;
+    
+    private Scene scene1;
+    private Scene scene2;
+    
+    //*********************************************************************
+    
+    //saving student number
+    private String studentNumber;
 
     // data handling containers
     //private ObservableList<String> degree_programs = FXCollections.observableArrayList();
@@ -64,18 +66,100 @@ public class Sisu extends Application {
 
     //Degree name and id map
     private TreeMap<String, String> DataMap;
-
     private TreeItem<String> rootNode;
     private TreeView<String> tree;
     
-    private Modules Degree;
-    private ArrayList<Courses> temporarySelectedItems;
+    ArrayList<TreeItem<String>> courseTreeItems; // all course tree items
+    String selected_checkbox = null; // selected checkbox
+    ArrayList<CheckBox> studentChoices = new ArrayList<>(); // all created chebox items
     
     Image icon = new Image("https://opportunityforum.info/wp-content/uploads/2022/04/folder.png");
+    Image icon2 = new Image("https://opportunityforum.info/wp-content/uploads/2022/05/folder2.png");
      private final Node rootIcon = new ImageView(icon);
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage primaryStage) {
+        stage = primaryStage;
+
+        //Trigger an action when the program is being closed
+        stage.setOnCloseRequest(e -> {
+            //e.consume();
+            closeProgram();
+        });
+
+        scene1 = createSceneOne();
+        scene2 = createSceneTwo();
+
+        stage.setScene(scene1);
+
+        stage.show();
+
+    }
+
+    private Scene createSceneOne(){
+        BorderPane borderPane = new BorderPane();
+        borderPane.setPadding(new Insets(10));
+
+        //Top of BorderPane
+        var topHBox = new HBox();
+        topHBox.setAlignment(Pos.CENTER);
+        borderPane.setTop(topHBox);
+        BorderPane.setMargin(topHBox, new Insets(10));
+        //Center of BorderPane
+        var vBox = new VBox();
+        vBox.setAlignment(Pos.TOP_CENTER);
+        borderPane.setCenter(vBox);
+
+        //add Text to the top of BorderPane
+        Text universityName = new Text("University of Tampere");
+        universityName.setFont(Font.font("Verdana", FontWeight.BOLD, 33));
+        universityName.setFill(Color.PURPLE);
+
+        topHBox.getChildren().add(universityName);
+
+        //add Label to the center of the BorderPane
+        Label studentText = new Label("Student");
+        studentText.setFont(Font.font("Sans Serif", FontWeight.BOLD, 25));
+
+        vBox.getChildren().add(studentText);
+        VBox.setMargin(studentText, new Insets(20));
+
+        //text field
+        Label studentId = new Label("Student Number: ");
+        studentId.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
+        TextField userInput = new TextField();
+
+        //add text field to the horizontal box
+        var centerHBox = new HBox();
+        centerHBox.getChildren().add(studentId);
+        centerHBox.getChildren().add(userInput);
+        centerHBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().add(centerHBox);
+        VBox.setMargin(centerHBox, new Insets(10));
+
+        //message to the user
+        Label invalidMessage = new Label();
+        vBox.getChildren().add(invalidMessage);
+
+        //login button
+        Button login = new Button("Login");
+        vBox.getChildren().add(login);
+        VBox.setMargin(login, new Insets(10));
+        login.setOnAction((e) -> {
+            if(!userInput.getText().isEmpty() && !userInput.getText().trim().isEmpty()){
+                studentNumber = userInput.getText();
+                switchScenes(scene2);
+            } else {
+                invalidMessage.setText("Please enter your Student Number!");
+            }
+        });
+
+        scene1 = new Scene(borderPane, 600, 580);
+
+        return scene1;
+    }
+
+    private Scene createSceneTwo() {
         var javaVersion = SystemInfo.javaVersion();
         var javafxVersion = SystemInfo.javafxVersion();
 
@@ -95,7 +179,7 @@ public class Sisu extends Application {
         tabPane.getTabs().add(tabWindow_2);
 
         // create scene and at the main tab pane
-        var scene = new Scene(tabPane, 1000, 680);
+        scene2 = new Scene(tabPane, 1000, 680);
 
         // populate window 1
         Label top_title = new Label("Student");
@@ -123,7 +207,7 @@ public class Sisu extends Application {
         option_title.setId("option_title");
         grid.add(option_title, 0, 7);       
 
-        // add add combo box to select degree opions
+        // add combo box to select degree opions
         final ComboBox options = new ComboBox(program_modules);
         grid.add(options, 0, 9, 2, 1);
         
@@ -193,6 +277,9 @@ public class Sisu extends Application {
                     // build submodule with degree option
                     /*TreeItem<String> program = new TreeItem<>(main_degree_option, rootIcon);
                     rootNode.getChildren().add(program);
+                    
+                    // add courses as tree items
+                    courseTreeItems = new ArrayList<>();
 
                     // find degree options
                     for (Modules module : program_modules_structure) {
@@ -203,18 +290,16 @@ public class Sisu extends Application {
                                 TreeItem<String> course_option = new TreeItem<>(module.getModuleName());
                                 program.getChildren().add(course_option);
 
-                                // add courses
-                                List<TreeItem<String>> courseTreeItems = new ArrayList<>();
                                 for (Courses course_module : module.getCoursesLists()) {
                                     TreeItem<String> course = new TreeItem<>(course_module.getCourseName());
-                                    courseTreeItems.add(course);
+                                    courseTreeItems.add(course); // add courses as tree items
                                     course_option.getChildren().add(course);
 
                                 }
 
                                 // save all courses under their modules (as treeItems)
-                                program_courses = new TreeMap<>();
-                                TreeMap< TreeItem<String>, List< TreeItem<String>>> courseTreeItemData = new TreeMap<>();
+                                //program_courses = new TreeMap<>();
+                                //TreeMap< TreeItem<String>, List< TreeItem<String>>> courseTreeItemData = new TreeMap<>();
                                 //courseTreeItemData.put(course_option, courseTreeItems);
                                 //program_courses.put(submodule.getModuleName(), courseTreeItemData);
 
@@ -251,7 +336,7 @@ public class Sisu extends Application {
         HBox rightPanelBottom = new HBox();
         rightPanelBottom.setSpacing(20);
 
-        // add top and botton sections to the right panel
+        // add top and button sections to the right panel
         rightPanel.getChildren().add(rightPanelTop);
         rightPanel.getChildren().add(rightPanelBottom);
 
@@ -267,7 +352,7 @@ public class Sisu extends Application {
         
  /*****************************************************************************/       
         // display selected courses
-        Text text1 = new Text("");
+        /*Text text1 = new Text("");
         rightPanelTop.getChildren().add(text1);
 
         ArrayList<CheckBox> studentChoices = new ArrayList<>();
@@ -288,7 +373,7 @@ public class Sisu extends Application {
                         }
 
                     });
-        }
+        }*/
 
         /**
          * ***************************************************************************
@@ -303,7 +388,10 @@ public class Sisu extends Application {
                 List<String> selecedCourses = getSelectedCourses(s);
                 for (String Course : selecedCourses) {
                     CheckBox studentChoice = new CheckBox(Course);
-                    rightPanelTop.getChildren().add(studentChoice);
+                    addCheckboxEvent(studentChoice); // add event listener
+                    studentChoices.add(studentChoice); // add selected choice to list of choices
+                    rightPanelTop.getChildren().clear();
+                    rightPanelTop.getChildren().addAll(studentChoices);
                 }
 
             }
@@ -316,14 +404,57 @@ public class Sisu extends Application {
         /*btnRemoveCourse.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
 
-                TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
+                TreeItem<String>selected_checkbox_item = null;
+                for(TreeItem<String> item: courseTreeItems){
+                    System.out.println(item.getValue());
+                    System.out.println(selected_checkbox);
+                    if(item.getValue().equalsIgnoreCase(selected_checkbox)){
+                        selected_checkbox_item = item;
+                    }
+                }
+                if(selected_checkbox_item != null){
+                    //rightPanelTop.getChildren().rem;
+                    for(CheckBox course : studentChoices){
+                        if(selected_checkbox_item.getValue().equals(course.getText())){
+                            studentChoices.remove(course);
+                            rightPanelTop.getChildren().clear();
+                            rightPanelTop.getChildren().addAll(studentChoices);
+                        }
+                    }
+                    //courseTreeItems.remove(selected_checkbox_item);
+                    //selected_checkbox_item = new TreeItem(selected_checkbox_item.getValue());
+                    //selected_checkbox_item.setGraphic(new ImageView(icon2));
+                }
+                selected_checkbox_item.setGraphic(new ImageView(icon2));
+            }
+        });
+        
+        btnCompleteCourse.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //String selected_course = null;
+                TreeItem<String>selected_checkbox_item = null;
+                for(TreeItem<String> item: courseTreeItems){
+                    System.out.println(item.getValue());
+                    System.out.println(selected_checkbox);
+                    if(item.getValue().equalsIgnoreCase(selected_checkbox)){
+                        selected_checkbox_item = item;
+                    }
+                }
+                if(selected_checkbox_item != null){
+                    selected_checkbox_item.setGraphic(new ImageView(icon));
+                }
+                
+                
+                // get the selectd course
+
+                /*TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
                 //TreeItem selecteItem = rootNode.getChildren().get(0);
                 String s = selecteItem.getValue().toString();
                 List<String> selecedCourses = getSelectedCourses(s);
                 for (String Course : selecedCourses) {
                     CheckBox studentChoice = new CheckBox(Course);
                     rightPanelTop.getChildren().add(studentChoice);
-                }
+                }*/
 
             }
         });*/
@@ -331,8 +462,7 @@ public class Sisu extends Application {
          * *************************************************************************
          */
 
-        stage.setScene(scene);
-        stage.show();
+        return scene2;
     }
 
     /**
@@ -486,7 +616,34 @@ public class Sisu extends Application {
            // }
         }      
         return selectedCourses;
-    }*/
+    }
+    
+
+    private void addCheckboxEvent(CheckBox studentChoice){
+        studentChoice.selectedProperty().addListener(
+                    (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+                        if (new_val) {
+                            selected_checkbox = studentChoice.getText();
+                        } 
+
+        });
+    }
+
+    public void switchScenes(Scene scene){
+        stage.setScene(scene);
+    }
+
+    private void closeProgram(){
+        if(studentNumber != null){
+            int conformation = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?",
+                    "Confirm", JOptionPane.YES_NO_OPTION);
+            if(conformation == 0){
+                System.out.println(studentNumber);
+            }
+        }
+        System.out.println("Exiting the program.");
+
+    }
 
     public static void main(String[] args) {
         launch();

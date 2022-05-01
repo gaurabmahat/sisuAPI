@@ -69,7 +69,8 @@ public class Sisu extends Application {
     ArrayList<CheckBox> studentChoices = new ArrayList<>(); // all created chebox items
 
     private Modules Degree;
-    private ArrayList<Courses> temporarySelectedItems;
+    private Integer index_of_main_option;
+    private TreeMap<String, Courses> temporarySelectedItems = new TreeMap<>();
 
     
     Image icon = new Image("https://opportunityforum.info/wp-content/uploads/2022/04/folder.png");
@@ -254,6 +255,7 @@ public class Sisu extends Application {
 
                     // set degree option & get its structure
                     main_degree_option = program_modules.get(new_val.intValue());
+                    System.out.println("Fetching degree option...");
                     if (Degree.getModuleLists().isEmpty()) {
                         loadStructure(Degree);
                         TreeItem<String> program = new TreeItem<>(Degree.getModuleName(), rootIcon);
@@ -265,6 +267,7 @@ public class Sisu extends Application {
                     } else {
                         for (Modules option : Degree.getModuleLists()) {
                             if (option.getModuleName().equalsIgnoreCase(main_degree_option)) {
+                                index_of_main_option = Degree.getModuleLists().indexOf(option);
                                 loadStructure(option);
                                 TreeItem<String> program = new TreeItem<>(option.getModuleName(), rootIcon);
                                 for (Modules module : option.getModuleLists()) {
@@ -275,6 +278,7 @@ public class Sisu extends Application {
                             }
                         }
                     }
+                    System.out.println("Fetching option completed!");
 
                     tree = new TreeView<>(rootNode);
 
@@ -321,7 +325,7 @@ public class Sisu extends Application {
         
  /*****************************************************************************/       
         // display selected courses
-        /*Text text1 = new Text("");
+        Text text1 = new Text("");
         rightPanelTop.getChildren().add(text1);
 
         ArrayList<CheckBox> studentChoices = new ArrayList<>();
@@ -342,13 +346,13 @@ public class Sisu extends Application {
                         }
 
                     });
-        }*/
+        }
 
         /**
          * ***************************************************************************
          */
         // add action event for adding course buttion
-        /*btnAddCourse.setOnAction(new EventHandler<ActionEvent>() {
+        btnAddCourse.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
 
                 TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
@@ -363,17 +367,14 @@ public class Sisu extends Application {
                     rightPanelTop.getChildren().addAll(studentChoices);
                 }
 
-<<<<<<< HEAD
-        }
-=======
             }
-        });*/
+        });
 
         /**
          * *********************************************************************
          */
         // add action event for adding course buttion
-        /*btnRemoveCourse.setOnAction(new EventHandler<ActionEvent>() {
+        btnRemoveCourse.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
 
                 TreeItem<String>selected_checkbox_item = null;
@@ -419,7 +420,7 @@ public class Sisu extends Application {
                 
                 // get the selectd course
 
-                /*TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
+                TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
                 //TreeItem selecteItem = rootNode.getChildren().get(0);
                 String s = selecteItem.getValue().toString();
                 List<String> selecedCourses = getSelectedCourses(s);
@@ -429,17 +430,17 @@ public class Sisu extends Application {
                 }
 
             }
-        });*/
-        /**
+        });
+        /*
          * *************************************************************************
-         */
+        */
 
         return scene2;
     }
 
-    /**
+    /*
      * ************************************************************************
-     */
+    */
     // helper functions
     private void addCourse(VBox vbox, Text text1) {
         CheckBox studentChoice = new CheckBox("first item");
@@ -466,13 +467,13 @@ public class Sisu extends Application {
 
     // load degree program modules -> called by select action event
     private void loadFirstLevel(String degree_program) {
-
+        temporarySelectedItems.clear();
         program_modules.clear();
 
         ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
         attributes.getModuleAttributes("module", "id", degree_program);
 
-        Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3), null);
+        Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3));
         main_degree_program = Degree.getModuleName(); // set
         
         //get degree options only
@@ -488,7 +489,7 @@ public class Sisu extends Application {
     }
     
     private void loadStructure (Modules degree_option) {
-
+        
         ModuleStructure ms = new ModuleStructure();
         ms.getModuleStructure(degree_option); // this step fetches the rest of the degree structure
 
@@ -513,41 +514,87 @@ public class Sisu extends Application {
     // capture selcted courses
     private List<String> getSelectedCourses(String selectedItem) {
         List<String> selectedCourses = new ArrayList<>();
-
-        // loads all courses
+        System.out.println("Initial state of selectedCourses: " + selectedCourses);
+        
         if (selectedItem.equals(main_degree_program) || selectedItem.equals(main_degree_option)) {
-            //for (Modules module : program_modules_structure) {
-                //if (module.getModuleName().equalsIgnoreCase(main_degree_option)) {
-                    for (Modules submodule : Degree.getModuleLists()) {
-                        // add courses
-                        for (Courses course_module : submodule.getCoursesLists()) {
-                            selectedCourses.add(course_module.getCourseName());
-                        }
-
-                    }
-                //}
-            //}
-        } // loads all courses under a certain module
+            if (index_of_main_option == null) {
+                for (Modules submodule : Degree.getModuleLists()) {
+                    selectedCourses = selectModule(submodule, selectedCourses);
+                }
+                return selectedCourses;
+            } else {
+                for (Modules submodule : Degree.getModuleLists().get(index_of_main_option).getModuleLists()) {
+                    selectedCourses = selectModule(submodule, selectedCourses);
+                }
+                return selectedCourses;
+            }    
+        }
         else {
-            for (Modules module : program_modules_structure) {
-                //if (module.getModuleName().equalsIgnoreCase(main_degree_option)) {
-                    //for (Modules submodule : module.getModuleLists()) {
-
-                        if (module.getModuleName().equals(selectedItem)) {  // add al the courses under a module
-                            for (Courses course_module : module.getCoursesLists()) {
-                                selectedCourses.add(course_module.getCourseName());
-                            }
-                        } else { // add just one selected course
-                            for (Courses course_module : module.getCoursesLists()) {
-                                if (selectedItem.equals(course_module.getCourseName())) {
-                                    selectedCourses.add(course_module.getCourseName());
-                                }
-                            }
+            if (index_of_main_option == null) {
+                for (Modules submodule : Degree.getModuleLists()) {
+                    if (submodule.getModuleName().equals(selectedItem)) {
+                        selectedCourses = selectModule(submodule, selectedCourses);
+                        return selectedCourses;
+                    }
+                    else {
+                        ArrayList<String> selected = checkModuleItems(submodule, selectedItem);
+                        if (selected.isEmpty()) {
+                            continue;
+                        }
+                        else {
+                            selectedCourses.addAll(selected);
+                            return selectedCourses;
                         }
                     }
-                //}
-           // }
-        }      
+                }
+                
+            } else {
+                for (Modules submodule : Degree.getModuleLists().get(index_of_main_option).getModuleLists()) {
+                    if (submodule.getModuleName().equals(selectedItem)) {
+                        selectedCourses = selectModule(submodule, selectedCourses);
+                        return selectedCourses;
+                    }
+                    else {
+                        ArrayList<String> selected = checkModuleItems(submodule, selectedItem);
+                        if (selected.isEmpty()) {
+                            continue;
+                        }
+                        else {
+                            selectedCourses.addAll(selected);
+                            return selectedCourses;
+                        }
+                    }
+                }
+            }
+        }
+        return selectedCourses;
+    }
+    
+    private ArrayList<String> checkModuleItems(Modules module, String name) {
+        ArrayList<String> selected = new ArrayList<>();
+        for (Courses course : module.getCoursesLists()) {
+            if (course.getCourseName().equals(name)) {
+                selected.add(course.getCourseName());
+                temporarySelectedItems.put(course.getCourseName(), course);
+                return selected;
+                }
+            }
+        for (Modules submodule : module.getModuleLists()) {
+            selected = checkModuleItems(submodule, name);
+            return selected;
+        }
+        return selected;
+    }
+    
+    private List<String> selectModule(Modules module, List<String> selectedCourses) {
+        System.out.println("Running selectModule ");
+        for (Courses course : module.getCoursesLists()) {
+            selectedCourses.add(course.getCourseName());
+            temporarySelectedItems.put(course.getCourseName(), course);
+        }
+        for (Modules submodule : module.getModuleLists()) {
+            selectedCourses = selectModule(submodule, selectedCourses);
+        }
         return selectedCourses;
     }
     

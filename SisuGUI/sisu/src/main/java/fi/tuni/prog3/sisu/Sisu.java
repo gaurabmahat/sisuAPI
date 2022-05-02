@@ -1,6 +1,5 @@
 package fi.tuni.prog3.sisu;
 
-import com.sun.source.tree.Tree;
 import fi.tuni.prog3.sisu.ConvertJson.ReadJsonFromFile;
 import fi.tuni.prog3.sisu.ConvertJson.WriteJsonToFile;
 import fi.tuni.prog3.sisu.SisuQuery.DegreesFromSisuAPI;
@@ -10,11 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
-import java.util.concurrent.CompletableFuture;
+
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,13 +27,10 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * JavaFX Sisu
@@ -378,7 +373,8 @@ public class Sisu extends Application {
                 TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
                 //TreeItem selecteItem = rootNode.getChildren().get(0);
                 String s = selecteItem.getValue().toString();
-                List<String> selecedCourses = getSelectedCourses(s);
+                List<String> selecedCourses = new ArrayList<>();
+                selecedCourses = getSelectedModulesOrCourses(Degree, selecedCourses, s);
                 for (String Course : selecedCourses) {
                     CheckBox studentChoice = new CheckBox(Course);
                     boolean course_exists = false;
@@ -622,7 +618,8 @@ public class Sisu extends Application {
                     TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
                     //TreeItem selecteItem = rootNode.getChildren().get(0);
                     String s = selecteItem.getValue().toString();
-                    List<String> selecedCourses = getSelectedCourses(s);
+                    List<String> selecedCourses = new ArrayList<>();
+                    selecedCourses = getSelectedModulesOrCourses(Degree, selecedCourses, s);
                     for (String Course : selecedCourses) {
                         CheckBox studentChoice = new CheckBox(Course);
                         boolean course_exists = false;
@@ -793,63 +790,28 @@ public class Sisu extends Application {
         return structure;
     }
 
-    // capture selcted courses
-    private List<String> getSelectedCourses(String selectedItem) {
-        List<String> selectedCourses = new ArrayList<>();
-        System.out.println("Initial state of selectedCourses: " + selectedCourses);
-        
-        if (selectedItem.equals(main_degree_program) || selectedItem.equals(main_degree_option)) {
-            if (index_of_main_option == null) {
-                for (Modules submodule : Degree.getModuleLists()) {
-                    selectedCourses = selectModule(submodule, selectedCourses);
+    private List<String> getSelectedModulesOrCourses(Modules module, List<String> selected, String selectedName){
+        if(Degree != null){
+            for(var subModule : module.getModuleLists()){
+                System.out.println(subModule.getModuleName());
+                if(subModule.getModuleName().equals(selectedName)){
+                    System.out.println("True");
+                    selected = selectModule(subModule, selected);
+                    return selected;
                 }
-                return selectedCourses;
-            } else {
-                for (Modules submodule : Degree.getModuleLists().get(index_of_main_option).getModuleLists()) {
-                    selectedCourses = selectModule(submodule, selectedCourses);
+                ArrayList<String> selectCourse = checkModuleItems(subModule, selectedName);
+                System.out.println(selectCourse.isEmpty());
+                if(!selectCourse.isEmpty()){
+                    selected.addAll(selectCourse);
+                    return selected;
                 }
-                return selectedCourses;
-            }    
-        }
-        else {
-            if (index_of_main_option == null) {
-                for (Modules submodule : Degree.getModuleLists()) {
-                    if (submodule.getModuleName().equals(selectedItem)) {
-                        selectedCourses = selectModule(submodule, selectedCourses);
-                        return selectedCourses;
-                    }
-                    else {
-                        ArrayList<String> selected = checkModuleItems(submodule, selectedItem);
-                        if (selected.isEmpty()) {
-                            continue;
-                        }
-                        else {
-                            selectedCourses.addAll(selected);
-                            return selectedCourses;
-                        }
-                    }
-                }
-                
-            } else {
-                for (Modules submodule : Degree.getModuleLists().get(index_of_main_option).getModuleLists()) {
-                    if (submodule.getModuleName().equals(selectedItem)) {
-                        selectedCourses = selectModule(submodule, selectedCourses);
-                        return selectedCourses;
-                    }
-                    else {
-                        ArrayList<String> selected = checkModuleItems(submodule, selectedItem);
-                        if (selected.isEmpty()) {
-                            continue;
-                        }
-                        else {
-                            selectedCourses.addAll(selected);
-                            return selectedCourses;
-                        }
-                    }
+                selected = getSelectedModulesOrCourses(subModule, selected, selectedName);
+                if(!selected.isEmpty()){
+                    return selected;
                 }
             }
         }
-        return selectedCourses;
+        return selected;
     }
     
     private ArrayList<String> checkModuleItems(Modules module, String name) {

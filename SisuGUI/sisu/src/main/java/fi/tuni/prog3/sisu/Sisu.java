@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import javax.swing.*;
 
@@ -72,6 +72,14 @@ public class Sisu extends Application {
     private Modules Degree;
     private Integer index_of_main_option;
     private TreeMap<String, Courses> temporarySelectedItems = new TreeMap<>();
+    
+    private String instr = "How to track your progress?\r\n"
+            + "(1) Click course/module name on the left and Add Course button to select courses.\r\n"
+            + "(2) Tick box next to course name on the right one at a time and click Remove Course "
+            + "button to remove course from selected.\r\n"
+            + "(3) Tick box next to course name on the right one at a time and click Complete Course "
+            + "to complete a course.\r\n"
+            + "(4) When closing the window, you will be asked if changes should be saved in your profile.";
 
     
     Image icon = new Image("https://opportunityforum.info/wp-content/uploads/2022/04/folder.png");
@@ -299,7 +307,22 @@ public class Sisu extends Application {
                     leftPanel.getChildren().clear();
                     leftPanel.setSpacing(10);
                     leftPanel.getChildren().add(tree);
-
+ 
+                    //add instructions text
+                    Label instructions = new Label();
+                    instructions.setPrefWidth(380);
+                    instructions.setWrapText(true);
+                    instructions.setTextAlignment(TextAlignment.JUSTIFY);
+                    instructions.setId("instructions");
+                    instructions.setPadding(new Insets(5));
+                    instructions.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, 
+                            CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                    instructions.setBackground(new Background(new BackgroundFill(Color.CORNSILK, 
+                            CornerRadii.EMPTY, Insets.EMPTY)));
+                    instructions.setText(instr);
+        
+                    leftPanel.getChildren().add(instructions);
+                    VBox.setMargin(instructions, new Insets(10));
                 });
 
         /**

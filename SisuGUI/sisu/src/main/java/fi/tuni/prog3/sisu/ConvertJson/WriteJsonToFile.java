@@ -62,14 +62,5 @@ public class WriteJsonToFile implements iReadAndWriteJson{
         System.out.println("Writing completed!");
     }
     
-//    public static void main(String[] args) throws IOException{
-//        
-//        ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
-//        attributes.getModuleAttributes("module", "id", "otm-87fb9507-a6dd-41aa-b924-2f15eca3b7ae");
-//
-//        var Degree = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3)); 
-//        ModuleStructure ms = new ModuleStructure(); 
-//        ms.getModuleStructure(Degree); // this step should handle fetching the entire structure of the degree
-//        new WriteJsonToFile(Degree, "Student").convertToJsonAndWriteToFile();
-//    }
+
 }

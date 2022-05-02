@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -34,6 +35,7 @@ import javax.swing.*;
 
 /**
  * JavaFX Sisu
+ * It contains the main class. It has all the necessary codes for displaying the Scenes and updating the components.
  */
 public class Sisu extends Application {
     
@@ -110,6 +112,11 @@ public class Sisu extends Application {
 
     }
 
+    /**
+     * It is the first Scene displayed when the program starts.
+     * It asks for the user id, in this case student number, to decide which Scene to display next.
+     * @return a Scene.
+     */
     private Scene createSceneOne(){
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(10));
@@ -183,6 +190,10 @@ public class Sisu extends Application {
         return scene1;
     }
 
+    /**
+     * It returns a Scene for the new users.
+     * @return - a Scene.
+     */
     private Scene createSceneTwo() {
         var javaVersion = SystemInfo.javaVersion();
         var javafxVersion = SystemInfo.javafxVersion();
@@ -242,7 +253,9 @@ public class Sisu extends Application {
                     // get selected drgree program
                     String selected_degree = degree_info.get(new_val.intValue());
                     String degree_of_interest = DataMap.get(selected_degree);
+                    System.out.println("Fetching degree...");
                     loadFirstLevel(degree_of_interest);
+                    System.out.println("Fetching degree completed!");
                 });
         
         /**
@@ -393,7 +406,8 @@ public class Sisu extends Application {
                 TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
                 //TreeItem selecteItem = rootNode.getChildren().get(0);
                 String s = selecteItem.getValue().toString();
-                List<String> selecedCourses = getSelectedCourses(s);
+                List<String> selecedCourses = new ArrayList<>();
+                selecedCourses = getSelectedModulesOrCourses(Degree, selecedCourses, s);
                 for (String Course : selecedCourses) {
                     CheckBox studentChoice = new CheckBox(Course);
                     boolean course_exists = false;
@@ -412,8 +426,6 @@ public class Sisu extends Application {
                     }
 
                 }
-                
-                
 
             }
         });
@@ -442,6 +454,7 @@ public class Sisu extends Application {
                             studentChoices.remove(course);
                             rightPanelTop.getChildren().clear();
                             rightPanelTop.getChildren().addAll(studentChoices);
+                            break;
                         }
                     }
                     //courseTreeItems.remove(selected_checkbox_item);
@@ -465,20 +478,11 @@ public class Sisu extends Application {
                 }
                 if(selected_checkbox_item != null){
                     selected_checkbox_item.setGraphic(new ImageView(icon));
+                    completeCourse(selected_checkbox_item.getValue());
+                    // redraw the tree structure
+                    drawDegreeStructure(leftPanel);
                 }
-                
-                
-                // get the selectd course
-
-                /*TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
-                //TreeItem selecteItem = rootNode.getChildren().get(0);
-                String s = selecteItem.getValue().toString();
-                List<String> selecedCourses = getSelectedCourses(s);
-                for (String Course : selecedCourses) {
-                    CheckBox studentChoice = new CheckBox(Course);
-                    rightPanelTop.getChildren().add(studentChoice);
-                }*/
-
+               
             }
         });
         /*
@@ -488,6 +492,10 @@ public class Sisu extends Application {
         return scene2;
     }
 
+    /**
+     * It returns a Scene when the users file already exists in the system.
+     * @return - s Scene.
+     */
     private Scene createSceneThree(){
         // Window1: set grid base for window
         GridPane grid = new GridPane();
@@ -534,10 +542,23 @@ public class Sisu extends Application {
             grid.add(option_title, 0, 7);
 
             //add combo box to selected degree option
+            int degreeOptionCount = 0; //count to see if the has degree options, or they are directly subModules
             for(var subModules : Degree.getModuleLists()){
-                if(subModules.getModuleLists().size() != 0) {
-                    program_modules.add(subModules.getModuleName());
+                if(!subModules.getModuleLists().isEmpty() || !subModules.getCoursesLists().isEmpty()) {
+                    //program_modules.add(subModules.getModuleName());
+                    degreeOptionCount++;
                 }
+            }
+            //if it only has one option it means the Degree has orientations
+            if(degreeOptionCount == 1){
+                for(var subModules : Degree.getModuleLists()){
+                    if(subModules.getModuleLists().size() != 0) {
+                        program_modules.add(subModules.getModuleName());
+                        break;
+                    }
+                }
+            } else if(degreeOptionCount > 1){   //if the Degree has subModules instead of Degree orientations
+                program_modules.add(Degree.getModuleName());
             }
 
             final ComboBox options = new ComboBox(program_modules);
@@ -563,24 +584,34 @@ public class Sisu extends Application {
 
             // set degree option & get its structure
             if(!Degree.getModuleLists().isEmpty()) {
-                //check to see which option is chosen by the User
+                //check to see which degree option is chosen by the User
                 Modules studentChosenOption = null;
-                for(var subModule : Degree.getModuleLists()){
-                    if(!subModule.getModuleLists().isEmpty()){
-                        studentChosenOption = subModule;
-                        break;
+                if(degreeOptionCount == 1){
+                    for(int i = 0; i < Degree.getModuleLists().size(); i++){
+                        if(!Degree.getModuleLists().get(i).getModuleLists().isEmpty()){
+                            studentChosenOption = Degree.getModuleLists().get(i);
+                            break;
+                        }
                     }
                 }
-                if(studentChosenOption != null) {
-                    TreeItem<String> program = new TreeItem<>(studentChosenOption.getModuleName(), rootIcon);
 
+                TreeItem<String> program;
+                if(studentChosenOption != null) {  //there is only degree option selected
+                    program = new TreeItem<>(studentChosenOption.getModuleName(), rootIcon);
                     for (var subModule : studentChosenOption.getModuleLists()) {
                         TreeItem<String> structure = getLevelStructure(subModule);
                         program.getChildren().add(structure);
                     }
 
-                    rootNode.getChildren().add(program);
+                } else {   //there is subModule inside the main degree
+                    program = new TreeItem<>(Degree.getModuleName(), rootIcon);
+                    for (var subModule : Degree.getModuleLists()) {
+                        TreeItem<String> structure = getLevelStructure(subModule);
+                        program.getChildren().add(structure);
+                    }
+
                 }
+                rootNode.getChildren().add(program);
             }
 
             tree = new TreeView<>(rootNode);
@@ -637,8 +668,103 @@ public class Sisu extends Application {
             leftPanel.getChildren().add(instructions);
             VBox.setMargin(instructions, new Insets(10));
 
+
+
+            // add action event for adding course buttion
+            btnAddCourse.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+
+                    TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
+                    //TreeItem selecteItem = rootNode.getChildren().get(0);
+                    String s = selecteItem.getValue().toString();
+                    List<String> selecedCourses = new ArrayList<>();
+                    selecedCourses = getSelectedModulesOrCourses(Degree, selecedCourses, s);
+                    for (String Course : selecedCourses) {
+                        CheckBox studentChoice = new CheckBox(Course);
+                        boolean course_exists = false;
+                        for(var choice: studentChoices){
+                            if(choice.getText().equals(Course)){
+                                course_exists = true;
+                            }
+                        }
+
+                        if(course_exists == false){
+                            addCheckboxEvent(studentChoice); // add event listener
+                            studentChoices.add(studentChoice); // add selected choice to list of choices
+                            rightPanelTop.getChildren().clear();
+                            rightPanelTop.getChildren().addAll(studentChoices);
+                        }
+
+                    }
+                }
+            });
+
+            /**
+             * *********************************************************************
+             */
+            // add action event for adding course buttion
+            btnRemoveCourse.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+
+                    TreeItem<String>selected_checkbox_item = null;
+                    for(TreeItem<String> item: courseTreeItems){
+                        System.out.println("**************************");
+                        System.out.println(item.getValue());
+                        System.out.println(selected_checkbox);
+                        System.out.println("------------------------------------");
+                        if(item.getValue().equalsIgnoreCase(selected_checkbox)){
+                            selected_checkbox_item = item;
+                        }
+                    }
+                    if(selected_checkbox_item != null){
+                        //rightPanelTop.getChildren().rem;
+                        for(CheckBox course : studentChoices){
+                            if(selected_checkbox_item.getValue().equals(course.getText())){
+                                studentChoices.remove(course);
+                                rightPanelTop.getChildren().clear();
+                                rightPanelTop.getChildren().addAll(studentChoices);
+                                break;
+                            }
+                        }
+                        //courseTreeItems.remove(selected_checkbox_item);
+                        //selected_checkbox_item = new TreeItem(selected_checkbox_item.getValue());
+                        //selected_checkbox_item.setGraphic(new ImageView(icon2));
+                    }
+                    //selected_checkbox_item.setGraphic(new ImageView(icon2));
+                }
+            });
+
+            btnCompleteCourse.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    //String selected_course = null;
+                    TreeItem<String>selected_checkbox_item = null;
+                    for(TreeItem<String> item: courseTreeItems){
+                        System.out.println(item.getValue());
+                        System.out.println(selected_checkbox);
+                        if(item.getValue().equalsIgnoreCase(selected_checkbox)){
+                            selected_checkbox_item = item;
+                        }
+                    }
+                    if(selected_checkbox_item != null){
+                        selected_checkbox_item.setGraphic(new ImageView(icon));
+                    }
+
+
+                    // get the selectd course
+
+                /*TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
+                //TreeItem selecteItem = rootNode.getChildren().get(0);
+                String s = selecteItem.getValue().toString();
+                List<String> selecedCourses = getSelectedCourses(s);
+                for (String Course : selecedCourses) {
+                    CheckBox studentChoice = new CheckBox(Course);
+                    rightPanelTop.getChildren().add(studentChoice);
+                }*/
+
+                }
+            });
         });
-        
+
 
         return scene3;
     }
@@ -722,67 +848,37 @@ public class Sisu extends Application {
         return structure;
     }
 
-    // capture selcted courses
-    private List<String> getSelectedCourses(String selectedItem) {
-        List<String> selectedCourses = new ArrayList<>();
-        System.out.println("Initial state of selectedCourses: " + selectedCourses);
-        
-        if (selectedItem.equals(main_degree_program) || selectedItem.equals(main_degree_option)) {
-            if (index_of_main_option == null) {
-                for (Modules submodule : Degree.getModuleLists()) {
-                    selectedCourses = selectModule(submodule, selectedCourses);
+    /**
+     * It checks which module or course has been seleted by the user and returns a list containing the respective course/s.
+     * If the module is selected it adds all the courses that are available inside that module, it even includes courses
+     * inside its subModules.
+     * @param module - the main module where the searching happens.
+     * @param selected - List for storing the courses.
+     * @param selectedName - name of the course or module selected by the user.
+     * @return - a list containing the name of the course/s.
+     */
+    private List<String> getSelectedModulesOrCourses(Modules module, List<String> selected, String selectedName){
+        if(Degree != null){
+            for(var subModule : module.getModuleLists()){
+                if(subModule.getModuleName().equals(selectedName)){
+                    selected = selectModule(subModule, selected);
+                    return selected;
                 }
-                return selectedCourses;
-            } else {
-                for (Modules submodule : Degree.getModuleLists().get(index_of_main_option).getModuleLists()) {
-                    selectedCourses = selectModule(submodule, selectedCourses);
+                selected = checkModuleItems(subModule, selectedName);
+                if(!selected.isEmpty()){
+                    return selected;
                 }
-                return selectedCourses;
-            }    
-        }
-        else {
-            if (index_of_main_option == null) {
-                for (Modules submodule : Degree.getModuleLists()) {
-                    if (submodule.getModuleName().equals(selectedItem)) {
-                        selectedCourses = selectModule(submodule, selectedCourses);
-                        return selectedCourses;
-                    }
-                    else {
-                        ArrayList<String> selected = checkModuleItems(submodule, selectedItem);
-                        if (selected.isEmpty()) {
-                            continue;
-                        }
-                        else {
-                            selectedCourses.addAll(selected);
-                            return selectedCourses;
-                        }
-                    }
-                }
-                
-            } else {
-                for (Modules submodule : Degree.getModuleLists().get(index_of_main_option).getModuleLists()) {
-                    if (submodule.getModuleName().equals(selectedItem)) {
-                        selectedCourses = selectModule(submodule, selectedCourses);
-                        return selectedCourses;
-                    }
-                    else {
-                        ArrayList<String> selected = checkModuleItems(submodule, selectedItem);
-                        if (selected.isEmpty()) {
-                            continue;
-                        }
-                        else {
-                            selectedCourses.addAll(selected);
-                            return selectedCourses;
-                        }
-                    }
+                selected = getSelectedModulesOrCourses(subModule, selected, selectedName);
+                if(!selected.isEmpty()){
+                    return selected;
                 }
             }
         }
-        return selectedCourses;
+        return selected;
     }
     
-    private ArrayList<String> checkModuleItems(Modules module, String name) {
-        ArrayList<String> selected = new ArrayList<>();
+    private List<String> checkModuleItems(Modules module, String name) {
+        List<String> selected = new ArrayList<>();
         for (Courses course : module.getCoursesLists()) {
             if (course.getCourseName().equals(name)) {
                 selected.add(course.getCourseName());
@@ -820,10 +916,21 @@ public class Sisu extends Application {
         });
     }
 
+    /**
+     * It switches the Scene from Scene1 to Scene2 or from Scene1 to Scene3.
+     * @param scene
+     */
     public void switchScenes(Scene scene){
         stage.setScene(scene);
     }
 
+    /**
+     * It is called when the user tries to close the program.
+     * When closing the program it asks the user if they want to save the data. If they want to save the data
+     * it checks if it has all the necessary data required to save it as JSON. If some data are missing it gives
+     * an error message to the user and does not close the program. If everything is in order it closes the program.
+     * @throws IOException - error thrown if it encounters some problem while writing the data in a file.
+     */
     private void closeProgram() throws IOException {
         if(studentNumber != null){
             int conformation = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?",
@@ -832,8 +939,8 @@ public class Sisu extends Application {
             int degreeOptionSize = 0;
             if(Degree != null) {
                 for (var module : Degree.getModuleLists()) {
-                    if(module.getModuleLists().size() != 0) {
-                        degreeOptionSize = module.getModuleLists().size();
+                    if(!module.getModuleLists().isEmpty() || !module.getCoursesLists().isEmpty()) {
+                        degreeOptionSize = module.getModuleLists().size() + module.getCoursesLists().size();
                     }
                 }
             }
@@ -859,6 +966,108 @@ public class Sisu extends Application {
             System.out.println("Exiting the program.");
             stage.close();
         }
+    }
+    
+    // register completed credits
+    private void completeCourse(String course_name) {
+        Courses C = temporarySelectedItems.get(course_name);
+        C.setCompletedToTrue();
+            
+      if(index_of_main_option == null){
+            for(Modules submodule : Degree.getModuleLists()){
+                   int credits = completeModules(submodule, course_name); 
+                   Degree.setCompletedCredits(credits);
+            } 
+        }else{
+            for(Modules option : Degree.getModuleLists()) {
+                if (option.getModuleName().equalsIgnoreCase(main_degree_option)) {
+
+                    for(Modules submodule : option.getModuleLists()){
+                       int credits = completeModules(submodule, course_name); 
+                       option.setCompletedCredits(credits);
+                       main_degree_option = option.getModuleName();
+                       Degree.setCompletedCredits(credits);
+                    }   
+                }   
+            }
+            
+        }
+    
+    }
+
+    // draw left panel tree structure
+    private void drawDegreeStructure(VBox leftPanel) {
+        // start degree structure display
+        
+        rootNode = new TreeItem<>();
+        main_degree_program = Degree.getModuleName();
+        rootNode.setValue(main_degree_program);
+        rootNode.setExpanded(true);
+
+        // set degree option & get its structure
+        //main_degree_option = program_modules.get(new_val.intValue());
+        System.out.println("Fetching degree option...");
+        courseTreeItems = new ArrayList<>();
+        if (index_of_main_option == null) {
+            //loadStructure(Degree);
+            TreeItem<String> program = new TreeItem<>(Degree.getModuleName());
+            for (Modules module : Degree.getModuleLists()) {
+                TreeItem<String> structure = getLevelStructure(module);
+                program.getChildren().add(structure);
+            }
+            rootNode.getChildren().add(program);
+        } else {
+            for (Modules option : Degree.getModuleLists()) {
+                if (option.getModuleName().equalsIgnoreCase(main_degree_option)) {
+                    //index_of_main_option = Degree.getModuleLists().indexOf(option);                   
+                    TreeItem<String> program = new TreeItem<>(option.getModuleName());
+                    for (Modules module : option.getModuleLists()) {
+                        TreeItem<String> structure = getLevelStructure(module);
+                        program.getChildren().add(structure);
+                    }
+                    rootNode.getChildren().add(program);
+                }
+            }
+        }
+        System.out.println("Fetching option completed!");
+
+        tree = new TreeView<>(rootNode);
+        //create vbox to hold treeView list
+        leftPanel.getChildren().clear();
+        leftPanel.setSpacing(10);
+        leftPanel.getChildren().add(tree);
+    }
+    
+    
+    private int completeModules(Modules module, String course_name) {
+        int credits = 0;
+        boolean found = false;
+        
+        for (Courses course : module.getCoursesLists()) {
+            if(course.getCompleted() && course_name.equals(course.getCourseName()) && !course.getCreditsAdded()){
+                //credits = course.getCourseCreditsMax();
+                ///course.setCompletedToTrue();
+                course.setCreditsAdded();
+                if(course.getCourseCreditsMax() != 0){
+                    credits = course.getCourseCreditsMax();
+                }else{
+                    credits = course.getCourseCreditsMin();
+                }
+                found = true;
+                //module.setCompletedCredits(course.getCourseCreditsMax());
+            }
+        }
+        
+        if(found == false){
+            if(module.getModuleLists().size()!=0){
+                for(Modules sub_module: module.getModuleLists()){
+                    credits = completeModules(sub_module, course_name);
+                }   
+            }             
+        }
+        module.setCompletedCredits(credits);
+        //main_degree_option = module.getModuleName();
+        return credits;
     }
 
     public static void main(String[] args) {

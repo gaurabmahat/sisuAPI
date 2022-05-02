@@ -16,6 +16,7 @@ public class Courses {
     private final String courseCreditsMin;
     private final String courseCreditsMax;
     private Boolean completed;
+    private Boolean credits_added = false;
 
     /**
      * Constructs a Courses objects with the CourseUnit info such as course name, course id, course minimum credits and
@@ -91,6 +92,14 @@ public class Courses {
      */
     public void setCompletedToFalse() {
         this.completed = false;
+    }
+    
+    public void setCreditsAdded(){
+        this.credits_added = true;
+    }
+    
+    public Boolean getCreditsAdded(){
+        return this.credits_added;
     }
     
 }

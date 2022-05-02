@@ -47,7 +47,8 @@ public class ReadJsonFromFile implements iReadAndWriteJson{
         this.Data = new Modules(jsonObject.get("moduleName").getAsString(),
                 jsonObject.get("moduleId").getAsString(),
                 jsonObject.get("groupId").getAsString(),
-                jsonObject.get("moduleCredits").getAsString()
+                jsonObject.get("moduleCredits").getAsString(),
+                jsonObject.get("completedCredits").getAsInt()
         );
 
         var moduleList = jsonObject.get("moduleLists").getAsJsonArray();
@@ -85,7 +86,8 @@ public class ReadJsonFromFile implements iReadAndWriteJson{
         Modules subModules = new Modules(jsonObject.get("moduleName").getAsString(),
                 jsonObject.get("moduleId").getAsString(),
                 jsonObject.get("groupId").getAsString(),
-                jsonObject.get("moduleCredits").getAsString()
+                jsonObject.get("moduleCredits").getAsString(),
+                jsonObject.get("completedCredits").getAsInt()
         );
 
         var courseArray = jsonObject.getAsJsonArray("coursesLists");
@@ -116,7 +118,8 @@ public class ReadJsonFromFile implements iReadAndWriteJson{
                 jsonObject.get("groupId").getAsString(),
                 jsonObject.get("courseCreditsMin").getAsString(),
                 jsonObject.get("courseCreditsMax").getAsString(),
-                jsonObject.get("completed").getAsBoolean()
+                jsonObject.get("completed").getAsBoolean(),
+                jsonObject.get("credits_added").getAsBoolean()
         );
     }
 

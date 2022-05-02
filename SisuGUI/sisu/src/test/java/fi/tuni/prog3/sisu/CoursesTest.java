@@ -23,6 +23,7 @@ public class CoursesTest {
                 "tut-cu-g-45454", 
                 "2", 
                 "2", 
+                false,
                 false);
         String expResult = "Introduction to Academic Studies";
         String result = instance.getCourseName();
@@ -36,6 +37,7 @@ public class CoursesTest {
                 "tut-cu-g-45454", 
                 "2", 
                 "2", 
+                false,
                 false);
         String expResult = "tut-cu-g-45454";
         String result = instance.getGroupId();
@@ -49,6 +51,7 @@ public class CoursesTest {
                 "tut-cu-g-45454", 
                 "2", 
                 "5", 
+                false,
                 false);
         int expResult = 2;
         int result = instance.getCourseCreditsMin();
@@ -62,6 +65,7 @@ public class CoursesTest {
                 "tut-cu-g-45454", 
                 "2", 
                 "5", 
+                false,
                 false);
         int expResult = 5;
         int result = instance.getCourseCreditsMax();
@@ -75,6 +79,7 @@ public class CoursesTest {
                 "tut-cu-g-45454", 
                 "2", 
                 "2", 
+                false,
                 false);
         Boolean expResult = false;
         Boolean result = instance.getCompleted();
@@ -88,6 +93,7 @@ public class CoursesTest {
                 "tut-cu-g-45454", 
                 "2", 
                 "2", 
+                false,
                 false);
         instance.setCompletedToTrue();
         Boolean expResult = true;
@@ -102,6 +108,7 @@ public class CoursesTest {
                 "tut-cu-g-45454", 
                 "2", 
                 "2", 
+                false,
                 false);
         instance.setCompletedToTrue();
         instance.setCompletedToFalse();

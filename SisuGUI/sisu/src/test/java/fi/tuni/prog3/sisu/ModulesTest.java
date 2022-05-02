@@ -24,7 +24,7 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         String expResult = "Bachelor's Programme in Science and Engineering 0op/180op";
         String result = instance.getModuleName();
         assertEquals(expResult, result);
@@ -36,7 +36,7 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         String expResult = "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb";
         String result = instance.getModuleId();
         assertEquals(expResult, result);
@@ -48,7 +48,7 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         String expResult = "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba";
         String result = instance.getGroupId();
         assertEquals(expResult, result);
@@ -60,7 +60,7 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         String expResult = "180";
         String result = instance.getModuleCredits();
         assertEquals(expResult, result);
@@ -72,11 +72,11 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
          Modules addModules = new Modules("Natural Sciences and Mathematics", 
                 "otm-640dcf49-18b4-4392-8226-8cc18ea32dfb",
                 "otm-640dcf49-18b4-4392-8226-8cc18ea32dfb", 
-                "180");
+                "180", 0);
          
         List<Modules> list = new ArrayList<>();
         list.add(addModules);
@@ -94,16 +94,16 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         
         Modules addModules = new Modules("Natural Sciences and Mathematics", 
                 "otm-640dcf49-18b4-4392-8226-8cc18ea32dfb",
                 "otm-640dcf49-18b4-4392-8226-8cc18ea32dfb", 
-                "180");
+                "180", 0);
         Modules addSecondModules = new Modules("Natural Sciences and Mathematics", 
                 "otm-640dcf49-18b4-4392-8226-8cc18ea32dfb",
                 "otm-640dcf49-18b4-4392-8226-8cc18ea32dfb", 
-                "180");
+                "180", 0);
         
         moduleLists.add(addModules);
         moduleLists.add(addSecondModules);
@@ -119,12 +119,12 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         
         Modules addModules = new Modules("Natural Sciences and Mathematics", 
                 "otm-640dcf49-18b4-4392-8226-8cc18ea32dfb",
                 "otm-640dcf49-18b4-4392-8226-8cc18ea32dfb", 
-                "180");
+                "180", 0);
         
         instance.addModuleLists(addModules);
         int expResult = 1;
@@ -138,7 +138,7 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         List<Courses> expResult = new ArrayList<>();
         List<Courses> result = instance.getCoursesLists();
         assertEquals(expResult, result);
@@ -151,18 +151,20 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         
         Courses course1 = new Courses("Introduction to Academic Studies",
                 "tut-cu-g-45454", 
                 "2", 
                 "2", 
+                false,
                 false);
         Courses course2 = new Courses("Introduction to Academic Studies",
                 "tut-cu-g-45454", 
                 "2", 
                 "2", 
-                false);
+                false,
+        false);
         coursesLists.add(course1);
         coursesLists.add(course2);
         
@@ -180,12 +182,13 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         
         Courses course1 = new Courses("Introduction to Academic Studies",
                 "tut-cu-g-45454", 
                 "2", 
                 "2", 
+                false,
                 false);
         
         instance.addCoursesLists(course1);
@@ -200,7 +203,7 @@ public class ModulesTest {
         Modules instance = new Modules("Bachelor's Programme in Science and Engineering", 
                 "otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb",
                 "otm-4d4c4575-a5ae-427e-a860-2f168ad4e8ba", 
-                "180");
+                "180", 0);
         
         instance.setCompletedCredits(12);
         

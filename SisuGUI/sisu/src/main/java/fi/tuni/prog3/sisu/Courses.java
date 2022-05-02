@@ -16,7 +16,7 @@ public class Courses {
     private final String courseCreditsMin;
     private final String courseCreditsMax;
     private Boolean completed;
-    private Boolean credits_added = false;
+    private Boolean credits_added;
 
     /**
      * Constructs a Courses objects with the CourseUnit info such as course name, course id, course minimum credits and
@@ -29,12 +29,13 @@ public class Courses {
      * @param booleanValue - Boolean value. 
      */
     public Courses(String courseName, String groupId, String courseCreditsMin, String courseCreditsMax,
-            Boolean booleanValue) {
+            Boolean booleanValue, Boolean credits_added) {
         this.courseName = courseName;
         this.groupId = groupId;
         this.courseCreditsMin = courseCreditsMin;
         this.courseCreditsMax = courseCreditsMax;
         this.completed = booleanValue;
+        this.credits_added = credits_added;
     }
 
     /**
@@ -93,11 +94,18 @@ public class Courses {
     public void setCompletedToFalse() {
         this.completed = false;
     }
-    
+
+    /**
+     * Updates the Boolean value to determine if the course has already been updated.
+     */
     public void setCreditsAdded(){
         this.credits_added = true;
     }
-    
+
+    /**
+     * Return the Boolean value to determine if the course has been updated or not.
+     * @return - Boolean value.
+     */
     public Boolean getCreditsAdded(){
         return this.credits_added;
     }

@@ -90,7 +90,7 @@ public class ModuleStructure {
             CourseAttributes attributes = new CourseAttributes();
             attributes.getCourseAttributes("course", "group_id", id);
 
-            Courses course = new Courses(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3), false); // course id skipped because it is not used anywhere
+            Courses course = new Courses(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3), false, false);
 
             this.courseList.add(course);
 
@@ -103,7 +103,7 @@ public class ModuleStructure {
             ModuleAttributes attributes = new ModuleAttributes();
             attributes.getModuleAttributes("module", "group_id", mod_id);
 
-            Modules submodule = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3));
+            Modules submodule = new Modules(attributes.get(0), attributes.get(1), attributes.get(2), attributes.get(3), 0);
 
             this.moduleList.add(submodule);
 

@@ -31,12 +31,12 @@ public class Modules {
      * @param moduleCredits - credits of the StudyModule.
      */
     public Modules(String moduleName, String moduleId, String groupId,
-            String moduleCredits) {
+            String moduleCredits, int completedCredits) {
         this.moduleName = moduleName;
         this.moduleId = moduleId;
         this.groupId = groupId;
         this.moduleCredits = moduleCredits;
-        this.completedCredits = 0;
+        this.completedCredits = completedCredits;
         this.moduleLists = new ArrayList<>();
         this.coursesLists = new ArrayList<>();
         if (moduleCredits.equals("0") || moduleCredits.equals("null")) {

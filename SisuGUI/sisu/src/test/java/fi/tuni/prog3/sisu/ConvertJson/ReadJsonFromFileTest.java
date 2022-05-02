@@ -21,7 +21,7 @@ public class ReadJsonFromFileTest {
     public void testReadFromFileIfFileExists() throws Exception {
         System.out.println("when file exists");
         String fileName = "StudentData";
-        Modules expResult = new Modules(fileName, fileName, fileName, fileName);
+        Modules expResult = new Modules(fileName, fileName, fileName, fileName, 0);
         Modules result = new ReadJsonFromFile(fileName).readFromFile();
         assertEquals(expResult instanceof Modules, result instanceof Modules);
     }   

@@ -75,9 +75,9 @@ public class Sisu extends Application {
 
     private String instr = "How to track your progress?\r\n"
             + "(1) First, click the course/module name on the left and click the \'Add Course\' button to select the course.\r\n"
-            + "(2) To remove the course, first click the check box next to the course name. Then click the \'Remove Course\' " +
+            + "(2) To remove the course, first tick the check box next to the course name. Then click the \'Remove Course\' " +
             "button (You can only remove one course at a time).\r\n"
-            + "(3) To mark the course as completed, first click the check box next to the course name. Then click the " +
+            + "(3) To mark the course as completed, first tick the check box next to the course name. Then click the " +
             "\'Complete Course\' button (You can only mark one completed course at a time).\r\n"
             + "(4) When closing the window, you will be asked if the changes should be saved in your profile.";
 
@@ -724,18 +724,21 @@ public class Sisu extends Application {
     }
 
     /**
-     * ************************************************************************
+     * Adds all the degrees to the drop-down list.
      */
     // load degree programs
     private void loadDegrees() {
         degree_info = FXCollections.observableArrayList();
 
-        //TreeMap<String, String> allDegrees = getDataFromSisuAPI();
         for (String degree_program : DataMap.keySet()) {
             degree_info.add(degree_program);
         }
     }
 
+    /**
+     * It loads the first options of the main degree.
+     * @param degree_program - name of the main degree.
+     */
     // load degree program modules -> called by select action event
     private void loadFirstLevel(String degree_program) {
         program_modules.clear();
@@ -758,16 +761,22 @@ public class Sisu extends Application {
 
     }
 
+    /**
+     * Fetches the structure of the degree from the SisuAPI.
+     * @param degree_option - Modules class.
+     */
     private void loadStructure(Modules degree_option) {
-
         ModuleStructure ms = new ModuleStructure();
         ms.getModuleStructure(degree_option); // this step fetches the rest of the degree structure
-
     }
 
+    /**
+     * It populates the list on the left view in the GUI.
+     * @param module - Modules class.
+     * @return - TreeItem.
+     */
     private TreeItem<String> getLevelStructure(Modules module) {
         TreeItem<String> structure = new TreeItem<>(module.getModuleName());
-        //courseTreeItems = new ArrayList<>();
         for (Courses course : module.getCoursesLists()) {
             TreeItem<String> sub_course = new TreeItem<>(course.getCourseName());
             structure.getChildren().add(sub_course);
@@ -818,6 +827,12 @@ public class Sisu extends Application {
         return selected;
     }
 
+    /**
+     * Returns the list of the course that matches the string.
+     * @param module - Modules class.
+     * @param name - name of the course to look for.
+     * @return - List.
+     */
     private List<String> checkModuleItems(Modules module, String name) {
         List<String> selected = new ArrayList<>();
         for (Courses course : module.getCoursesLists()) {
@@ -834,6 +849,12 @@ public class Sisu extends Application {
         return selected;
     }
 
+    /**
+     * Returns the list that contains all the courses inside a module.
+     * @param module - Modules class.
+     * @param selectedCourses - List.
+     * @return - List.
+     */
     private List<String> selectModule(Modules module, List<String> selectedCourses) {
         System.out.println("Running selectModule ");
         for (Courses course : module.getCoursesLists()) {
@@ -846,6 +867,10 @@ public class Sisu extends Application {
         return selectedCourses;
     }
 
+    /**
+     * It adds the events to the selected courses.
+     * @param studentChoice - CheckBox.
+     */
     private void addCheckboxEvent(CheckBox studentChoice) {
         studentChoice.selectedProperty().addListener(
                 (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
@@ -859,7 +884,7 @@ public class Sisu extends Application {
     /**
      * It switches the Scene from Scene1 to Scene2 or from Scene1 to Scene3.
      *
-     * @param scene
+     * @param scene - Scene.
      */
     public void switchScenes(Scene scene) {
         stage.setScene(scene);
@@ -886,7 +911,6 @@ public class Sisu extends Application {
                     }
                 }
             }
-
             if (conformation == 0) {
                 if (Degree == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Please Select One Degree Program!");
@@ -910,6 +934,10 @@ public class Sisu extends Application {
         }
     }
 
+    /**
+     * Initiates the process of completing the course.
+     * @param course_name - course name that needs to complete.
+     */
     // register completed credits
     private void completeCourse(String course_name) {
         Courses C = temporarySelectedItems.get(course_name);
@@ -937,21 +965,22 @@ public class Sisu extends Application {
 
     }
 
+    /**
+     * Redraws the course tree structure when it changes mid.
+     * @param leftPanel - VBox panel.
+     */
     // draw left panel tree structure
     private void drawDegreeStructure(VBox leftPanel) {
         // start degree structure display
-
         rootNode = new TreeItem<>();
         main_degree_program = Degree.getModuleName();
         rootNode.setValue(main_degree_program);
         rootNode.setExpanded(true);
 
         // set degree option & get its structure
-        //main_degree_option = program_modules.get(new_val.intValue());
         System.out.println("Fetching degree option...");
         courseTreeItems = new ArrayList<>();
         if (index_of_main_option == null) {
-            //loadStructure(Degree);
             TreeItem<String> program = new TreeItem<>(Degree.getModuleName());
             for (Modules module : Degree.getModuleLists()) {
                 TreeItem<String> structure = getLevelStructure(module);
@@ -961,7 +990,6 @@ public class Sisu extends Application {
         } else {
             for (Modules option : Degree.getModuleLists()) {
                 if (option.getModuleName().equalsIgnoreCase(main_degree_option)) {
-                    //index_of_main_option = Degree.getModuleLists().indexOf(option);                   
                     TreeItem<String> program = new TreeItem<>(option.getModuleName());
                     for (Modules module : option.getModuleLists()) {
                         TreeItem<String> structure = getLevelStructure(module);
@@ -980,15 +1008,18 @@ public class Sisu extends Application {
         leftPanel.getChildren().add(tree);
     }
 
-
+    /**
+     * Updates the completion status of the Modules and Courses class when a course is completed.
+     * @param module - Modules class.
+     * @param course_name - name of the course that is completed.
+     * @return - credits.
+     */
     private int completeModules(Modules module, String course_name) {
         int credits = 0;
         boolean found = false;
 
         for (Courses course : module.getCoursesLists()) {
             if (course.getCompleted() && course_name.equals(course.getCourseName()) && !course.getCreditsAdded()) {
-                //credits = course.getCourseCreditsMax();
-                ///course.setCompletedToTrue();
                 course.setCreditsAdded();
                 if (course.getCourseCreditsMax() != 0) {
                     credits = course.getCourseCreditsMax();
@@ -996,10 +1027,9 @@ public class Sisu extends Application {
                     credits = course.getCourseCreditsMin();
                 }
                 found = true;
-                //module.setCompletedCredits(course.getCourseCreditsMax());
+
             }
         }
-
         if (found == false) {
             if (module.getModuleLists().size() != 0) {
                 for (Modules sub_module : module.getModuleLists()) {
@@ -1008,7 +1038,6 @@ public class Sisu extends Application {
             }
         }
         module.setCompletedCredits(credits);
-        //main_degree_option = module.getModuleName();
         return credits;
     }
 

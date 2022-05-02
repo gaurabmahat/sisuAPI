@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author rakow 
  * A class to traverse data from SisuAPI for one module and get the IDs
- * of this module's constituent submodules and courses
+ * of this module's constituent submodules and courses.
  */
 public class ModuleTraversal {
 
@@ -22,7 +22,7 @@ public class ModuleTraversal {
 
     /**
      * Create initially empty ArrayLists to store Strings with courses' and 
-     * modules' GroupIDs retrieved from SisuAPI
+     * modules' GroupIDs retrieved from SisuAPI.
      */
     public ModuleTraversal() {
         subModule_ids = new ArrayList<>();
@@ -30,16 +30,16 @@ public class ModuleTraversal {
     }
 
     /**
-     * Get the IDs of constituent modules
-     * @return - ArrayList of constituent modules' IDs
+     * Get the IDs of constituent modules.
+     * @return - ArrayList of constituent modules' IDs.
      */
     public ArrayList<String> getSubModuleIds() {
         return subModule_ids;
     }
 
     /**
-     * Get IDs of constituent courses
-     * @return - ArrayList of constituent courses' IDs
+     * Get IDs of constituent courses.
+     * @return - ArrayList of constituent courses' IDs.
      */
     public ArrayList<String> getCourseIds() {
         return course_ids;
@@ -48,8 +48,8 @@ public class ModuleTraversal {
     /**
      * Traverse JsonElement to find modules' and courses' IDs. Traverses
      * a JsonElement, searches for IDs in it and saves them into corresponding 
-     * ArrayLists in the parent module
-     * @param rules JsonElement, which is either JsonObject or JsonArray 
+     * ArrayLists in the parent module.
+     * @param rules - JsonElement, which is either JsonObject or JsonArray .
      */
     private void traverseRules(JsonElement rules) {
         // takes JsonElement as argument, because module's tree structure can contain both JsonObjects and JsonArrays
@@ -154,7 +154,7 @@ public class ModuleTraversal {
     /**
      * Retrieve IDs of modules and courses.
      * Calls a method that traverses a JsonElement to get the IDs.
-     * @param rules JsonElement, which is either JsonObject or JsonArray
+     * @param rules - JsonElement, which is either JsonObject or JsonArray
      */
     public void doModuleTraversal(JsonElement rules) {
         traverseRules(rules);

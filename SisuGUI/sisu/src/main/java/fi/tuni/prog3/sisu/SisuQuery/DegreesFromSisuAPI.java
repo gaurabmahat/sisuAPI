@@ -34,7 +34,7 @@ public class DegreesFromSisuAPI implements iSisuQuery{
      */
     private void degreesFromSisuAPI(){
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("https://sis-tuni-test.funidata.fi/kori/api/"
+        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
                 + "module-search?"
                 + "curriculumPeriodId=uta-lvv-2021&"
                 + "universityId=tuni-university-root-id&moduleType=DegreeProgramme&limit=1000"))

@@ -44,20 +44,20 @@ public class JsonFromSisuAPI implements iSisuQuery {
         if (element_type.equals("module")) {
             if (id_type.equals("group_id")) {
                 
-                this.request = HttpRequest.newBuilder().uri(URI.create("https://sis-tuni-test.funidata.fi/kori/api/"
+                this.request = HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
                         + "modules"
                         + "/by-group-id?groupId=" + element_id + "&universityId=tuni-university-root-id"))
                         .build();
             } else if (id_type.equals("id")) {
                 
-                this.request = HttpRequest.newBuilder().uri(URI.create("https://sis-tuni-test.funidata.fi/kori/api/"
+                this.request = HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
                         + "modules"
                         + "/" + element_id))
                         .build();
             }
         } else if (element_type.equals("course")) {
             
-            this.request = HttpRequest.newBuilder().uri(URI.create("https://sis-tuni-test.funidata.fi/kori/api/"
+            this.request = HttpRequest.newBuilder().uri(URI.create("https://sis-tuni.funidata.fi/kori/api/"
                     + "course-units"
                     + "/by-group-id?groupId=" + element_id + "&universityId=tuni-university-root-id"))
                     .build();

@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
  *
  * @author rakow
  * A class to retrieve from SisuAPI and store the main attributes of a CourseUnit
- * to facilitate creating a Courses instance
+ * to facilitate creating a Courses instance.
  */
 public class CourseAttributes {
     
@@ -21,7 +21,7 @@ public class CourseAttributes {
     
     /**
      * Constructs initially empty ArrayList for the main attributes of a Course 
-     * (instance of Courses class): name, id, credits
+     * (instance of Courses class): name, id, credits.
      * 
      */
     public CourseAttributes () {
@@ -39,8 +39,8 @@ public class CourseAttributes {
     }
     
     /**
-     * Helper to check whether course has an English name 
-     * @param json JSON object
+     * Helper to check whether course has an English name.
+     * @param json - JSON object.
      */
     private boolean hasValue(JsonObject json) {
         java.util.Set<java.lang.String> keys = json.keySet();
@@ -50,9 +50,9 @@ public class CourseAttributes {
     /**
      * Populates the object with Course attributes. Calls a query from SisuAPI
      * with provided parameters and adds obtained attributes to the ArrayList.
-     * @param element_type String informing about the type of item queried
-     * @param id_type String informing about provided id type
-     * @param element_id String providing the id
+     * @param element_type - String informing about the type of item queried.
+     * @param id_type - String informing about provided id type.
+     * @param element_id - String providing the id.
      */
     private void courseAttributesFromAPI(String element_type, String id_type, String element_id) {
         
@@ -91,18 +91,18 @@ public class CourseAttributes {
     /**
      * Populates the object with Course attributes. It calls the method 
      * querying the SisuAPI with provided parameters and adding the info to the object.
-     * @param element_type String informing about the type of item queried
-     * @param id_type String informing about provided id type
-     * @param element_id String providing the id
+     * @param element_type - String informing about the type of item queried.
+     * @param id_type - String informing about provided id type.
+     * @param element_id - String providing the id.
      */
     public void getCourseAttributes(String element_type, String id_type, String element_id) {
         courseAttributesFromAPI(element_type, id_type, element_id);
     }
     
     /**
-     * Returns ith element in the object
-     * @param i the index of element to be retrieved
-     * @return - ith element in the object
+     * Returns ith element in the object.
+     * @param i - the index of element to be retrieved.
+     * @return - ith element in the object.
      */
     public String get(int i) {
         return ca.get(i);

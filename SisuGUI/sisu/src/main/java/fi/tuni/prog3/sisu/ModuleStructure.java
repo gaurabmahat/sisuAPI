@@ -22,7 +22,7 @@ public class ModuleStructure {
     
     /**
      * Creates initially empty ArrayLists to store instances of Modules and Courses
-     * as parts of the module
+     * as parts of the module.
      */
     public ModuleStructure() {
         moduleList = new ArrayList<>();
@@ -31,15 +31,15 @@ public class ModuleStructure {
     
     /**
      * Retrieve the list of modules from the object.
-     * @return - List of Modules instances
+     * @return - List of Modules instances.
      */
     public List<Modules> getModules() {
         return moduleList;
     }
     
     /**
-     * Retrieve the list of courses from the object
-     * @return - List of Courses instances
+     * Retrieve the list of courses from the object.
+     * @return - List of Courses instances.
      */
     public List<Courses> getCourses() {
         return courseList;
@@ -57,7 +57,7 @@ public class ModuleStructure {
     
     /**
      * Helper to traverse one level of data from SisuAPI. 
-     * Not implemented in this class
+     * Not implemented in this class.
      * 
      */
     private ModuleTraversal traverseModule(JsonElement je) {
@@ -70,8 +70,8 @@ public class ModuleStructure {
     * Gets the entire tree structure of a module recursively. First gets JSON 
     * object from SisuAPI, then traverses it to get modules' and courses' ids 
     * and then gets their attributes, creates instances of Courses and Modules 
-    * and saves them into lists, which are then saved as attributes of the parent module
-    * @param instance of Modules class
+    * and saves them into lists, which are then saved as attributes of the parent module.
+    * @param module - instance of Modules class.
     */
     private void getStructure(Modules module) {
         
@@ -119,7 +119,7 @@ public class ModuleStructure {
     /**
      * Populates the ArrayLists of courses and modules. Calls a method which
      * gets the entire tree structure of module of interest.
-     * @param module instance of Modules class
+     * @param module - instance of Modules class.
      */
     public void getModuleStructure(Modules module) {
         getStructure(module);

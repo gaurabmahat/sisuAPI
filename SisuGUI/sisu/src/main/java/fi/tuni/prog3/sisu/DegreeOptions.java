@@ -14,21 +14,21 @@ import java.util.List;
  *
  * @author rakow
  * A class to retrieve and store a list of degree orientations of one Degree 
- * Program, if such exist
+ * Program, if such exist.
  */
 public class DegreeOptions {
     private final List<String> optionsList;
     
     /**
-     * Construct an initially empty list
+     * Construct an initially empty list.
      */
     public DegreeOptions() {
         optionsList = new ArrayList<>();
     }
         
     /**
-     * Return the list containing the names of the degree options
-     * @return - List containing the names of the degree options
+     * Return the list containing the names of the degree options.
+     * @return - List containing the names of the degree options.
      */
     public List<String> getOptions() {
         return this.optionsList;
@@ -46,7 +46,7 @@ public class DegreeOptions {
     
     /**
      * Helper to traverse one level of data from SisuAPI. 
-     * Not implemented in this class
+     * Not implemented in this class.
      * 
      */
     private ModuleTraversal traverseModule(JsonElement je) {
@@ -61,7 +61,7 @@ public class DegreeOptions {
      * the first level of degree data. Finally, first level of modules is stored
      * in a global variable, and their names in a list, if they are degree options. 
      * If no options were found, the degree itself is treated as the only option.
-     * @param degree the degree of interest
+     * @param degree the degree of interest.
      */
     private void getFirstLevelStructure(Modules degree) {
         String degree_id = degree.getModuleId();
@@ -94,8 +94,8 @@ public class DegreeOptions {
     /**
      * Populate the list of the degree options of one degree of interest. Calls 
      * method which retrieves data from SisuAPI and populates the list of 
-     * degree options
-     * @param degree the degree of interest
+     * degree options.
+     * @param degree - the degree of interest.
      */
     public void getDegreeOptions(Modules degree) {
         getFirstLevelStructure(degree);

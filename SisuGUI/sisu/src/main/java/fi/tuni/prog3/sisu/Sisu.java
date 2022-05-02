@@ -912,8 +912,8 @@ public class Sisu extends Application {
             int degreeOptionSize = 0;
             if(Degree != null) {
                 for (var module : Degree.getModuleLists()) {
-                    if(module.getModuleLists().size() != 0) {
-                        degreeOptionSize = module.getModuleLists().size();
+                    if(!module.getModuleLists().isEmpty() || !module.getCoursesLists().isEmpty()) {
+                        degreeOptionSize = module.getModuleLists().size() + module.getCoursesLists().size();
                     }
                 }
             }

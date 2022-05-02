@@ -30,8 +30,8 @@ sonarqube-check:
   dependencies:
     - coverage
   script:
-    - sonar-scanner -X -Dsonar.projectKey=$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME -Dsonar.java.binaries=Sisu/target/classes/fi/tuni/prog3/sisu -Dsonar.java.test.binaries=Sisu/target/test-classes/fi/tuni/prog3/sisu -Dsonar.coverage.jacoco.xmlReportPaths=Sisu/target/site/jacoco/jacoco.xml -Dsonar.sources=Sisu/src/main/java/fi/tuni/prog3/sisu
+    - sonar-scanner -Dsonar.projectKey=$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME -Dsonar.java.binaries=Sisu/target/classes/fi/tuni/prog3/sisu -Dsonar.java.test.binaries=Sisu/target/test-classes/fi/tuni/prog3/sisu -Dsonar.coverage.jacoco.xmlReportPaths=Sisu/target/site/jacoco/jacoco.xml -Dsonar.sources=Sisu/src/main/java/fi/tuni/prog3/sisu
   only:
     refs:
-      - main
+      - master
 

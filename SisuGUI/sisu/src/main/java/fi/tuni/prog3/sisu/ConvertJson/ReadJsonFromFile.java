@@ -137,15 +137,4 @@ public class ReadJsonFromFile implements iReadAndWriteJson{
         return jsonObject;
     }
 
-//    public static void main(String[] args) throws FileNotFoundException, IOException {
-//        var a = new ReadJsonFromFile().readFromFile("Student");
-//        if(a != null){
-//            System.out.println("File available");
-//            WriteJsonToFile wjtf = new WriteJsonToFile(a, "Student2");
-//            wjtf.convertToJsonAndWriteToFile();
-//        }else {
-//            System.out.println("File not available");
-//        }
-//        
-//    }
 }

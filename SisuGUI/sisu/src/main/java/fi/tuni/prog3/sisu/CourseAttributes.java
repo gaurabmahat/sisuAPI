@@ -12,26 +12,48 @@ import com.google.gson.JsonObject;
 /**
  *
  * @author rakow
- * gets name, id and credits of a course
+ * A class to retrieve from SisuAPI and store the main attributes of a CourseUnit
+ * to facilitate creating a Courses instance
  */
 public class CourseAttributes {
     
     private final ArrayList<String> ca;
     
+    /**
+     * Constructs initially empty ArrayList for the main attributes of a Course 
+     * (instance of Courses class): name, id, credits
+     * 
+     */
     public CourseAttributes () {
         ca = new ArrayList<>();
     }
     
+    /**
+     * Helper to query SisuAPI and obtain a JSON file with data about the object. 
+     * Not implemented in this class.
+     * 
+     */
     private JsonObject getJsonObjectFromAPI(String element_type, String id_type, String element_id) {
         var jsonObject = new JsonFromSisuAPI().getJsonObjectFromAPI(element_type, id_type, element_id);
         return jsonObject;
     }
     
+    /**
+     * Helper to check whether course has an English name 
+     * @param json JSON object
+     */
     private boolean hasValue(JsonObject json) {
         java.util.Set<java.lang.String> keys = json.keySet();
         return keys.contains("en");
     }
     
+    /**
+     * Populates the object with Course attributes. Calls a query from SisuAPI
+     * with provided parameters and adds obtained attributes to the ArrayList.
+     * @param element_type String informing about the type of item queried
+     * @param id_type String informing about provided id type
+     * @param element_id String providing the id
+     */
     private void courseAttributesFromAPI(String element_type, String id_type, String element_id) {
         
         JsonObject jo = getJsonObjectFromAPI(element_type, id_type, element_id);
@@ -66,26 +88,24 @@ public class CourseAttributes {
         ca.add(credits_max);
     }
     
+    /**
+     * Populates the object with Course attributes. It calls the method 
+     * querying the SisuAPI with provided parameters and adding the info to the object.
+     * @param element_type String informing about the type of item queried
+     * @param id_type String informing about provided id type
+     * @param element_id String providing the id
+     */
     public void getCourseAttributes(String element_type, String id_type, String element_id) {
         courseAttributesFromAPI(element_type, id_type, element_id);
     }
     
+    /**
+     * Returns ith element in the object
+     * @param i the index of element to be retrieved
+     * @return - ith element in the object
+     */
     public String get(int i) {
         return ca.get(i);
     }
     
-    public static void main(String[] args){
-        var a = new CourseAttributes();
-        a.getCourseAttributes("course", "nothing", "tut-cu-g-49138");
-        var course = a.get(0);
-        var groupId = a.get(1);
-        var minCredits = a.get(2);
-        var maxCredits = a.get(3);
-        
-        System.out.println("");
-        System.out.println("Printing value course name: " + course);
-        System.out.println("Printing value group id: " + groupId);
-        System.out.println("Printing value min credits: " + minCredits);
-        System.out.println("Printing value max credits: " + maxCredits);
-    }
 }

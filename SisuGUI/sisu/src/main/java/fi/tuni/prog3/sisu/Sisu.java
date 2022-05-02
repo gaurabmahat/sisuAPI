@@ -29,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import javax.swing.*;
 
@@ -53,7 +54,6 @@ public class Sisu extends Application {
     // data handling containers
 
     private ObservableList<String> program_modules = FXCollections.observableArrayList();
-    //private ObservableList<Modules> program_modules_structure = FXCollections.observableArrayList();
     ObservableList<String> degree_info;
 
     // courses
@@ -74,6 +74,14 @@ public class Sisu extends Application {
     private Modules Degree;
     private Integer index_of_main_option;
     private TreeMap<String, Courses> temporarySelectedItems = new TreeMap<>();
+    
+    private String instr = "How to track your progress?\r\n"
+            + "(1) First, click the course/module name on the left and click the \'Add Course\' button to select the course.\r\n"
+            + "(2) To remove the course, first click the check box next to the course name. Then click the \'Remove Course\' " +
+            "button (You can only remove one course at a time).\r\n"
+            + "(3) To mark the course as completed, first click the check box next to the course name. Then click the " +
+            "\'Complete Course\' button (You can only mark one completed course at a time).\r\n"
+            + "(4) When closing the window, you will be asked if the changes should be saved in your profile.";
 
     
     Image icon = new Image("https://opportunityforum.info/wp-content/uploads/2022/04/folder.png");
@@ -249,7 +257,7 @@ public class Sisu extends Application {
                     loadFirstLevel(degree_of_interest);
                     System.out.println("Fetching degree completed!");
                 });
-
+        
         /**
          * *********************************************************************
          */
@@ -276,7 +284,7 @@ public class Sisu extends Application {
                     this.rootNode = new TreeItem<>();
                     this.rootNode.setValue(main_degree_program);
                     rootNode.setExpanded(true);
-
+                    
                     // set degree option & get its structure
                     main_degree_option = program_modules.get(new_val.intValue());
                     System.out.println("Fetching degree option...");
@@ -312,7 +320,22 @@ public class Sisu extends Application {
                     leftPanel.getChildren().clear();
                     leftPanel.setSpacing(10);
                     leftPanel.getChildren().add(tree);
-
+ 
+                    //add instructions text
+                    Label instructions = new Label();
+                    instructions.setPrefWidth(380);
+                    instructions.setWrapText(true);
+                    instructions.setTextAlignment(TextAlignment.JUSTIFY);
+                    instructions.setId("instructions");
+                    instructions.setPadding(new Insets(5));
+                    instructions.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, 
+                            CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                    instructions.setBackground(new Background(new BackgroundFill(Color.CORNSILK, 
+                            CornerRadii.EMPTY, Insets.EMPTY)));
+                    instructions.setText(instr);
+        
+                    leftPanel.getChildren().add(instructions);
+                    VBox.setMargin(instructions, new Insets(10));
                 });
 
         /**
@@ -629,6 +652,22 @@ public class Sisu extends Application {
             Button btnCompleteCourse = new Button("Complete Course");
             rightPanelBottom.getChildren().add(btnCompleteCourse);
 
+            //add instructions text
+            Label instructions = new Label();
+            instructions.setPrefWidth(380);
+            instructions.setWrapText(true);
+            instructions.setTextAlignment(TextAlignment.JUSTIFY);
+            instructions.setId("instructions");
+            instructions.setPadding(new Insets(5));
+            instructions.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+                    CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+            instructions.setBackground(new Background(new BackgroundFill(Color.CORNSILK,
+                    CornerRadii.EMPTY, Insets.EMPTY)));
+            instructions.setText(instr);
+
+            leftPanel.getChildren().add(instructions);
+            VBox.setMargin(instructions, new Insets(10));
+
 
 
             // add action event for adding course buttion
@@ -758,9 +797,9 @@ public class Sisu extends Application {
     }
 
     // load degree program modules -> called by select action event
-    private void loadFirstLevel(String degree_program) {
-        temporarySelectedItems.clear();
+    private void loadFirstLevel(String degree_program) {   
         program_modules.clear();
+        temporarySelectedItems.clear();
 
         ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
         attributes.getModuleAttributes("module", "id", degree_program);
@@ -776,8 +815,7 @@ public class Sisu extends Application {
         for (var option : options) {
             program_modules.add(option);
         }
-
-
+        
     }
     
     private void loadStructure (Modules degree_option) {

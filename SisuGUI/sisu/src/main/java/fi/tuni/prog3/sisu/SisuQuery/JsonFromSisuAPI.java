@@ -98,9 +98,4 @@ public class JsonFromSisuAPI implements iSisuQuery {
     public TreeMap<String, String> getDegreeNameAndId() {
         return null;
     }
-
-//    public static void main(String[] args){
-//        var jArray = new JsonFromSisuAPI().getJsonStringFromAPI("course", "nothing", "tut-cu-g-49138");
-//        var jObject = new JsonFromSisuAPI().getJsonStringFromAPI("module", "id", "otm-b9c586d3-a08d-463d-b824-935460da9b79");    
-//    }
 }

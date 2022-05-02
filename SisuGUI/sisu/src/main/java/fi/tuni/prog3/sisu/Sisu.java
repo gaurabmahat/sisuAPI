@@ -393,8 +393,6 @@ public class Sisu extends Application {
                     }
 
                 }
-                
-                
 
             }
         });
@@ -447,20 +445,11 @@ public class Sisu extends Application {
                 }
                 if(selected_checkbox_item != null){
                     selected_checkbox_item.setGraphic(new ImageView(icon));
+                    completeCourse(selected_checkbox_item.getValue());
+                    // redraw the tree structure
+                    drawDegreeStructure(leftPanel);
                 }
-                
-                
-                // get the selectd course
-
-                /*TreeItem selecteItem = tree.getSelectionModel().getSelectedItem();
-                //TreeItem selecteItem = rootNode.getChildren().get(0);
-                String s = selecteItem.getValue().toString();
-                List<String> selecedCourses = getSelectedCourses(s);
-                for (String Course : selecedCourses) {
-                    CheckBox studentChoice = new CheckBox(Course);
-                    rightPanelTop.getChildren().add(studentChoice);
-                }*/
-
+               
             }
         });
         /*
@@ -892,6 +881,108 @@ public class Sisu extends Application {
             System.out.println("Exiting the program.");
             stage.close();
         }
+    }
+    
+    // register completed credits
+    private void completeCourse(String course_name) {
+        Courses C = temporarySelectedItems.get(course_name);
+        C.setCompletedToTrue();
+            
+      if(index_of_main_option == null){
+            for(Modules submodule : Degree.getModuleLists()){
+                   int credits = completeModules(submodule, course_name); 
+                   Degree.setCompletedCredits(credits);
+            } 
+        }else{
+            for(Modules option : Degree.getModuleLists()) {
+                if (option.getModuleName().equalsIgnoreCase(main_degree_option)) {
+
+                    for(Modules submodule : option.getModuleLists()){
+                       int credits = completeModules(submodule, course_name); 
+                       option.setCompletedCredits(credits);
+                       main_degree_option = option.getModuleName();
+                       Degree.setCompletedCredits(credits);
+                    }   
+                }   
+            }
+            
+        }
+    
+    }
+
+    // draw left panel tree structure
+    private void drawDegreeStructure(VBox leftPanel) {
+        // start degree structure display
+        
+        rootNode = new TreeItem<>();
+        main_degree_program = Degree.getModuleName();
+        rootNode.setValue(main_degree_program);
+        rootNode.setExpanded(true);
+
+        // set degree option & get its structure
+        //main_degree_option = program_modules.get(new_val.intValue());
+        System.out.println("Fetching degree option...");
+        courseTreeItems = new ArrayList<>();
+        if (index_of_main_option == null) {
+            //loadStructure(Degree);
+            TreeItem<String> program = new TreeItem<>(Degree.getModuleName());
+            for (Modules module : Degree.getModuleLists()) {
+                TreeItem<String> structure = getLevelStructure(module);
+                program.getChildren().add(structure);
+            }
+            rootNode.getChildren().add(program);
+        } else {
+            for (Modules option : Degree.getModuleLists()) {
+                if (option.getModuleName().equalsIgnoreCase(main_degree_option)) {
+                    //index_of_main_option = Degree.getModuleLists().indexOf(option);                   
+                    TreeItem<String> program = new TreeItem<>(option.getModuleName());
+                    for (Modules module : option.getModuleLists()) {
+                        TreeItem<String> structure = getLevelStructure(module);
+                        program.getChildren().add(structure);
+                    }
+                    rootNode.getChildren().add(program);
+                }
+            }
+        }
+        System.out.println("Fetching option completed!");
+
+        tree = new TreeView<>(rootNode);
+        //create vbox to hold treeView list
+        leftPanel.getChildren().clear();
+        leftPanel.setSpacing(10);
+        leftPanel.getChildren().add(tree);
+    }
+    
+    
+    private int completeModules(Modules module, String course_name) {
+        int credits = 0;
+        boolean found = false;
+        
+        for (Courses course : module.getCoursesLists()) {
+            if(course.getCompleted() && course_name.equals(course.getCourseName()) && !course.getCreditsAdded()){
+                //credits = course.getCourseCreditsMax();
+                ///course.setCompletedToTrue();
+                course.setCreditsAdded();
+                if(course.getCourseCreditsMax() != 0){
+                    credits = course.getCourseCreditsMax();
+                }else{
+                    credits = course.getCourseCreditsMin();
+                }
+                found = true;
+                //module.setCompletedCredits(course.getCourseCreditsMax());
+            }
+        }
+        
+        if(found == false){
+            if(module.getModuleLists().size()!=0){
+                for(Modules sub_module: module.getModuleLists()){
+                    credits = completeModules(sub_module, course_name);
+                }   
+            }             
+        }
+        module.setCompletedCredits(credits);
+        //main_degree_option = module.getModuleName();
+        return credits;
     }
 
     public static void main(String[] args) {

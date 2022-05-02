@@ -1,0 +1,888 @@
+{
+  "moduleName": "Master\u0027s Degree Programme in Biotechnology and Biomedical Engineering",
+  "moduleNameWithCredits": "Master\u0027s Degree Programme in Biotechnology and Biomedical Engineering 5op/120op",
+  "moduleId": "otm-936b80c2-a614-4910-9699-a54ee9f3a2eb",
+  "groupId": "otm-b4b6a459-f0f0-4dee-a1a4-10c1fd95376c",
+  "moduleCredits": "120",
+  "completedCredits": 5,
+  "moduleLists": [
+    {
+      "moduleName": "Natural Sciences",
+      "moduleNameWithCredits": "Natural Sciences 5op/120op",
+      "moduleId": "otm-d436329a-2fca-4d20-9d5a-dc66ab2f865e",
+      "groupId": "otm-a2df9cf8-048f-43cd-ba6b-e9ccbd9b6f23",
+      "moduleCredits": "120",
+      "completedCredits": 5,
+      "moduleLists": [
+        {
+          "moduleName": "Joint Studies in Master\u0027s Degree Programme in Biotechnology and Biomedical Engineering",
+          "moduleNameWithCredits": "Joint Studies in Master\u0027s Degree Programme in Biotechnology and Biomedical Engineering 5op/15op",
+          "moduleId": "otm-57e893db-cf79-49ab-9ed3-89830f39aecc",
+          "groupId": "otm-57e893db-cf79-49ab-9ed3-89830f39aecc",
+          "moduleCredits": "15",
+          "completedCredits": 5,
+          "moduleLists": [
+            {
+              "moduleName": "Pakolliset opintojaksot",
+              "moduleNameWithCredits": "Pakolliset opintojaksot 5op",
+              "moduleId": "otm-9fc901f7-1602-4169-bf68-64f129f50a05",
+              "groupId": "otm-9fc901f7-1602-4169-bf68-64f129f50a05",
+              "moduleCredits": "null",
+              "completedCredits": 5,
+              "moduleLists": [],
+              "coursesLists": [
+                {
+                  "courseName": "Project work",
+                  "groupId": "otm-6b5fa285-db8e-4bd5-9c2a-bec8d4c946ec",
+                  "courseCreditsMin": "5",
+                  "courseCreditsMax": "5",
+                  "completed": true,
+                  "credits_added": true
+                },
+                {
+                  "courseName": "Health Technology and Life Science Business",
+                  "groupId": "tut-cu-g-45659",
+                  "courseCreditsMin": "5",
+                  "courseCreditsMax": "5",
+                  "completed": false,
+                  "credits_added": false
+                },
+                {
+                  "courseName": "Introduction to Quality and Regulation for Medical Product Development",
+                  "groupId": "tut-cu-g-49237",
+                  "courseCreditsMin": "5",
+                  "courseCreditsMax": "5",
+                  "completed": false,
+                  "credits_added": false
+                }
+              ]
+            },
+            {
+              "moduleName": "Opiskelijaryhmäkohtaiset opintojaksot",
+              "moduleNameWithCredits": "Opiskelijaryhmäkohtaiset opintojaksot 5op",
+              "moduleId": "otm-916ccaa2-969b-426e-8c03-69d31bfadb73",
+              "groupId": "otm-916ccaa2-969b-426e-8c03-69d31bfadb73",
+              "moduleCredits": "null",
+              "completedCredits": 5,
+              "moduleLists": [
+                {
+                  "moduleName": "Pakolliset opintojaksot filosofian maisterintutkintoa suorittaville opiskelijoille, joilla kandidaatin tutkinto Tampereen yliopiston ulkopuolelta",
+                  "moduleNameWithCredits": "Pakolliset opintojaksot filosofian maisterintutkintoa suorittaville opiskelijoille, joilla kandidaatin tutkinto Tampereen yliopiston ulkopuolelta 0op",
+                  "moduleId": "otm-9e1679aa-0b29-427d-a474-2d3bf58602cf",
+                  "groupId": "otm-9e1679aa-0b29-427d-a474-2d3bf58602cf",
+                  "moduleCredits": "null",
+                  "completedCredits": 0,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "Kick-start to Biomedical Technology",
+                      "groupId": "uta-ykoodi-53684",
+                      "courseCreditsMin": "3",
+                      "courseCreditsMax": "3",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Orientation and Study Planning",
+                      "groupId": "uta-ykoodi-53685",
+                      "courseCreditsMin": "2",
+                      "courseCreditsMax": "2",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Scientific Writing",
+                      "groupId": "uta-ykoodi-45380",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                },
+                {
+                  "moduleName": "Pakolliset opintojaksot diplomi-insinöörin tutkintoa suorittaville opiskelijoille",
+                  "moduleNameWithCredits": "Pakolliset opintojaksot diplomi-insinöörin tutkintoa suorittaville opiskelijoille 5op",
+                  "moduleId": "otm-9291d9a3-4406-45bc-be4d-72b751a5086a",
+                  "groupId": "otm-9291d9a3-4406-45bc-be4d-72b751a5086a",
+                  "moduleCredits": "null",
+                  "completedCredits": 5,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "Mathematics for Algorithms",
+                      "groupId": "tut-cu-g-47513",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Small Samples Data Analysis",
+                      "groupId": "tut-cu-g-45468",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Fourier Methods",
+                      "groupId": "tut-cu-g-47604",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Vector Calculus",
+                      "groupId": "tut-cu-g-47603",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Introduction to Statistical Methods",
+                      "groupId": "uta-ykoodi-38909",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Operations Research",
+                      "groupId": "tut-cu-g-47515",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Fundamentals of Mathematical Statistics",
+                      "groupId": "uta-ykoodi-33646",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": true,
+                      "credits_added": true
+                    },
+                    {
+                      "courseName": "Multivariable Calculus",
+                      "groupId": "tut-cu-g-47510",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                }
+              ],
+              "coursesLists": []
+            }
+          ],
+          "coursesLists": []
+        },
+        {
+          "moduleName": "Advanced studies",
+          "moduleNameWithCredits": "Advanced studies 0op",
+          "moduleId": "otm-9730cc2f-dcac-4e8f-bfea-8af836e92848",
+          "groupId": "otm-9730cc2f-dcac-4e8f-bfea-8af836e92848",
+          "moduleCredits": "null",
+          "completedCredits": 0,
+          "moduleLists": [
+            {
+              "moduleName": "Advanced studies in Cell Technology",
+              "moduleNameWithCredits": "Advanced studies in Cell Technology 0op/82op",
+              "moduleId": "otm-f5b068f4-e805-45bf-b03c-5688b1a5bb31",
+              "groupId": "otm-f5b068f4-e805-45bf-b03c-5688b1a5bb31",
+              "moduleCredits": "82",
+              "completedCredits": 0,
+              "moduleLists": [
+                {
+                  "moduleName": "Specialization in Cell Technology",
+                  "moduleNameWithCredits": "Specialization in Cell Technology 5op/42op",
+                  "moduleId": "otm-943fd05f-e0ca-4849-a785-2217520b4662",
+                  "groupId": "otm-e316df0f-dd1e-411f-80e7-aca464e3f873",
+                  "moduleCredits": "42",
+                  "completedCredits": 5,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "Embryology",
+                      "groupId": "uta-ykoodi-48280",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": true,
+                      "credits_added": true
+                    },
+                    {
+                      "courseName": "Tissue Biology",
+                      "groupId": "uta-ykoodi-28659",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Cell Technology and Stem Cells",
+                      "groupId": "otm-ce6f6abd-ebfe-4b3c-8d5a-20798650bf5a",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Cell Technology Laboratory",
+                      "groupId": "uta-ykoodi-47921",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "In vitro models",
+                      "groupId": "uta-ykoodi-48200",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Introduction to Pharmacology and Toxicology",
+                      "groupId": "uta-ykoodi-47915",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Statistics",
+                      "groupId": "otm-17ccdf85-6754-4d5a-ae54-cdf0c02e9f30",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Medical Biomaterials",
+                      "groupId": "tut-cu-g-45679",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Research Seminar",
+                      "groupId": "uta-ykoodi-28635",
+                      "courseCreditsMin": "2",
+                      "courseCreditsMax": "2",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                },
+                {
+                  "moduleName": "Master\u0027s Thesis and Maturity Test",
+                  "moduleNameWithCredits": "Master\u0027s Thesis and Maturity Test 0op/40op",
+                  "moduleId": "otm-36530a37-6234-49d6-96b9-07f8169397fb",
+                  "groupId": "otm-36530a37-6234-49d6-96b9-07f8169397fb",
+                  "moduleCredits": "40",
+                  "completedCredits": 0,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "M.Sc. Thesis",
+                      "groupId": "uta-ykoodi-28636",
+                      "courseCreditsMin": "40",
+                      "courseCreditsMax": "40",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Maturity Test in Master’s Degree in Finnish",
+                      "groupId": "otm-ecfe169f-c9f4-4f1d-85ed-67aabe30bd1b",
+                      "courseCreditsMin": "0",
+                      "courseCreditsMax": "0",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Maturity Test in Master’s Degree in Swedish",
+                      "groupId": "otm-dab7d422-f465-490d-9c42-1894c25ec33a",
+                      "courseCreditsMin": "0",
+                      "courseCreditsMax": "0",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Maturity Test in Master’s Degree in English",
+                      "groupId": "otm-9f5f359b-3eba-439e-9b77-b5b9dd0967e0",
+                      "courseCreditsMin": "0",
+                      "courseCreditsMax": "0",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                }
+              ],
+              "coursesLists": []
+            },
+            {
+              "moduleName": "Advanced Studies in Bioinformatics",
+              "moduleNameWithCredits": "Advanced Studies in Bioinformatics 0op/67op",
+              "moduleId": "otm-78cd012d-b2ec-4892-a50b-d226488c7ea6",
+              "groupId": "otm-78cd012d-b2ec-4892-a50b-d226488c7ea6",
+              "moduleCredits": "67",
+              "completedCredits": 0,
+              "moduleLists": [
+                {
+                  "moduleName": "Advanced Studies in Bioinformatics",
+                  "moduleNameWithCredits": "Advanced Studies in Bioinformatics 5op/27op",
+                  "moduleId": "otm-7b5fc516-b90c-4f71-970f-1bb89381b62b",
+                  "groupId": "otm-c5f311cb-1f1a-42fe-926f-1bba1733b250",
+                  "moduleCredits": "27",
+                  "completedCredits": 5,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "Introduction to high-throughput data analysis",
+                      "groupId": "otm-c3d5d405-1745-4521-8191-1c1946a7899f",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Biological data analysis",
+                      "groupId": "otm-88de4635-3abe-4e18-8686-e49e3faf8063",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "High-throughput sequencing data analysis",
+                      "groupId": "otm-28f74b2f-de20-4a09-af71-82f1e7fbcda2",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Methodology course",
+                      "groupId": "otm-8e5d6ada-c43c-4d47-be12-c540c7b989e7",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": true,
+                      "credits_added": true
+                    },
+                    {
+                      "courseName": "Bioinformatics project",
+                      "groupId": "otm-07275f17-a4a5-4665-8f5a-f6aee1a6fb21",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Research Seminar",
+                      "groupId": "uta-ykoodi-28635",
+                      "courseCreditsMin": "2",
+                      "courseCreditsMax": "2",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                },
+                {
+                  "moduleName": "Master\u0027s Thesis and Maturity Test",
+                  "moduleNameWithCredits": "Master\u0027s Thesis and Maturity Test 0op/40op",
+                  "moduleId": "otm-36530a37-6234-49d6-96b9-07f8169397fb",
+                  "groupId": "otm-36530a37-6234-49d6-96b9-07f8169397fb",
+                  "moduleCredits": "40",
+                  "completedCredits": 0,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "M.Sc. Thesis",
+                      "groupId": "uta-ykoodi-28636",
+                      "courseCreditsMin": "40",
+                      "courseCreditsMax": "40",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Maturity Test in Master’s Degree in Finnish",
+                      "groupId": "otm-ecfe169f-c9f4-4f1d-85ed-67aabe30bd1b",
+                      "courseCreditsMin": "0",
+                      "courseCreditsMax": "0",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Maturity Test in Master’s Degree in Swedish",
+                      "groupId": "otm-dab7d422-f465-490d-9c42-1894c25ec33a",
+                      "courseCreditsMin": "0",
+                      "courseCreditsMax": "0",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Maturity Test in Master’s Degree in English",
+                      "groupId": "otm-9f5f359b-3eba-439e-9b77-b5b9dd0967e0",
+                      "courseCreditsMin": "0",
+                      "courseCreditsMax": "0",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                }
+              ],
+              "coursesLists": []
+            },
+            {
+              "moduleName": "Advanced Studies in Molecular Biology",
+              "moduleNameWithCredits": "Advanced Studies in Molecular Biology 0op/77op",
+              "moduleId": "otm-7140cfcb-b5d0-4769-a1f7-572856c55283",
+              "groupId": "otm-7140cfcb-b5d0-4769-a1f7-572856c55283",
+              "moduleCredits": "77",
+              "completedCredits": 0,
+              "moduleLists": [
+                {
+                  "moduleName": "Advanced Studies in Molecular Biology",
+                  "moduleNameWithCredits": "Advanced Studies in Molecular Biology 0op/37op",
+                  "moduleId": "otm-9481bfda-05c6-4a74-a278-4e1c9991fbc9",
+                  "groupId": "otm-a78d53d6-6f7d-4d6f-8b12-c5637e05d92f",
+                  "moduleCredits": "37",
+                  "completedCredits": 0,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "Molecular genetics",
+                      "groupId": "otm-55a46240-c7f3-49d6-ab5f-d6c31ac10494",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Functional genomics",
+                      "groupId": "otm-ed7ca8cf-ca77-4451-a85b-eef48c8e2739",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Protein Folding and Function",
+                      "groupId": "otm-f72b0a7a-d22f-416d-85c6-542a138999d0",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Protein engineering",
+                      "groupId": "otm-c2f22afe-5d9e-486b-9ee3-2d8c3731ccd5",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Organelles and their interactions",
+                      "groupId": "otm-2c6d460e-5e98-415f-b0bd-c92860293b07",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Cellular Processes and Signals",
+                      "groupId": "otm-c3139f8c-0db1-417a-8d0f-1251963373a8",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Statistics",
+                      "groupId": "otm-17ccdf85-6754-4d5a-ae54-cdf0c02e9f30",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Research Seminar",
+                      "groupId": "uta-ykoodi-28635",
+                      "courseCreditsMin": "2",
+                      "courseCreditsMax": "2",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                },
+                {
+                  "moduleName": "Master\u0027s Thesis and Maturity Test",
+                  "moduleNameWithCredits": "Master\u0027s Thesis and Maturity Test 0op/40op",
+                  "moduleId": "otm-36530a37-6234-49d6-96b9-07f8169397fb",
+                  "groupId": "otm-36530a37-6234-49d6-96b9-07f8169397fb",
+                  "moduleCredits": "40",
+                  "completedCredits": 0,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "M.Sc. Thesis",
+                      "groupId": "uta-ykoodi-28636",
+                      "courseCreditsMin": "40",
+                      "courseCreditsMax": "40",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Maturity Test in Master’s Degree in Finnish",
+                      "groupId": "otm-ecfe169f-c9f4-4f1d-85ed-67aabe30bd1b",
+                      "courseCreditsMin": "0",
+                      "courseCreditsMax": "0",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Maturity Test in Master’s Degree in Swedish",
+                      "groupId": "otm-dab7d422-f465-490d-9c42-1894c25ec33a",
+                      "courseCreditsMin": "0",
+                      "courseCreditsMax": "0",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Maturity Test in Master’s Degree in English",
+                      "groupId": "otm-9f5f359b-3eba-439e-9b77-b5b9dd0967e0",
+                      "courseCreditsMin": "0",
+                      "courseCreditsMax": "0",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                }
+              ],
+              "coursesLists": []
+            }
+          ],
+          "coursesLists": []
+        },
+        {
+          "moduleName": "Free choice studies",
+          "moduleNameWithCredits": "Free choice studies 0op",
+          "moduleId": "otm-8e7813f0-e78b-4681-afad-cacd3ebc7ae7",
+          "groupId": "otm-8e7813f0-e78b-4681-afad-cacd3ebc7ae7",
+          "moduleCredits": "null",
+          "completedCredits": 0,
+          "moduleLists": [
+            {
+              "moduleName": "Free Choice Study Modules",
+              "moduleNameWithCredits": "Free Choice Study Modules 0op",
+              "moduleId": "otm-cbea4b73-55ed-45e4-a0b7-a5b5f369a460",
+              "groupId": "otm-cbea4b73-55ed-45e4-a0b7-a5b5f369a460",
+              "moduleCredits": "null",
+              "completedCredits": 0,
+              "moduleLists": [],
+              "coursesLists": []
+            },
+            {
+              "moduleName": "Free Choice Study Units",
+              "moduleNameWithCredits": "Free Choice Study Units 0op",
+              "moduleId": "otm-c99cef1e-b1f6-48d3-a2c7-b5ad925ac7c9",
+              "groupId": "otm-c99cef1e-b1f6-48d3-a2c7-b5ad925ac7c9",
+              "moduleCredits": "0",
+              "completedCredits": 0,
+              "moduleLists": [
+                {
+                  "moduleName": "Recommended Optional Studies for Cell Technology",
+                  "moduleNameWithCredits": "Recommended Optional Studies for Cell Technology 5op/23op",
+                  "moduleId": "otm-ce4a3cac-0613-40b4-a2de-5bd79319459b",
+                  "groupId": "otm-d30c11e7-47f8-4079-995e-17a1b9ec2a3f",
+                  "moduleCredits": "23",
+                  "completedCredits": 5,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "Stem cells laboratory",
+                      "groupId": "otm-769674d8-aaf1-41dc-aeec-73f1b254b169",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Experimental Animal Course",
+                      "groupId": "uta-ykoodi-28615",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": true,
+                      "credits_added": true
+                    },
+                    {
+                      "courseName": "Cancer biology",
+                      "groupId": "uta-ykoodi-28660",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Advanced immunology",
+                      "groupId": "uta-ykoodi-48202",
+                      "courseCreditsMin": "3",
+                      "courseCreditsMax": "3",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Advanced Microscopy",
+                      "groupId": "uta-ykoodi-48203",
+                      "courseCreditsMin": "3",
+                      "courseCreditsMax": "3",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Model organisms",
+                      "groupId": "uta-ykoodi-48209",
+                      "courseCreditsMin": "3",
+                      "courseCreditsMax": "3",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Biodegradable Polymers",
+                      "groupId": "tut-cu-g-42977",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Bioceramics and their Clinical Applications",
+                      "groupId": "tut-cu-g-45455",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Product Development of Biomedical Devices",
+                      "groupId": "tut-cu-g-42933",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Nanomedicine and Advanced Drug Delivery Technologies",
+                      "groupId": "tut-cu-g-45456",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Biomedical Engineering Principles",
+                      "groupId": "tut-cu-g-45446",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Tissue Engineering Applications",
+                      "groupId": "tut-cu-g-42981",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Health Technology and Life Science R\u0026D",
+                      "groupId": "tut-cu-g-45658",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Human Anatomy and Physiology",
+                      "groupId": "tut-cu-g-45473",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Introduction to Materials Science for Biomedical Engineering Students",
+                      "groupId": "tut-cu-g-50736",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                },
+                {
+                  "moduleName": "Recommended Optional Studies for Bioinformatics",
+                  "moduleNameWithCredits": "Recommended Optional Studies for Bioinformatics 0op/38op",
+                  "moduleId": "otm-60016283-4710-4fee-a689-0a93d4c391b2",
+                  "groupId": "otm-43f7e3de-b854-400e-9ba4-160897ec5acb",
+                  "moduleCredits": "38",
+                  "completedCredits": 0,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "Bioinformatics work course",
+                      "groupId": "otm-bddb9a2f-04a2-49c5-98cb-be73a6f041c7",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Introduction to Pattern Recognition and Machine Learning",
+                      "groupId": "tut-cu-g-36124",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Pattern Recognition and Machine Learning",
+                      "groupId": "tut-cu-g-42119",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Artificial Intelligence",
+                      "groupId": "tut-cu-g-45740",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Introduction to Signal Processing",
+                      "groupId": "tut-cu-g-36355",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Introduction to Image and Video Processing",
+                      "groupId": "tut-cu-g-43018",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Data Structures and Algorithms 1",
+                      "groupId": "tut-cu-g-36938",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                },
+                {
+                  "moduleName": "Recommended Optional Studies for Molecular Biology",
+                  "moduleNameWithCredits": "Recommended Optional Studies for Molecular Biology 0op/28op",
+                  "moduleId": "otm-2d0d6f9b-be72-4933-8360-9cb087106acc",
+                  "groupId": "otm-56cb9c96-674d-4f7a-b88d-dc4bf6225eed",
+                  "moduleCredits": "28",
+                  "completedCredits": 0,
+                  "moduleLists": [],
+                  "coursesLists": [
+                    {
+                      "courseName": "Protein Technology Laboratory A",
+                      "groupId": "uta-ykoodi-40142",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Protein Technology Laboratory B",
+                      "groupId": "uta-ykoodi-40143",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Mitochondria",
+                      "groupId": "otm-f50d624c-faf4-42b4-87fc-1377bbdff4bc",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Cancer biology",
+                      "groupId": "uta-ykoodi-28660",
+                      "courseCreditsMin": "5",
+                      "courseCreditsMax": "5",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Advanced Microscopy",
+                      "groupId": "uta-ykoodi-48203",
+                      "courseCreditsMin": "3",
+                      "courseCreditsMax": "3",
+                      "completed": false,
+                      "credits_added": false
+                    },
+                    {
+                      "courseName": "Advanced immunology",
+                      "groupId": "uta-ykoodi-48202",
+                      "courseCreditsMin": "3",
+                      "courseCreditsMax": "3",
+                      "completed": false,
+                      "credits_added": false
+                    }
+                  ]
+                },
+                {
+                  "moduleName": "Other Study Units",
+                  "moduleNameWithCredits": "Other Study Units 0op",
+                  "moduleId": "otm-d2a7d3da-e261-42c4-bfde-c285cfbe5830",
+                  "groupId": "otm-d2a7d3da-e261-42c4-bfde-c285cfbe5830",
+                  "moduleCredits": "null",
+                  "completedCredits": 0,
+                  "moduleLists": [],
+                  "coursesLists": []
+                }
+              ],
+              "coursesLists": []
+            }
+          ],
+          "coursesLists": []
+        }
+      ],
+      "coursesLists": []
+    },
+    {
+      "moduleName": "Engineering Sciences",
+      "moduleNameWithCredits": "Engineering Sciences 0op/120op",
+      "moduleId": "otm-aa9c2de8-7b10-460b-bf31-d79d6dd9bb49",
+      "groupId": "otm-27a89e47-48e0-473d-b819-818911933f83",
+      "moduleCredits": "120",
+      "completedCredits": 0,
+      "moduleLists": [],
+      "coursesLists": []
+    }
+  ],
+  "coursesLists": []
+}

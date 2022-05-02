@@ -34,6 +34,7 @@ import javax.swing.*;
 
 /**
  * JavaFX Sisu
+ * It contains the main class. It has all the necessary codes for displaying the Scenes and updating the components.
  */
 public class Sisu extends Application {
     
@@ -103,6 +104,11 @@ public class Sisu extends Application {
 
     }
 
+    /**
+     * It is the first Scene displayed when the program starts.
+     * It asks for the user id, in this case student number, to decide which Scene to display next.
+     * @return a Scene.
+     */
     private Scene createSceneOne(){
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(10));
@@ -176,6 +182,10 @@ public class Sisu extends Application {
         return scene1;
     }
 
+    /**
+     * It returns a Scene for the new users.
+     * @return - a Scene.
+     */
     private Scene createSceneTwo() {
         var javaVersion = SystemInfo.javaVersion();
         var javafxVersion = SystemInfo.javafxVersion();
@@ -470,6 +480,10 @@ public class Sisu extends Application {
         return scene2;
     }
 
+    /**
+     * It returns a Scene when the users file already exists in the system.
+     * @return - s Scene.
+     */
     private Scene createSceneThree(){
         // Window1: set grid base for window
         GridPane grid = new GridPane();
@@ -516,10 +530,23 @@ public class Sisu extends Application {
             grid.add(option_title, 0, 7);
 
             //add combo box to selected degree option
+            int degreeOptionCount = 0; //count to see if the has degree options, or they are directly subModules
             for(var subModules : Degree.getModuleLists()){
-                if(subModules.getModuleLists().size() != 0) {
-                    program_modules.add(subModules.getModuleName());
+                if(!subModules.getModuleLists().isEmpty() || !subModules.getCoursesLists().isEmpty()) {
+                    //program_modules.add(subModules.getModuleName());
+                    degreeOptionCount++;
                 }
+            }
+            //if it only has one option it means the Degree has orientations
+            if(degreeOptionCount == 1){
+                for(var subModules : Degree.getModuleLists()){
+                    if(subModules.getModuleLists().size() != 0) {
+                        program_modules.add(subModules.getModuleName());
+                        break;
+                    }
+                }
+            } else if(degreeOptionCount > 1){   //if the Degree has subModules instead of Degree orientations
+                program_modules.add(Degree.getModuleName());
             }
 
             final ComboBox options = new ComboBox(program_modules);
@@ -545,30 +572,34 @@ public class Sisu extends Application {
 
             // set degree option & get its structure
             if(!Degree.getModuleLists().isEmpty()) {
-                main_degree_program = Degree.getModuleName();
-                //check to see which option is chosen by the User
+                //check to see which degree option is chosen by the User
                 Modules studentChosenOption = null;
-                for(int i = 0; i < Degree.getModuleLists().size(); i++){
-                    if(!Degree.getModuleLists().get(i).getModuleLists().isEmpty()){
-                        studentChosenOption = Degree.getModuleLists().get(i);
-                        index_of_main_option = i;
-                        break;
+                if(degreeOptionCount == 1){
+                    for(int i = 0; i < Degree.getModuleLists().size(); i++){
+                        if(!Degree.getModuleLists().get(i).getModuleLists().isEmpty()){
+                            studentChosenOption = Degree.getModuleLists().get(i);
+                            break;
+                        }
                     }
                 }
-                main_degree_option = studentChosenOption.getModuleName();
 
-                if(studentChosenOption != null) {
-                    TreeItem<String> program = new TreeItem<>(studentChosenOption.getModuleName(), rootIcon);
-                    TreeItem<String> chosenOption = getLevelStructure(studentChosenOption);
-                    program.getChildren().add(chosenOption);
-
-                   /* for (var subModule : studentChosenOption.getModuleLists()) {
+                TreeItem<String> program;
+                if(studentChosenOption != null) {  //there is only degree option selected
+                    program = new TreeItem<>(studentChosenOption.getModuleName(), rootIcon);
+                    for (var subModule : studentChosenOption.getModuleLists()) {
                         TreeItem<String> structure = getLevelStructure(subModule);
                         program.getChildren().add(structure);
-                    }*/
+                    }
 
-                    rootNode.getChildren().add(program);
+                } else {   //there is subModule inside the main degree
+                    program = new TreeItem<>(Degree.getModuleName(), rootIcon);
+                    for (var subModule : Degree.getModuleLists()) {
+                        TreeItem<String> structure = getLevelStructure(subModule);
+                        program.getChildren().add(structure);
+                    }
+
                 }
+                rootNode.getChildren().add(program);
             }
 
             tree = new TreeView<>(rootNode);
@@ -790,19 +821,24 @@ public class Sisu extends Application {
         return structure;
     }
 
+    /**
+     * It checks which module or course has been seleted by the user and returns a list containing the respective course/s.
+     * If the module is selected it adds all the courses that are available inside that module, it even includes courses
+     * inside its subModules.
+     * @param module - the main module where the searching happens.
+     * @param selected - List for storing the courses.
+     * @param selectedName - name of the course or module selected by the user.
+     * @return - a list containing the name of the course/s.
+     */
     private List<String> getSelectedModulesOrCourses(Modules module, List<String> selected, String selectedName){
         if(Degree != null){
             for(var subModule : module.getModuleLists()){
-                System.out.println(subModule.getModuleName());
                 if(subModule.getModuleName().equals(selectedName)){
-                    System.out.println("True");
                     selected = selectModule(subModule, selected);
                     return selected;
                 }
-                ArrayList<String> selectCourse = checkModuleItems(subModule, selectedName);
-                System.out.println(selectCourse.isEmpty());
-                if(!selectCourse.isEmpty()){
-                    selected.addAll(selectCourse);
+                selected = checkModuleItems(subModule, selectedName);
+                if(!selected.isEmpty()){
                     return selected;
                 }
                 selected = getSelectedModulesOrCourses(subModule, selected, selectedName);
@@ -814,8 +850,8 @@ public class Sisu extends Application {
         return selected;
     }
     
-    private ArrayList<String> checkModuleItems(Modules module, String name) {
-        ArrayList<String> selected = new ArrayList<>();
+    private List<String> checkModuleItems(Modules module, String name) {
+        List<String> selected = new ArrayList<>();
         for (Courses course : module.getCoursesLists()) {
             if (course.getCourseName().equals(name)) {
                 selected.add(course.getCourseName());
@@ -853,10 +889,21 @@ public class Sisu extends Application {
         });
     }
 
+    /**
+     * It switches the Scene from Scene1 to Scene2 or from Scene1 to Scene3.
+     * @param scene
+     */
     public void switchScenes(Scene scene){
         stage.setScene(scene);
     }
 
+    /**
+     * It is called when the user tries to close the program.
+     * When closing the program it asks the user if they want to save the data. If they want to save the data
+     * it checks if it has all the necessary data required to save it as JSON. If some data are missing it gives
+     * an error message to the user and does not close the program. If everything is in order it closes the program.
+     * @throws IOException - error thrown if it encounters some problem while writing the data in a file.
+     */
     private void closeProgram() throws IOException {
         if(studentNumber != null){
             int conformation = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?",

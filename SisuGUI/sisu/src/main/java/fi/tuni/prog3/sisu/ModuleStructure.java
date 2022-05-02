@@ -14,39 +14,65 @@ import java.util.List;
  *
  * @author rakow
  * 
- * Gets the structure of a module - first gets json, then traverses it to get 
- * modules and courses ids and then gets their attributes, creates instances of 
- * Courses and Modules and saves them into lists, which are then saved as attributes
- * of the parent module
+ * A class to get the entire structure of a module.
  */
 public class ModuleStructure {
     private final List<Modules> moduleList;
     private final List<Courses> courseList;
     
+    /**
+     * Creates initially empty ArrayLists to store instances of Modules and Courses
+     * as parts of the module
+     */
     public ModuleStructure() {
         moduleList = new ArrayList<>();
         courseList = new ArrayList<>();
     }
     
+    /**
+     * Retrieve the list of modules from the object.
+     * @return - List of Modules instances
+     */
     public List<Modules> getModules() {
         return moduleList;
     }
     
+    /**
+     * Retrieve the list of courses from the object
+     * @return - List of Courses instances
+     */
     public List<Courses> getCourses() {
         return courseList;
     }
     
+    /**
+     * Helper to query SisuAPI and obtain a JSON file with data about the object. 
+     * Not implemented in this class.
+     * 
+     */
     private JsonObject getJsonFromAPI(String element_type, String id_type, String element_id) {
         var jsonObject = new JsonFromSisuAPI().getJsonObjectFromAPI(element_type, id_type, element_id);
         return jsonObject;
     }
     
+    /**
+     * Helper to traverse one level of data from SisuAPI. 
+     * Not implemented in this class
+     * 
+     */
     private ModuleTraversal traverseModule(JsonElement je) {
         ModuleTraversal mt = new ModuleTraversal();
         mt.doModuleTraversal(je);
         return mt;
     }
     
+    /**
+    * Gets the entire tree structure of a module recursively. First gets JSON 
+    * object from SisuAPI, then traverses it to get modules' and courses' ids 
+    * and then gets their attributes, creates instances of Courses and Modules 
+    * and saves them into lists, which are then saved as attributes of the parent module
+    * @param instance of Modules class
+    */
     private void getStructure(Modules module) {
         
         String module_id = module.getModuleId();
@@ -90,6 +116,11 @@ public class ModuleStructure {
         
     }
     
+    /**
+     * Populates the ArrayLists of courses and modules. Calls a method which
+     * gets the entire tree structure of module of interest.
+     * @param module instance of Modules class
+     */
     public void getModuleStructure(Modules module) {
         getStructure(module);
     }

@@ -1,6 +1,5 @@
 package fi.tuni.prog3.sisu;
 
-import com.sun.source.tree.Tree;
 import fi.tuni.prog3.sisu.ConvertJson.ReadJsonFromFile;
 import fi.tuni.prog3.sisu.ConvertJson.WriteJsonToFile;
 import fi.tuni.prog3.sisu.SisuQuery.DegreesFromSisuAPI;
@@ -10,11 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
-import java.util.concurrent.CompletableFuture;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,13 +27,10 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * JavaFX Sisu
@@ -57,7 +52,6 @@ public class Sisu extends Application {
     // data handling containers
 
     private ObservableList<String> program_modules = FXCollections.observableArrayList();
-    //private ObservableList<Modules> program_modules_structure = FXCollections.observableArrayList();
     ObservableList<String> degree_info;
 
     // courses
@@ -242,7 +236,7 @@ public class Sisu extends Application {
                     String degree_of_interest = DataMap.get(selected_degree);
                     loadFirstLevel(degree_of_interest);
                 });
-
+        
         /**
          * *********************************************************************
          */
@@ -269,7 +263,7 @@ public class Sisu extends Application {
                     this.rootNode = new TreeItem<>();
                     this.rootNode.setValue(main_degree_program);
                     rootNode.setExpanded(true);
-
+                    
                     // set degree option & get its structure
                     main_degree_option = program_modules.get(new_val.intValue());
                     System.out.println("Fetching degree option...");
@@ -639,9 +633,9 @@ public class Sisu extends Application {
     }
 
     // load degree program modules -> called by select action event
-    private void loadFirstLevel(String degree_program) {
-        temporarySelectedItems.clear();
+    private void loadFirstLevel(String degree_program) {   
         program_modules.clear();
+        temporarySelectedItems.clear();
 
         ModuleAttributes attributes = new ModuleAttributes(); // get degree's attaributes to create a Modules instance
         attributes.getModuleAttributes("module", "id", degree_program);
@@ -657,8 +651,7 @@ public class Sisu extends Application {
         for (var option : options) {
             program_modules.add(option);
         }
-
-
+        
     }
     
     private void loadStructure (Modules degree_option) {

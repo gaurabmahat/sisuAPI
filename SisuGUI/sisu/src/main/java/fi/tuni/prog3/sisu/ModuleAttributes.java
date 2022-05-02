@@ -12,26 +12,47 @@ import com.google.gson.JsonObject;
 /**
  *
  * @author rakow
- * gets the name, ids, and credits od a module
+ * A class to retrieve from SisuApI and store the main attributes of a ModuleUnit
+ * to facilitate creating a Modules instance
  */
 public class ModuleAttributes {
     
     private final ArrayList<String> ma;
     
+    /**
+     * Constructs initially empty ArrayList for the main attributes of a Module 
+     * (instance of Modules class): name, id, credits
+     */
     public ModuleAttributes () {
         ma = new ArrayList<>();
     }
     
+    /**
+     * Helper to query SisuAPI and obtain a JSON file with data about the object. 
+     * Not implemented in this class.
+     * 
+     */
     private JsonObject getJsonFromAPI(String element_type, String id_type, String element_id) {
         var jsonObject = new JsonFromSisuAPI().getJsonObjectFromAPI(element_type, id_type, element_id);
         return jsonObject;
     }
     
+    /**
+     * Helper to check whether course has an English name 
+     * @param json JSON object
+     */
     private boolean hasValue(JsonObject json) {
         java.util.Set<java.lang.String> keys = json.keySet();
         return keys.contains("en");
     }
     
+    /**
+     * Populates the object with Module attributes. Calls a query from SisuAPI
+     * with provided parameters and adds obtained attributes to the ArrayList.
+     * @param element_type String informing about the type of item queried
+     * @param id_type String informing about provided id type
+     * @param element_id String providing the id
+     */
     private void moduleAttributesFromAPI(String element_type, String id_type, String element_id) {
         
         JsonObject jo = getJsonFromAPI(element_type, id_type, element_id);
@@ -61,10 +82,22 @@ public class ModuleAttributes {
         ma.add(credits_min);
     }
     
+    /**
+     * Populates the object with Module attributes. It calls the method 
+     * querying the SisuAPI with provided parameters and adding the info to the object.
+     * @param element_type String informing about the type of item queried
+     * @param id_type String informing about provided id type
+     * @param element_id String providing the id
+     */
     public void getModuleAttributes(String element_type, String id_type, String element_id) {
         moduleAttributesFromAPI(element_type, id_type, element_id);
     }
     
+    /**
+     * Returns ith element in the object
+     * @param i the index of element to be retrieved
+     * @return - ith element in the object
+     */
     public String get(int i) {
         return ma.get(i);
     }
